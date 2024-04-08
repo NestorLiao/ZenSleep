@@ -8,42 +8,115 @@ import { Text, View } from './Themed';
 import Colors from '@/constants/Colors';
 
 export default function EditScreenInfo({ path }: { path: string }) {
-  return (
-    <View>
-      <View style={styles.getStartedContainer}>
-        <Text
-          style={styles.getStartedText}
-          lightColor="rgba(0,0,0,0.8)"
-          darkColor="rgba(255,255,255,0.8)">
-          Open up the code for this screen:
-        </Text>
+  if (path =="app/data.tsx"){
+    return (
+      <View>
+        <View style={styles.getStartedContainer}>
+          <Text
+            style={styles.getStartedText}
+            lightColor="rgba(0,0,0,0.8)"
+            darkColor="rgba(255,255,255,0.8)">
+            实时数据分析：展示用户的睡眠数据、脑电波图形以及睡眠改善效果的统计数据。
+          </Text>
 
-        <View
-          style={[styles.codeHighlightContainer, styles.homeScreenFilename]}
-          darkColor="rgba(255,255,255,0.05)"
-          lightColor="rgba(0,0,0,0.05)">
-          <MonoText>{path}</MonoText>
+
+          <Text
+            style={styles.getStartedText}
+            lightColor="rgba(0,0,0,0.8)"
+            darkColor="rgba(255,255,255,0.8)">
+            个性化建议：根据分析结果向用户推荐个性化的改善睡眠方法。
+          </Text>
         </View>
 
-        <Text
-          style={styles.getStartedText}
-          lightColor="rgba(0,0,0,0.8)"
-          darkColor="rgba(255,255,255,0.8)">
-          Change any of the text, save the file, and your app will automatically update.
-        </Text>
+        <View style={styles.helpContainer}>
+          <ExternalLink
+            style={styles.helpLink}
+            href="https://www.msdmanuals.cn/home/brain-spinal-cord-and-nerve-disorders/sleep-disorders/overview-of-sleep?query=%E7%9D%A1%E8%A7%89">
+            <Text style={styles.helpLinkText} lightColor={Colors.light.tint}>
+              点击了解更多关于睡眠的知识
+            </Text>
+          </ExternalLink>
+        </View>
       </View>
+    ); 
+  }
 
-      <View style={styles.helpContainer}>
-        <ExternalLink
-          style={styles.helpLink}
-          href="https://docs.expo.io/get-started/create-a-new-app/#opening-the-app-on-your-phonetablet">
-          <Text style={styles.helpLinkText} lightColor={Colors.light.tint}>
-            Tap here if your app doesn't automatically update after making changes
+  if (path== "app/ctrl.tsx") {
+    return (
+      <View>
+        <View style={styles.getStartedContainer}>
+          <Text
+            style={styles.getStartedText}
+            lightColor="rgba(0,0,0,0.8)"
+            darkColor="rgba(255,255,255,0.8)">
+            Open up the code for this screen:
           </Text>
-        </ExternalLink>
+
+          <View
+            style={[styles.codeHighlightContainer, styles.homeScreenFilename]}
+            darkColor="rgba(255,255,255,0.05)"
+            lightColor="rgba(0,0,0,0.05)">
+            <MonoText>{path}</MonoText>
+          </View>
+
+          <Text
+            style={styles.getStartedText}
+            lightColor="rgba(0,0,0,0.8)"
+            darkColor="rgba(255,255,255,0.8)">
+            Change any of the text, save the file, and your app will automatically update.
+          </Text>
+        </View>
+
+        <View style={styles.helpContainer}>
+          <ExternalLink
+            style={styles.helpLink}
+            href="https://docs.expo.io/get-started/create-a-new-app/#opening-the-app-on-your-phonetablet">
+            <Text style={styles.helpLinkText} lightColor={Colors.light.tint}>
+              Tap here if your app doesn't automatically update after making changes
+            </Text>
+          </ExternalLink>
+        </View>
       </View>
-    </View>
-  );
+    ); 
+  }
+  if (path == "app/user.tsx") {
+    return (
+      <View>
+        <View style={styles.getStartedContainer}>
+          <Text
+            style={styles.getStartedText}
+            lightColor="rgba(0,0,0,0.8)"
+            darkColor="rgba(255,255,255,0.8)">
+            Owhat
+          </Text>
+
+          <View
+            style={[styles.codeHighlightContainer, styles.homeScreenFilename]}
+            darkColor="rgba(255,255,255,0.05)"
+            lightColor="rgba(0,0,0,0.05)">
+            <MonoText>{path}</MonoText>
+          </View>
+
+          <Text
+            style={styles.getStartedText}
+            lightColor="rgba(0,0,0,0.8)"
+            darkColor="rgba(255,255,255,0.8)">
+            Change any of the text, save the file, and your app will automatically update.
+          </Text>
+        </View>
+
+        <View style={styles.helpContainer}>
+          <ExternalLink
+            style={styles.helpLink}
+            href="https://docs.expo.io/get-started/create-a-new-app/#opening-the-app-on-your-phonetablet">
+            <Text style={styles.helpLinkText} lightColor={Colors.light.tint}>
+              Tap here if your app doesn't automatically update after making changes
+            </Text>
+          </ExternalLink>
+        </View>
+      </View>
+    ); 
+  }
 }
 
 const styles = StyleSheet.create({
@@ -59,7 +132,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 4,
   },
   getStartedText: {
-    fontSize: 17,
+    fontSize: 14,
     lineHeight: 24,
     textAlign: 'center',
   },
