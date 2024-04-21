@@ -30,6 +30,9 @@ import {SvgCssUri} from 'react-native-svg/css';
 
 
 
+
+import * as ImagePicker from 'expo-image-picker';
+
 import ImageViewer from "../../components/ImageViewer";
 import IconButton from "@/components/CircleButton";
 
@@ -42,39 +45,57 @@ const Sleepdata= require("../../assets/images/sleepdata.png");
 export default function TabOneScreen(props) {
 
 
+
+ const pickImageAsync = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      allowsEditing: true,
+      quality: 1,
+    });
+
+    if (!result.canceled) {
+      console.log(result);
+    } else {
+      alert('You did not select any image.');
+    }
+  };
+
+
   const [selectedImage, setSelectedImage] = useState(null);
 
 
-  const onReset2 = (img) => {
-    setSelectedImage(Brainwave);
-  };
-  const onReset3 = (img) => {
-    setSelectedImage(Heathimprove);
-  };
-  const onReset = (img) => {
-    setSelectedImage(Sleepdata);
-  };
-
-
+{
+  //   const onReset2 = (img) => {
+  //   setSelectedImage(Brainwave);
+  // };
+  // const onReset3 = (img) => {
+  //   setSelectedImage(Heathimprove);
+  // };
+  // const onReset = (img) => {
+  //   setSelectedImage(Sleepdata);
+  // };
+}
   return (
-
-
-   
-    <ScrollView contentContainerStyle={styles.scrollContainer}>
 
         <View style={styles.cloumn}>
 
          <View style={{ padding: 10 }}>
-        <ImageViewer
-          placeholderImageSource={selectedImage ? selectedImage : Heathimprove}
-        />
-        <View style={styles.row}>
-            <IconButton icon="refresh" label="睡眠数据" onPress={onReset} />
-            <IconButton icon="refresh" label="脑电波图形" onPress={onReset2} />
-            <IconButton icon="refresh" label="睡眠改善效果" onPress={onReset3} />
-          </View>
-      </View>
+{
+        // <ImageViewer
+        //   placeholderImageSource={selectedImage ? selectedImage : Heathimprove}
+        // />
+}        
+{
+        // <View style={styles.row}>
+        //     <IconButton icon="refresh" label="睡眠数据" onPress={onReset} />
+        //     <IconButton icon="refresh" label="脑电波图形" onPress={onReset2} />
+        //     <IconButton icon="refresh" label="睡眠改善效果" onPress={onReset3} />
+        // </View>
+}
+        </View>
     
+      <View style={styles.container}>
+            <IconButton icon="refresh" label="睡眠改善效果" onPress={pickImageAsync} />
+      </View>
 
           <TextInput
             style={{ height: 100,width:300, borderColor: 'gray', borderWidth: 1, padding: 5 }}
@@ -89,16 +110,7 @@ export default function TabOneScreen(props) {
 
 
         </View>
-
-
-
-
-
-    </ScrollView>
-    
-
-
-    
+      
     );
 
 

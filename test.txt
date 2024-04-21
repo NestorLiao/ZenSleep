@@ -2061,6 +2061,444 @@ if __name__ == '__main__':
         # print(SparkApi.answer)
         getText("assistant",SparkApi.answer)
 
+import numpy as np
+import scipy
+from scipy.signal import butter, iirfilter, lfilter, filtfilt
+import numpy.fft as fft
+import matplotlib.pyplot as plt
+import tensorflow as tf
+import scipy.signal as signal
+from tensorflow.keras.models import Model
+from tensorflow.keras.layers import Dense, Activation, Dropout
+from tensorflow.keras.layers import Conv2D, MaxPooling2D
+from tensorflow.keras.layers import BatchNormalization
+from tensorflow.keras.layers import Input, Flatten
+from tensorflow.keras.constraints import max_norm
+import os
+import pickle
 
 
+def get_fft_values(y_values, N, f_s):
+    f_values = np.linspace(0.0, f_s / 2.0, N // 2)
+    fft_values_ = fft.fft(y_values)
+    fft_values = 2.0 / N * np.abs(fft_values_[0:N // 2])
+    return f_values, fft_values
 
+
+# 基线矫正
+def baseline_correction(window_eeg):
+    mean_eeg = np.mean(window_eeg)
+    window_eeg = window_eeg - mean_eeg
+    return window_eeg
+
+
+# 重参考
+def average_reference(eeg_data):
+    mean_eeg_data = np.mean(eeg_data, axis=0)
+    new_eeg_data = eeg_data - mean_eeg_data
+    return new_eeg_data
+
+
+# 去趋势
+def detrend_Data(eeg_data):
+    eeg_data = scipy.signal.detrend(eeg_data, axis=-1, type='linear')
+    return eeg_data
+
+
+# Z标准化
+def Z_strand_signal(data):
+    for i in range(data.shape[0]):
+        channel_mean = np.mean(data[i])
+        channel_var = np.var(data[i]) + 1e-5
+        data[i] = (data[i] - channel_mean) / np.sqrt(channel_var)
+
+    return data
+
+
+# 滤波器
+def band_pass(data, order, low_cut, high_cut, fs):
+    b, a = butter(order, [low_cut, high_cut], 'bandpass', fs=fs)
+    data = np.array(filtfilt(b, a, data))
+
+    return data
+
+
+# 分窗
+def window(data, fs):
+    n = data.shape[1] // fs
+    datas = np.zeros((n, data.shape[0], fs))
+
+    for i in range(data.shape[0]):
+        n1 = 0
+        n2 = fs
+        for j in range(n):
+            datas[j, i, :] = data[i, n1:n2]
+            n1 = n2
+            n2 += fs
+    return datas
+
+
+def Implement_Notch_Filter(fs, band, freq, ripple, order, data):
+    nyq = fs / 2.0
+    low = freq - band / 2.0
+    high = freq + band / 2.0
+    low = low / nyq
+    high = high / nyq
+    b, a = iirfilter(order, [low, high], rp=ripple, btype='bandstop',
+                     analog=False, ftype='butter')
+    filtered_data = lfilter(b, a, data)
+    return filtered_data
+
+
+def band_stop(data, f0=50, Q=30, fs=200):
+    b, a = signal.iirnotch(f0, Q, fs)
+    data = np.array(signal.filtfilt(b, a, data))
+
+    return data
+
+
+# 微分熵
+def _get_average_de(energy_graph, freq_bands, sample_freq, stft_n=250):
+    start_index = int(np.floor(freq_bands[0] / sample_freq * stft_n))
+    end_index = int(np.floor(freq_bands[1] / sample_freq * stft_n))
+    ave_de = np.mean(np.log2(energy_graph[:, start_index - 1:end_index] ** 2), axis=-1)
+
+    return ave_de
+
+
+def extract_de_feature(raw_data: np.array, sample_freq: int,
+                       freq_bands, stft_n=250):
+    hdata = raw_data * signal.hann(raw_data.shape[1])
+    fft_data = np.fft.fft(hdata)
+    energy_graph = np.abs(fft_data[:, 0: int(stft_n / 2) + 1])
+    DE_feature = np.zeros((raw_data.shape[0], len(freq_bands)))
+
+    for band_index, band in enumerate(freq_bands):
+        ave_de_new = _get_average_de(energy_graph, band, sample_freq, stft_n)
+        DE_feature[:, band_index] = ave_de_new
+
+    return DE_feature
+
+
+# 功率谱
+def extract_psd_feature(raw_data: np.array, sample_freq: int, window_size: int,
+                        freq_bands, stft_n=256):
+    n_channels, n_samples = raw_data.shape
+
+    point_per_window = int(sample_freq * window_size)
+    window_num = int(n_samples // point_per_window)
+    psd_feature = np.zeros((window_num, len(freq_bands), n_channels))
+
+    for window_index in range(window_num):
+        start_index, end_index = point_per_window * window_index, point_per_window * (window_index + 1)
+        window_data = raw_data[:, start_index:end_index]
+        hdata = window_data * signal.hann(point_per_window)
+        fft_data = np.fft.fft(hdata, n=stft_n)
+        energy_graph = np.abs(fft_data[:, 0: int(stft_n / 2)])
+
+        for band_index, band in enumerate(freq_bands):
+            band_ave_psd = _get_average_psd(energy_graph, band, sample_freq, stft_n)
+            psd_feature[window_index, band_index, :] = band_ave_psd
+    return psd_feature
+
+
+def _get_average_psd(energy_graph, freq_bands, sample_freq, stft_n=256):
+    start_index = int(np.floor(freq_bands[0] / sample_freq * stft_n))
+    end_index = int(np.floor(freq_bands[1] / sample_freq * stft_n))
+    ave_psd = np.mean(energy_graph[:, start_index - 1:end_index] ** 2, axis=1)
+    return ave_psd
+
+
+data_path = r'sub3.pickle'
+f = open(data_path, 'rb')
+data = pickle.load(f)[0:3]
+f.close()
+
+label_path = 'labels.pickle'
+f = open(label_path, 'rb')
+labels = pickle.load(f)
+f.close()
+
+sfreq = 100
+
+win_data = window(data, sfreq * 30)
+for i in range(win_data.shape[0]):
+    win_data[i] = baseline_correction(win_data[i])
+    win_data[i] = detrend_Data(win_data[i])
+    win_data[i] = average_reference(win_data[i])
+    win_data[i] = Z_strand_signal(win_data[i])
+    win_data[i] = band_pass(win_data[i], 5, 0.2, 30, fs=100)
+
+lable = np.zeros((labels.shape[0], 1))
+for i in range(labels.shape[0]):
+    lable[i] = labels[i][2]
+
+shuffle_num = [i for i in range(lable.shape[0])]
+np.random.shuffle(shuffle_num)
+lable = lable[shuffle_num]
+win_data = win_data[shuffle_num]
+train_data = win_data
+train_lable = lable
+train_lable = tf.keras.utils.to_categorical(train_lable)
+
+model = tf.keras.models.Sequential()
+model.add(
+    tf.keras.layers.Conv1D(kernel_size=50, strides=3, padding='same', filters=32, input_shape=train_data.shape[1:],
+                           kernel_initializer='he_normal', name='conv1d_1'))
+model.add(tf.keras.layers.Activation('relu', name='activation_1'))
+model.add(tf.keras.layers.MaxPool1D(pool_size=8, strides=8, padding='same', name='maxpool1d_1'))
+model.add(tf.keras.layers.Dropout(0.25, name='dropout_1'))
+
+model.add(tf.keras.layers.Conv1D(kernel_size=50, strides=1, padding='same', filters=64, kernel_initializer='he_normal',
+                                 name='conv1d_2'))
+model.add(tf.keras.layers.Activation('relu', name='activation_2'))
+model.add(tf.keras.layers.MaxPool1D(pool_size=8, strides=8, padding='same', name='maxpool1d_2'))
+model.add(tf.keras.layers.Dropout(0.25, name='dropout_2'))
+
+model.add(tf.keras.layers.LSTM(128, return_sequences=True))
+model.add(tf.keras.layers.LSTM(128, return_sequences=True))
+model.add(tf.keras.layers.LSTM(256))
+
+model.add(tf.keras.layers.Flatten(name='flatten_1'))
+model.add(tf.keras.layers.Dense(128, kernel_initializer='he_normal', name='dense_1'))
+model.add(tf.keras.layers.Activation('relu', name='activation_3'))
+model.add(tf.keras.layers.Dropout(0.5, name='dropout_3'))
+model.add(tf.keras.layers.Dense(3, kernel_initializer='he_normal', name='dense_2'))
+model.add(tf.keras.layers.Activation('softmax', name='activation_4'))
+
+'''def DeepConvNet(nb_classes, input_shape,
+                dropoutRate=0.25):
+
+    # start the model
+    Chans = input_shape[0]
+    Samples = input_shape[1]
+    input_main = Input((Chans, Samples, 1))
+    block1 = Conv2D(25, (1, 5),
+                    input_shape=(Chans, Samples, 1),
+                    kernel_constraint=max_norm(2., axis=(0, 1, 2)))(input_main)
+    block1 = Conv2D(25, (Chans, 1),
+                    kernel_constraint=max_norm(2., axis=(0, 1, 2)))(block1)
+    block1 = BatchNormalization(epsilon=1e-05, momentum=0.9)(block1)
+    block1 = Activation('relu')(block1)
+    block1 = MaxPooling2D(pool_size=(1, 2), strides=(1, 2))(block1)
+    block1 = Dropout(dropoutRate)(block1)
+
+    block2 = Conv2D(50, (1, 5),
+                    kernel_constraint=max_norm(2., axis=(0, 1, 2)))(block1)
+    block2 = BatchNormalization(epsilon=1e-05, momentum=0.9)(block2)
+    block2 = Activation('relu')(block2)
+    block2 = MaxPooling2D(pool_size=(1, 2), strides=(1, 2))(block2)
+    block2 = Dropout(dropoutRate)(block2)
+
+    block3 = Conv2D(100, (1, 5),
+                    kernel_constraint=max_norm(2., axis=(0, 1, 2)))(block2)
+    block3 = BatchNormalization(epsilon=1e-05, momentum=0.9)(block3)
+    block3 = Activation('relu')(block3)
+    block3 = MaxPooling2D(pool_size=(1, 2), strides=(1, 2))(block3)
+    block3 = Dropout(dropoutRate)(block3)
+
+    block4 = Conv2D(200, (1, 5),
+                    kernel_constraint=max_norm(2., axis=(0, 1, 2)))(block3)
+    block4 = BatchNormalization(epsilon=1e-05, momentum=0.9)(block4)
+    block4 = Activation('relu')(block4)
+    block4 = MaxPooling2D(pool_size=(1, 2), strides=(1, 2))(block4)
+    block4 = Dropout(dropoutRate)(block4)
+
+    flatten = Flatten()(block4)
+
+    dense = Dense(nb_classes, kernel_constraint=max_norm(0.5))(flatten)
+    softmax = Activation('softmax')(dense)
+
+    return Model(inputs=input_main, outputs=softmax)
+model = DeepConvNet(3,train_data.shape[1:])'''
+opt = tf.keras.optimizers.Adam(lr=0.001, decay=1e-4)
+model.compile(loss='categorical_crossentropy', optimizer=opt, metrics=['accuracy'])
+history = model.fit(train_data, train_lable, shuffle=True, batch_size=32, epochs=20, verbose=1, validation_split=0.2)
+model.save(r'C:\Users\尘木\Desktop\睡眠分期模型\睡眠分期模型.h5') #模型保存路径
+plt.figure(0)
+plt.plot(history.history['accuracy'])
+plt.plot(history.history['val_loss'])
+plt.title('Model accuracy')
+plt.ylabel('Accuracy')
+plt.xlabel('Epoch')
+plt.legend(['Train', 'Test'], loc='lower right')
+plt.ylim(0, 1)
+
+plt.figure(1)
+plt.plot(history.history['loss'])
+
+plt.plot(history.history['val_loss'])
+plt.title('Model loss')
+plt.ylabel('Loss')
+plt.xlabel('Epoch')
+plt.legend(['Train', 'Test'], loc='upper left')
+plt.show()
+// 读取SC4001E0被试者的数据（可以换成其他人的数据），读取SC4001EC-Hypnogram.edf文件，里面是专家对这段睡眠的分期标记
+// 对提取的数据进行去基线、去趋势、重参考、Z标准化、带通滤波等预处理
+// 搭建LSTM模型
+// 用预处理后的数据训练LSTM模型
+// 画图展示模型的损失值和精确度
+import mne
+import os
+import matplotlib.pyplot as plt
+import pickle
+
+ann_path=r"SC4001EC-Hypnogram.edf"
+file_path = r"SC4001E0-PSG.edf"
+'''sub_path=os.listdir(file_path)
+f_path=file_path+'\\'+sub_path[0]'''
+ann=mne.read_annotations(ann_path)
+data = mne.io.read_raw_edf(file_path)
+# 通道名称映射
+mapping = {'EOG horizontal': 'eog',
+           'Resp oro-nasal': 'misc',
+           'EMG submental': 'misc',
+           'Temp rectal': 'misc',
+           'Event marker': 'misc'}
+
+data.set_annotations(ann, emit_warning=False)
+data.set_channel_types(mapping)
+
+data_save = data.get_data()
+sfreq = data.info['sfreq']
+
+annotation_desc_2_event_id = {'Sleep stage W': 0,
+                              'Sleep stage 1': 1,
+                              'Sleep stage 2': 1,
+                              'Sleep stage 3': 2,
+                              'Sleep stage 4': 2,
+                              'Sleep stage R': 3}
+
+events_train, _ = mne.events_from_annotations(
+    data, event_id=annotation_desc_2_event_id, chunk_duration=30.)
+
+f = open(r'sub3.pickle', 'wb')
+pickle.dump(data_save[0:3], f)
+f.close()
+
+f = open(r'labels.pickle', 'wb')
+pickle.dump(events_train, f)
+f.close()
+
+'''
+raw_data, data_time = data.get_data(return_times=True)
+raw_df = data.to_data_frame()
+
+channels = data.ch_names
+info = data.info
+frequency = info['sfreq']
+raw_data=raw_data[2:7]
+f = open(r'sub3.pickle', 'wb')
+pickle.dump(raw_data, f)
+f.close()
+print()
+
+f = open(file_path,'rb')
+lines = f.readlines()
+labels=[]
+for line in lines[22:]:
+    line=line.decode('utf-8')
+    if line[0]=='W':
+        labels.append(0)
+    if line[0:2]=='S1'or line[0:2]=='S2'or line[0:2]=='S3' or line[0:2]=='S4':
+        labels.append(1)
+    if line[0] == 'R':
+        labels.append(2)
+
+f.close()'''
+// Api.js
+
+import React, { useEffect } from 'react';
+import axios from 'axios';
+
+
+const postImageForPrediction = async (imageUri) => {
+  try {
+    const formData = new FormData();
+    formData.append('file', {
+      uri: imageUri,
+      name: 'image.png',
+      type: 'image/png',
+    });
+
+    const response = await fetch('https://10.20.108.118:5000/predict', {
+      method: 'POST',
+      body: formData,
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to receive the predicted image.');
+    }
+
+    const blob = await response.blob();
+    // Handle the blob as needed, e.g., save it to camera roll or display it to the user
+  } catch (error) {
+    console.error('Error:', error);
+    // Handle the error, show a message to the user, etc.
+  }
+};
+
+
+// const BaiduApiTest = () => {
+//   useEffect(() => {
+//     const fetchData = async () => {
+//       try {
+//         const response = await axios.get('https://baidu.com');
+//         console.log('Response data:', response.data);
+//       } catch (error) {
+//         console.error('Error:', error.message);
+//         // Handle the error, show a message to the user, etc.
+//       }
+//     };
+
+//     fetchData();
+//   }, []);
+
+//   return (
+//     <></> // This component doesn't render anything in the UI
+//   );
+// };
+
+// export default BaiduApiTest;
+export default postImageForPrediction;
+
+import React, { useEffect } from 'react';
+import { Text, View } from 'react-native';
+import * as SQLite from 'expo-sqlite';
+
+// Open a connection to the database
+const db = SQLite.openDatabase('test.db');
+
+const ExpoSQLiteExample = () => {
+  useEffect(() => {
+    // Create a table in the database
+    db.transaction(tx => {
+      tx.executeSql(
+        'CREATE TABLE IF NOT EXISTS items (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT);'
+      );
+    });
+
+    // Insert data into the table
+    db.transaction(tx => {
+      tx.executeSql('INSERT INTO items (name) VALUES (?);', ['Item 1']);
+      tx.executeSql('INSERT INTO items (name) VALUES (?);', ['Item 2']);
+    });
+
+    // Query data from the table
+    db.transaction(tx => {
+      tx.executeSql('SELECT * FROM items;', [], (_, { rows }) => {
+        for (let i = 0; i < rows.length; i++) {
+          console.log('Item:', rows.item(i).name);
+        }
+      });
+    });
+  }, []);
+
+  return (
+    <View>
+      <Text>Check console for SQLite data</Text>
+    </View>
+  );
+};
+
+export default ExpoSQLiteExample;
