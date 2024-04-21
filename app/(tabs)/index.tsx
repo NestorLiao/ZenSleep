@@ -1,8 +1,10 @@
-import {TextInput,ScrollView, StyleSheet } from 'react-native';
+import {ActivityIndicator, Image, TextInput,ScrollView, StyleSheet } from 'react-native';
 import Button from '@/components/Button';
 import React,{useState}from "react";
 import Svg, {
   Circle,
+  // SvgUri,
+  // SvgCssUri,
   Ellipse,
   G,
   TSpan,
@@ -13,7 +15,6 @@ import Svg, {
   Line,
   Rect,
   Use,
-  Image,
   Symbol,
   Defs,
   LinearGradient,
@@ -25,96 +26,101 @@ import Svg, {
 } from 'react-native-svg';
 import EditScreenInfo from '@/components/EditScreenInfo';
 import { Text, View } from '@/components/Themed';
+import {SvgCssUri} from 'react-native-svg/css';
 
 
-const SVGComponent = ({ selectedSVG }) => {
-  const renderSVG = () => {
-    switch (selectedSVG) {
-      case 'sleepData':
-        return (
-          <Svg height="300" width="800">
-            <Polyline points="10,150 30,140" fill="none" stroke="black" strokeWidth="2" />
-            <Polygon points="10,150 30,140" fill="blue" fillOpacity="0.5" />
-          </Svg>
-        );
-      case 'brainWave':
-        return (
-          <Svg height="300" width="800">
-            <Polyline points="10,150 30,140" fill="none" stroke="white" strokeWidth="2" />
-            <Polygon points="10,150 30,140" fill="red" fillOpacity="0.5" />
-          </Svg>
-        );
-      case 'sleepEffect':
-        return (
-          <Svg height="300" width="800">
-            <Polyline points="10,150 30,140" fill="none" stroke="green" strokeWidth="2" />
-            <Polygon points="10,150 30,140" fill="blue" fillOpacity="0.5" />
-          </Svg>
-        );
-      default:
-        return null;
-    }
-  };
 
-  return (
-    <View style={{ padding: 10 }}>
-      <ScrollView horizontal={true}>{renderSVG()}</ScrollView>
-    </View>
-  );
-};
+import ImageViewer from "../../components/ImageViewer";
+import IconButton from "@/components/CircleButton";
+
+
+const Heathimprove= require("../../assets/images/healthimprove.png");
+const Brainwave= require("../../assets/images/brainwave.png");
+const Sleepdata= require("../../assets/images/sleepdata.png");
+
 
 export default function TabOneScreen(props) {
 
-    const [selectedSVG, setSelectedSVG] = useState(null);
 
+  const [selectedImage, setSelectedImage] = useState(null);
+
+
+  const onReset2 = (img) => {
+    setSelectedImage(Brainwave);
+  };
+  const onReset3 = (img) => {
+    setSelectedImage(Heathimprove);
+  };
+  const onReset = (img) => {
+    setSelectedImage(Sleepdata);
+  };
 
 
   return (
-      <View style={styles.separator}>
-         <View style={{ padding: 10 }}>
 
-          <SVGComponent selectedSVG={selectedSVG} />
-         <View style={styles.row}>
-          <Button
-            label="睡眠数据"
-            theme="index"
-            onPress={() => setSelectedSVG('sleepData')}
-          />
-          <Button
-            label="脑电波图形"
-            theme="index"
-            onPress={() => setSelectedSVG('brainWave')}
-          />
-          <Button
-            label="睡眠改善效果"
-            theme="index"
-            onPress={() => setSelectedSVG('sleepEffect')}
-          />
-        </View>
 
+   
+    <ScrollView contentContainerStyle={styles.scrollContainer}>
+
+        <View style={styles.cloumn}>
 
          <View style={{ padding: 10 }}>
-          <Text>AI 回复:</Text>
+        <ImageViewer
+          placeholderImageSource={selectedImage ? selectedImage : Heathimprove}
+        />
+        <View style={styles.row}>
+            <IconButton icon="refresh" label="睡眠数据" onPress={onReset} />
+            <IconButton icon="refresh" label="脑电波图形" onPress={onReset2} />
+            <IconButton icon="refresh" label="睡眠改善效果" onPress={onReset3} />
+          </View>
+      </View>
+    
+
           <TextInput
-            style={{ height: 110,width:300, borderColor: 'gray', borderWidth: 1, padding: 5 }}
+            style={{ height: 100,width:300, borderColor: 'gray', borderWidth: 1, padding: 5 }}
+            placeholder="询问关于你的个性化睡眠建议"
+            editable={true}
+          />
+          <TextInput
+            style={{ height: 100,width:300, borderColor: 'gray', borderWidth: 1, padding: 5 }}
             placeholder="AI响应将出现在这里..."
             editable={false}
           />
+
+
         </View>
 
-      </View>
 
-      </View>  );
+
+
+
+    </ScrollView>
+    
+
+
+    
+    );
+
+
 }
 
 const styles = StyleSheet.create({
   row: {
-    padding: 10 ,
+    padding: 20 ,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-around',
     marginVertical: 10,
   },
+
+cloumn: {
+    padding: 30,
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'space-around',
+    marginVertical: 10,
+},
+
   container: {
     flex: 1,
     alignItems: 'center',
@@ -131,5 +137,17 @@ const styles = StyleSheet.create({
   imageContainer: {
     flex: 1,
     paddingTop: 58,
+  },
+
+  image: {
+    width: 320,
+    height: 440,
+    borderRadius: 18,
+  },
+
+  scrollContainer: {
+    flexGrow: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });

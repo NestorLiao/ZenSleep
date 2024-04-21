@@ -56,5 +56,5 @@ database design and local sql server
 
 # Time GTD
 
-Mon ~Tue~ Wed Thu Fri Sat Sun
+~Mon Tue~ Wed Thu Fri Sat Sun
 Wed:

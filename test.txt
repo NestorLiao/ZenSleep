@@ -1,0 +1,2066 @@
+import { StyleSheet, View, Pressable, Text } from "react-native";
+import FontAwesome from "@expo/vector-icons/FontAwesome";
+
+export default function Button({ label,theme,onPress}) {
+  if (theme === "primary") {
+    return (
+      <View style={[styles.buttonContainer, { borderWidth: 4, borderColor: "#ffd33d", borderRadius: 18 }]}>
+        <Pressable
+          style={[styles.button, { backgroundColor: "#fff" }]}
+          onPress={() => alert('You pressed a button.')}
+        >
+          <FontAwesome
+            name="picture-o"
+            size={21}
+            color="#25292e"
+            style={styles.buttonIcon}
+          />
+          <Text style={[styles.buttonLabel, { color: "#25292e" }]}>{label}</Text>
+        </Pressable>
+      </View>
+    );
+  }
+  if (theme === "index") {
+    return (
+      <View style={[styles.buttonContainer, { borderWidth: 2, borderColor: "#afd33d", borderRadius: 7,width: 110, height: 30, }]}> 
+        <Pressable
+          style={[styles.button, { backgroundColor: "#fff" }]}
+          onPress={() => alert('You pressed a button.')}
+        >
+          <Text style={[styles.buttonLabel, { color: "#25292e" }]}>{label}</Text>
+        </Pressable>
+      </View>
+    );
+  }
+  if (theme === "test") {
+    return (
+      <View style={[styles.buttonContainer, { borderWidth: 2, borderColor: "#afd33d", borderRadius: 7,width: 110, height: 30, }]}> 
+        <Pressable
+          style={[styles.button, { backgroundColor: "#fff" }]}
+          onPress={onPress}
+        >
+          <Text style={[styles.buttonLabel, { color: "#25292e" }]}>{label}</Text>
+        </Pressable>
+      </View>
+    );
+  }
+  return (
+    <View style={styles.buttonContainer}>
+      <Pressable
+        style={styles.button}
+        onPress={() => alert("You pressed a button.")}
+      >
+        <Text style={styles.buttonLabel}>{label}</Text>
+      </Pressable>
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  buttonContainer: {
+    width: 160,
+    height: 50,
+    marginHorizontal: 30,
+    alignItems: "center",
+    justifyContent: "center",
+    padding: 3,
+  },
+  button: {
+    borderRadius: 10,
+    width: "100%",
+    height: "100%",
+    alignItems: "center",
+    justifyContent: "center",
+    flexDirection: "row",
+  },
+  buttonIcon: {
+    paddingRight: 3,
+  },
+  buttonLabel: {
+    color: "#000",
+    fontSize: 13,
+  },
+});
+import { View, Pressable, StyleSheet,Text } from 'react-native';
+import MaterialIcons from '@expo/vector-icons/MaterialIcons';
+
+export default function CircleButton({label, onPress }) {
+  return (
+    <View style={styles.circleButtonContainer}>
+      <Pressable style={styles.circleButton} onPress={onPress}>
+          <Text style={[styles.buttonLabel, { color: "#25292e" }]}>{label}</Text>
+
+      </Pressable>
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  circleButtonContainer: {
+    width: 84,
+    height: 84,
+    marginHorizontal: 60,
+    borderWidth: 4,
+    borderColor: '#ffd33d',
+    borderRadius: 42,
+    padding: 3,
+  },
+  circleButton: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 42,
+    backgroundColor: '#fff',
+  },
+
+  buttonLabel: {
+    color: "#000",
+    fontSize: 13,
+  },
+
+});
+import React from 'react';
+import { StyleSheet } from 'react-native';
+
+import { ExternalLink } from './ExternalLink';
+import { MonoText } from './StyledText';
+import { Text, View } from './Themed';
+
+import Colors from '@/constants/Colors';
+
+export default function EditScreenInfo({ path }: { path: string }) {
+  if (path =="app/data.tsx"){
+    return (
+      <View>
+        <View style={styles.getStartedContainer}>
+          <Text
+            style={styles.getStartedText}
+            lightColor="rgba(0,0,0,0.8)"
+            darkColor="rgba(255,255,255,0.8)">
+            实时数据分析：展示用户的睡眠数据、脑电波图形以及睡眠改善效果的统计数据。
+          </Text>
+
+
+          <Text
+            style={styles.getStartedText}
+            lightColor="rgba(0,0,0,0.8)"
+            darkColor="rgba(255,255,255,0.8)">
+            个性化建议：根据分析结果向用户推荐个性化的改善睡眠方法。
+          </Text>
+        </View>
+
+        <View style={styles.helpContainer}>
+          <ExternalLink
+            style={styles.helpLink}
+            href="https://www.msdmanuals.cn/home/brain-spinal-cord-and-nerve-disorders/sleep-disorders/overview-of-sleep?query=%E7%9D%A1%E8%A7%89">
+            <Text style={styles.helpLinkText} lightColor={Colors.light.tint}>
+              点击了解更多关于睡眠的知识
+            </Text>
+          </ExternalLink>
+        </View>
+      </View>
+    ); 
+  }
+
+  if (path== "app/ctrl.tsx") {
+    return (
+      <View>
+        <View style={styles.getStartedContainer}>
+          <Text
+            style={styles.getStartedText}
+            lightColor="rgba(0,0,0,0.8)"
+            darkColor="rgba(255,255,255,0.8)">
+            Open up the code for this screen:
+          </Text>
+
+          <View
+            style={[styles.codeHighlightContainer, styles.homeScreenFilename]}
+            darkColor="rgba(255,255,255,0.05)"
+            lightColor="rgba(0,0,0,0.05)">
+            <MonoText>{path}</MonoText>
+          </View>
+
+          <Text
+            style={styles.getStartedText}
+            lightColor="rgba(0,0,0,0.8)"
+            darkColor="rgba(255,255,255,0.8)">
+            Change any of the text, save the file, and your app will automatically update.
+          </Text>
+        </View>
+
+        <View style={styles.helpContainer}>
+          <ExternalLink
+            style={styles.helpLink}
+            href="https://docs.expo.io/get-started/create-a-new-app/#opening-the-app-on-your-phonetablet">
+            <Text style={styles.helpLinkText} lightColor={Colors.light.tint}>
+              Tap here if your app doesn't automatically update after making changes
+            </Text>
+          </ExternalLink>
+        </View>
+      </View>
+    ); 
+  }
+  if (path == "app/user.tsx") {
+    return (
+      <View>
+        <View style={styles.getStartedContainer}>
+          <Text
+            style={styles.getStartedText}
+            lightColor="rgba(0,0,0,0.8)"
+            darkColor="rgba(255,255,255,0.8)">
+            Owhat
+          </Text>
+
+          <View
+            style={[styles.codeHighlightContainer, styles.homeScreenFilename]}
+            darkColor="rgba(255,255,255,0.05)"
+            lightColor="rgba(0,0,0,0.05)">
+            <MonoText>{path}</MonoText>
+          </View>
+
+          <Text
+            style={styles.getStartedText}
+            lightColor="rgba(0,0,0,0.8)"
+            darkColor="rgba(255,255,255,0.8)">
+            Change any of the text, save the file, and your app will automatically update.
+          </Text>
+        </View>
+
+        <View style={styles.helpContainer}>
+          <ExternalLink
+            style={styles.helpLink}
+            href="https://docs.expo.io/get-started/create-a-new-app/#opening-the-app-on-your-phonetablet">
+            <Text style={styles.helpLinkText} lightColor={Colors.light.tint}>
+              Tap here if your app doesn't automatically update after making changes
+            </Text>
+          </ExternalLink>
+        </View>
+      </View>
+    ); 
+  }
+}
+
+const styles = StyleSheet.create({
+  getStartedContainer: {
+    alignItems: 'center',
+    marginHorizontal: 50,
+  },
+  homeScreenFilename: {
+    marginVertical: 7,
+  },
+  codeHighlightContainer: {
+    borderRadius: 3,
+    paddingHorizontal: 4,
+  },
+  getStartedText: {
+    fontSize: 14,
+    lineHeight: 24,
+    textAlign: 'center',
+  },
+  helpContainer: {
+    marginTop: 15,
+    marginHorizontal: 20,
+    alignItems: 'center',
+  },
+  helpLink: {
+    paddingVertical: 15,
+  },
+  helpLinkText: {
+    textAlign: 'center',
+  },
+});
+import { Link } from 'expo-router';
+import * as WebBrowser from 'expo-web-browser';
+import React from 'react';
+import { Platform } from 'react-native';
+
+export function ExternalLink(
+  props: Omit<React.ComponentProps<typeof Link>, 'href'> & { href: string }
+) {
+  return (
+    <Link
+      target="_blank"
+      {...props}
+      // @ts-expect-error: External URLs are not typed.
+      href={props.href}
+      onPress={(e) => {
+        if (Platform.OS !== 'web') {
+          // Prevent the default behavior of linking to the default browser on native.
+          e.preventDefault();
+          // Open the link in an in-app browser.
+          WebBrowser.openBrowserAsync(props.href as string);
+        }
+      }}
+    />
+  );
+}
+import React from "react";
+import { View, Text, TextInput } from "react-native";
+import { styles } from "./styles";
+
+export default function FormField({
+  field,
+  label,
+  secureTextEntry,
+  autoCapitalize,
+  values,
+  touched,
+  errors,
+  handleChange,
+  handleBlur,
+}) {
+  return (
+    <View style={styles.formGroup}>
+      <Text style={styles.label}>{label}</Text>
+
+      <TextInput
+        style={styles.input}
+        value={values[field]}
+        onChangeText={handleChange(field)}
+        onBlur={handleBlur(field)}
+        secureTextEntry={secureTextEntry}
+        autoCapitalize={autoCapitalize || "none"}
+      />
+
+      {touched[field] && errors[field] ? (
+        <View style={styles.errorContainer}>
+          <Text style={styles.errorText}>{errors[field]}</Text>
+        </View>
+      ) : null}
+    </View>
+  );
+}
+import { StyleSheet,  View,Image } from 'react-native';
+
+export default function ImageViewer({ placeholderImageSource, selectedImage }) {
+  const imageSource = selectedImage ? { uri: selectedImage } : placeholderImageSource;
+  console.log('Selected Image:', selectedImage);
+  console.log('Image Source:', imageSource);
+
+  return (
+    <Image source={imageSource} style={styles.image} />
+  );
+}
+const styles = StyleSheet.create({
+  image: {
+    width: 440,
+    height: 240,
+    borderRadius: 18,
+  },
+});
+import React from "react";
+import {
+  SafeAreaView,
+  View,
+  Text,
+  TouchableOpacity,
+  Alert,
+} from "react-native";
+import { StatusBar } from "expo-status-bar";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import { Formik } from "formik";
+import { validationSchema } from "./validation";
+import { styles } from "./styles";
+import FormField from "./FormField";
+
+export default function RegisterForm( {setShowAppOptions} ) {
+
+  function onSubmitHandler(values) {
+
+    // Translate the content and customize the login instruction
+    let loginInstruction = `请使用您的邮箱 ${values.email} \n 和密码 ${values.password} 登录，即可使用设备`;
+
+    // Display the translated and customized alert message
+    Alert.alert(
+      "注册成功!",
+      `${loginInstruction}`
+    );
+    setShowAppOptions(false);
+  }
+
+  function isFormValid(isValid, touched) {
+    return isValid && Object.keys(touched).length !== 0;
+  }
+
+  return (
+    <>
+      <SafeAreaView style={styles.topSafeArea} />
+
+      <StatusBar style="light" />
+
+      <SafeAreaView style={styles.container}>
+        <View style={styles.header}>
+          <Text style={styles.headerText}>Zensleep账号注册</Text>
+        </View>
+
+        {/* https://github.com/APSL/react-native-keyboard-aware-scroll-view */}
+        <KeyboardAwareScrollView
+          style={styles.content}
+          showsVerticalScrollIndicator={false}
+          keyboardShouldPersistTaps="handled"
+          extraScrollHeight={150}
+        >
+          {/* https://formik.org/docs/overview */}
+          <Formik
+            initialValues={{
+              name: "test",
+              email: "test@test.test",
+              password: "testtt",
+              confirmPassword: "testtt",
+            }}
+            onSubmit={onSubmitHandler}
+            validationSchema={validationSchema}
+          >
+            {({
+              handleChange,
+              handleBlur,
+              handleSubmit,
+              values,
+              errors,
+              touched,
+              isValid,
+            }) => (
+              <>
+                <FormField
+                  field="name"
+                  label="昵称"
+                  autoCapitalize="words"
+                  values={values}
+                  touched={touched}
+                  errors={errors}
+                  handleChange={handleChange}
+                  handleBlur={handleBlur}
+                />
+
+                <FormField
+                  field="email"
+                  label="邮箱"
+                  values={values}
+                  touched={touched}
+                  errors={errors}
+                  handleChange={handleChange}
+                  handleBlur={handleBlur}
+                />
+
+                <FormField
+                  field="password"
+                  label="密码"
+                  secureTextEntry={true}
+                  values={values}
+                  touched={touched}
+                  errors={errors}
+                  handleChange={handleChange}
+                  handleBlur={handleBlur}
+                />
+
+                <FormField
+                  field="confirmPassword"
+                  label="确认密码"
+                  secureTextEntry={true}
+                  values={values}
+                  touched={touched}
+                  errors={errors}
+                  handleChange={handleChange}
+                  handleBlur={handleBlur}
+                />
+
+    <TouchableOpacity onPress={ handleSubmit }>
+                  <View
+                    style={[
+                      styles.button,
+                      {
+                        opacity: isFormValid(isValid, touched) ? 1 : 0.5,
+                      },
+                    ]}
+                  >
+                    <Text style={styles.buttonText}>提交</Text>
+                  </View>
+                </TouchableOpacity>
+              </>
+            )}
+          </Formik>
+        </KeyboardAwareScrollView>
+      </SafeAreaView>
+    </>
+  );
+}
+import { Text, TextProps } from './Themed';
+
+export function MonoText(props: TextProps) {
+  return <Text {...props} style={[props.style, { fontFamily: 'SpaceMono' }]} />;
+}
+import { StyleSheet, Platform } from "react-native";
+import Constants from "expo-constants";
+
+const HEADER_BACKGROUND = "#3498db";
+const CONTENT_BACKGROUND = "#f9f9f9";
+
+export const styles = StyleSheet.create({
+  topSafeArea: {
+    backgroundColor: HEADER_BACKGROUND,
+  },
+  container: {
+    flex: 1,
+    paddingTop: Constants.statusBarHeight,
+    backgroundColor:
+      Platform.OS === "ios" ? CONTENT_BACKGROUND : HEADER_BACKGROUND,
+  },
+  header: {
+    height: 60,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: HEADER_BACKGROUND,
+  },
+  headerText: {
+    color: "#fff",
+    fontSize: 18,
+  },
+  content: {
+    padding: 20,
+    backgroundColor: CONTENT_BACKGROUND,
+  },
+  formGroup: {
+    marginBottom: 10,
+  },
+  label: {
+    color: "#7d7e79",
+    fontSize: 16,
+    lineHeight: 30,
+  },
+  input: {
+    height: 50,
+    paddingHorizontal: 20,
+    borderRadius: 5,
+    borderWidth: 2,
+    borderColor: "#e3e3e3",
+    backgroundColor: "#fff",
+  },
+  errorContainer: {
+    marginVertical: 5,
+  },
+  errorText: {
+    color: "#ff7675",
+  },
+  button: {
+    marginTop: 20,
+    backgroundColor: "#2980b9",
+    padding: 15,
+    borderRadius: 15,
+  },
+  buttonText: {
+    color: "#fff",
+    fontWeight: "bold",
+    fontSize: 18,
+    textAlign: "center",
+  },
+});
+/**
+ * Learn more about Light and Dark modes:
+ * https://docs.expo.io/guides/color-schemes/
+ */
+
+import { Text as DefaultText, View as DefaultView } from 'react-native';
+
+import Colors from '@/constants/Colors';
+import { useColorScheme } from './useColorScheme';
+
+type ThemeProps = {
+  lightColor?: string;
+  darkColor?: string;
+};
+
+export type TextProps = ThemeProps & DefaultText['props'];
+export type ViewProps = ThemeProps & DefaultView['props'];
+
+export function useThemeColor(
+  props: { light?: string; dark?: string },
+  colorName: keyof typeof Colors.light & keyof typeof Colors.dark
+) {
+  const theme = useColorScheme() ?? 'light';
+  const colorFromProps = props[theme];
+
+  if (colorFromProps) {
+    return colorFromProps;
+  } else {
+    return Colors[theme][colorName];
+  }
+}
+
+export function Text(props: TextProps) {
+  const { style, lightColor, darkColor, ...otherProps } = props;
+  const color = useThemeColor({ light: lightColor, dark: darkColor }, 'text');
+
+  return <DefaultText style={[{ color }, style]} {...otherProps} />;
+}
+
+export function View(props: ViewProps) {
+  const { style, lightColor, darkColor, ...otherProps } = props;
+  const backgroundColor = useThemeColor({ light: lightColor, dark: darkColor }, 'background');
+
+  return <DefaultView style={[{ backgroundColor }, style]} {...otherProps} />;
+}
+// This function is web-only as native doesn't currently support server (or build-time) rendering.
+export function useClientOnlyValue<S, C>(server: S, client: C): S | C {
+  return client;
+}
+import React from 'react';
+
+// `useEffect` is not invoked during server rendering, meaning
+// we can use this to determine if we're on the server or not.
+export function useClientOnlyValue<S, C>(server: S, client: C): S | C {
+  const [value, setValue] = React.useState<S | C>(server);
+  React.useEffect(() => {
+    setValue(client);
+  }, [client]);
+
+  return value;
+}
+export { useColorScheme } from 'react-native';
+// NOTE: The default React Native styling doesn't support server rendering.
+// Server rendered styles should not change between the first render of the HTML
+// and the first render on the client. Typically, web developers will use CSS media queries
+// to render different styles on the client and server, these aren't directly supported in React Native
+// but can be achieved using a styling library like Nativewind.
+export function useColorScheme() {
+  return 'light';
+}
+import * as Yup from "yup";
+
+// https://github.com/jquense/yup
+export const validationSchema = Yup.object().shape({
+  name: Yup.string().required("必填项：请输入昵称"),
+  email: Yup.string()
+    .email("请输入有效的电子邮件地址")
+    .required("必填项：请输入已注册的电子邮件"),
+  password: Yup.string()
+    .required("必填项：请输入密码")
+    .min(6, "密码长度至少为6个字符"),
+  confirmPassword: Yup.string()
+    .required("请确认密码")
+    .oneOf([Yup.ref("password")], "密码和确认密码不匹配"),
+});
+default: run test monitor clean build deploy lint
+analysis:
+  echo 'Analysising!'
+run:
+  echo 'Running!'
+test:
+  echo 'Testing!'
+monitor:
+  echo 'Monitoring!'
+clean:
+  echo 'Cleaning!'
+build:
+  echo 'Building!'
+deploy:
+  echo 'Deploying!'
+lint:
+  echo 'Linting!'
+
+alias R :=run
+alias A :=analysis
+alias T :=test
+alias M :=monitor
+alias C :=clean
+alias B :=build
+alias D :=deploy
+alias L :=lint
+
+# keys for calling commands in editor to execute other tmux panel
+a:
+  tmux send-keys -t 2 "just analysis" C-m;
+r:
+  tmux send-keys -t 2 "r";
+t:
+  tmux send-keys -t 2 "just test" C-m;
+n:
+  tmux send-keys -t 2 "just monitor" C-m;
+e:
+  tmux send-keys -t 2 "just clean" C-m;
+i:
+  tmux send-keys -t 2 "just build" C-m;
+o:
+  tmux send-keys -t 2 "just deploy" C-m;
+l:
+  tmux send-keys -t 2 "just lint" C-m;
+s:
+  tmux send-keys -t 2 "just default" C-m;
+c:
+  tmux send-keys -t 2  C-C;
+{
+  "extends": "expo/tsconfig.base",
+  "compilerOptions": {
+    "strict": true,
+    "paths": {
+      "@/*": [
+        "./*"
+      ]
+    }
+  },
+  "include": [
+    "**/*.ts",
+    "**/*.tsx",
+    ".expo/types/**/*.ts",
+    "expo-env.d.ts"
+  ]
+}
+{
+  "expo": {
+    "name": "ZenSleep",
+    "slug": "ZenSleep",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/images/icon.png",
+    "scheme": "myapp",
+    "userInterfaceStyle": "automatic",
+    "splash": {
+      "image": "./assets/images/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/images/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      }
+    },
+    "web": {
+      "bundler": "metro",
+      "output": "static",
+      "favicon": "./assets/images/favicon.png"
+    },
+    "plugins": [
+      "expo-router"
+    ],
+    "experiments": {
+      "typedRoutes": true
+    }
+  }
+}
+/// <reference types="expo/types" />
+
+// NOTE: This file should not be edited and should be in your git ignoreimport { ScrollViewStyleReset } from 'expo-router/html';
+
+// This file is web-only and used to configure the root HTML for every
+// web page during static rendering.
+// The contents of this function only run in Node.js environments and
+// do not have access to the DOM or browser APIs.
+export default function Root({ children }: { children: React.ReactNode }) {
+  return (
+    <html lang="en">
+      <head>
+        <meta charSet="utf-8" />
+        <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+        {/* 
+          Disable body scrolling on web. This makes ScrollView components work closer to how they do on native. 
+          However, body scrolling is often nice to have for mobile web. If you want to enable it, remove this line.
+        */}
+        <ScrollViewStyleReset />
+
+        {/* Using raw CSS styles as an escape-hatch to ensure the background color never flickers in dark-mode. */}
+        <style dangerouslySetInnerHTML={{ __html: responsiveBackground }} />
+        {/* Add any additional <head> elements that you want globally available on web... */}
+      </head>
+      <body>{children}</body>
+    </html>
+  );
+}
+
+const responsiveBackground = `
+body {
+  background-color: #fff;
+}
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: #000;
+  }
+}`;
+import { Link, Stack } from 'expo-router';
+import { StyleSheet } from 'react-native';
+
+import { Text, View } from '@/components/Themed';
+
+export default function NotFoundScreen() {
+  return (
+    <>
+      <Stack.Screen options={{ title: 'Oops!' }} />
+      <View style={styles.container}>
+        <Text style={styles.title}>This screen doesn't exist.</Text>
+
+        <Link href="/" style={styles.link}>
+          <Text style={styles.linkText}>Go to home screen!</Text>
+        </Link>
+      </View>
+    </>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 20,
+  },
+  title: {
+    fontSize: 20,
+    fontWeight: 'bold',
+  },
+  link: {
+    marginTop: 15,
+    paddingVertical: 15,
+  },
+  linkText: {
+    fontSize: 14,
+    color: '#2e78b7',
+  },
+});
+import FontAwesome from '@expo/vector-icons/FontAwesome';
+import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
+import { useFonts } from 'expo-font';
+import { Stack } from 'expo-router';
+import * as SplashScreen from 'expo-splash-screen';
+import { useEffect } from 'react';
+
+import { useColorScheme } from '@/components/useColorScheme';
+
+export {
+  // Catch any errors thrown by the Layout component.
+  ErrorBoundary,
+} from 'expo-router';
+
+export const unstable_settings = {
+  // Ensure that reloading on `/modal` keeps a back button present.
+  initialRouteName: '(tabs)',
+};
+
+// Prevent the splash screen from auto-hiding before asset loading is complete.
+SplashScreen.preventAutoHideAsync();
+
+export default function RootLayout() {
+  const [loaded, error] = useFonts({
+    SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
+    ...FontAwesome.font,
+  });
+
+  // Expo Router uses Error Boundaries to catch errors in the navigation tree.
+  useEffect(() => {
+    if (error) throw error;
+  }, [error]);
+
+  useEffect(() => {
+    if (loaded) {
+      SplashScreen.hideAsync();
+    }
+  }, [loaded]);
+
+  if (!loaded) {
+    return null;
+  }
+
+  return <RootLayoutNav />;
+}
+
+function RootLayoutNav() {
+  const colorScheme = useColorScheme();
+
+  return (
+    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+      <Stack>
+        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+      </Stack>
+    </ThemeProvider>
+  );
+}
+import { StatusBar } from 'expo-status-bar';
+import { Platform, StyleSheet } from 'react-native';
+
+import EditScreenInfo from '@/components/EditScreenInfo';
+import { Text, View } from '@/components/Themed';
+
+export default function ModalScreen() {
+  return (
+    <View style={styles.container}>
+      <Text style={styles.title}>光音控制指南</Text>
+      <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
+      <EditScreenInfo path="app/ctrl.tsx" />
+
+      {/* Use a light status bar on iOS to account for the black space above the modal */}
+      <StatusBar style={Platform.OS === 'ios' ? 'light' : 'auto'} />
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  title: {
+    fontSize: 20,
+    fontWeight: 'bold',
+  },
+  separator: {
+    marginVertical: 30,
+    height: 1,
+    width: '80%',
+  },
+});
+import { StatusBar } from 'expo-status-bar';
+import { Platform, StyleSheet } from 'react-native';
+
+import EditScreenInfo from '@/components/EditScreenInfo';
+import { Text, View } from '@/components/Themed';
+
+export default function ModalScreen() {
+  return (
+    <View style={styles.container}>
+      <Text style={styles.title}>图表与建议指南</Text>
+      <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
+      <EditScreenInfo path="app/data.tsx" />
+
+      {/* Use a light status bar on iOS to account for the black space above the modal */}
+      <StatusBar style={Platform.OS === 'ios' ? 'light' : 'auto'} />
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  title: {
+    fontSize: 20,
+    fontWeight: 'bold',
+  },
+  separator: {
+    marginVertical: 30,
+    height: 1,
+    width: '80%',
+  },
+});
+import { StatusBar } from 'expo-status-bar';
+import { Platform, StyleSheet } from 'react-native';
+
+import EditScreenInfo from '@/components/EditScreenInfo';
+import { Text, View } from '@/components/Themed';
+
+export default function ModalScreen() {
+  return (
+    <View style={styles.container}>
+      <Text style={styles.title}>用户反馈使用指南</Text>
+      <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
+      <EditScreenInfo path="app/user.tsx" />
+
+      {/* Use a light status bar on iOS to account for the black space above the modal */}
+      <StatusBar style={Platform.OS === 'ios' ? 'light' : 'auto'} />
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  title: {
+    fontSize: 20,
+    fontWeight: 'bold',
+  },
+  separator: {
+    marginVertical: 30,
+    height: 1,
+    width: '80%',
+  },
+});
+import React from 'react';
+import FontAwesome from '@expo/vector-icons/FontAwesome';
+import { Link, Tabs } from 'expo-router';
+import { Pressable } from 'react-native';
+import Colors from '@/constants/Colors';
+import { useColorScheme } from '@/components/useColorScheme';
+import { useClientOnlyValue } from '@/components/useClientOnlyValue';
+
+// You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
+function TabBarIcon(props: {
+  name: React.ComponentProps<typeof FontAwesome>['name'];
+  color: string;
+}) {
+  return <FontAwesome size={28} style={{ marginBottom: -3 }} {...props} />;
+}
+
+export default function TabLayout() {
+  const colorScheme = useColorScheme();
+
+  return (
+    <Tabs
+      screenOptions={{
+        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
+        // Disable the static render of the header on web
+        // to prevent a hydration error in React Navigation v6.
+        headerShown: useClientOnlyValue(false, true),
+      }}>
+      <Tabs.Screen
+        name="index"
+        options={{
+          title: '数据中心',
+          tabBarIcon: ({ color }) => <TabBarIcon name="heart" color={color} />,
+          headerRight: () => (
+            <Link href="/help/data" asChild>
+              <Pressable>
+                {({ pressed }) => (
+                  <FontAwesome
+                    name="info-circle"
+                    size={25}
+                    color={Colors[colorScheme ?? 'light'].text}
+                    style={{ marginRight: 15, opacity: pressed ? 0.5 : 1 }}
+                  />
+                )}
+              </Pressable>
+            </Link>
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="two"
+        options={{
+          title: '光音控制',
+          tabBarIcon: ({ color }) => <TabBarIcon name="th-list" color={color} />,
+          headerRight: () => (
+            <Link href="/help/ctrl" asChild>
+              <Pressable>
+                {({ pressed }) => (
+                  <FontAwesome
+                    name="info-circle"
+                    size={25}
+                    color={Colors[colorScheme ?? 'light'].text}
+                    style={{ marginRight: 15, opacity: pressed ? 0.5 : 1 }}
+                  />
+                )}
+              </Pressable>
+            </Link>
+          ),
+
+        }}
+      />
+      <Tabs.Screen
+        name="three"
+        options={{
+          title: '用户中心',
+          tabBarIcon: ({ color }) => <TabBarIcon name="user" color={color} />,
+          headerRight: () => (
+            <Link href="/help/user" asChild>
+              <Pressable>
+                {({ pressed }) => (
+                  <FontAwesome
+                    name="info-circle"
+                    size={25}
+                    color={Colors[colorScheme ?? 'light'].text}
+                    style={{ marginRight: 15, opacity: pressed ? 0.5 : 1 }}
+                  />
+                )}
+              </Pressable>
+            </Link>
+          ),
+
+        }}
+      />
+    </Tabs>
+  );
+}
+import {ActivityIndicator, Image, TextInput,ScrollView, StyleSheet } from 'react-native';
+import Button from '@/components/Button';
+import React,{useState}from "react";
+import Svg, {
+  Circle,
+  // SvgUri,
+  // SvgCssUri,
+  Ellipse,
+  G,
+  TSpan,
+  TextPath,
+  Path,
+  Polygon,
+  Polyline,
+  Line,
+  Rect,
+  Use,
+  Symbol,
+  Defs,
+  LinearGradient,
+  RadialGradient,
+  Stop,
+  ClipPath,
+  Pattern,
+  Mask,
+} from 'react-native-svg';
+import EditScreenInfo from '@/components/EditScreenInfo';
+import { Text, View } from '@/components/Themed';
+import {SvgCssUri} from 'react-native-svg/css';
+
+
+
+import ImageViewer from "../../components/ImageViewer";
+import IconButton from "@/components/CircleButton";
+
+
+const Heathimprove= require("../../assets/images/healthimprove.png");
+const Brainwave= require("../../assets/images/brainwave.png");
+const Sleepdata= require("../../assets/images/sleepdata.png");
+
+
+export default function TabOneScreen(props) {
+
+
+  const [selectedImage, setSelectedImage] = useState(null);
+
+
+  const onReset2 = (img) => {
+    setSelectedImage(Brainwave);
+  };
+  const onReset3 = (img) => {
+    setSelectedImage(Heathimprove);
+  };
+  const onReset = (img) => {
+    setSelectedImage(Sleepdata);
+  };
+
+
+  return (
+
+
+   
+    <ScrollView contentContainerStyle={styles.scrollContainer}>
+
+        <View style={styles.cloumn}>
+
+         <View style={{ padding: 10 }}>
+        <ImageViewer
+          placeholderImageSource={selectedImage ? selectedImage : Heathimprove}
+        />
+        <View style={styles.row}>
+            <IconButton icon="refresh" label="睡眠数据" onPress={onReset} />
+            <IconButton icon="refresh" label="脑电波图形" onPress={onReset2} />
+            <IconButton icon="refresh" label="睡眠改善效果" onPress={onReset3} />
+          </View>
+      </View>
+    
+
+          <TextInput
+            style={{ height: 100,width:300, borderColor: 'gray', borderWidth: 1, padding: 5 }}
+            placeholder="询问关于你的个性化睡眠建议"
+            editable={true}
+          />
+          <TextInput
+            style={{ height: 100,width:300, borderColor: 'gray', borderWidth: 1, padding: 5 }}
+            placeholder="AI响应将出现在这里..."
+            editable={false}
+          />
+
+
+        </View>
+
+
+
+
+
+    </ScrollView>
+    
+
+
+    
+    );
+
+
+}
+
+const styles = StyleSheet.create({
+  row: {
+    padding: 20 ,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-around',
+    marginVertical: 10,
+  },
+
+cloumn: {
+    padding: 30,
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'space-around',
+    marginVertical: 10,
+},
+
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  title: {
+    fontSize: 20,
+    fontWeight: 'bold',
+  },
+  separator: {
+    height: 400,
+    width: '100%',
+  },
+  imageContainer: {
+    flex: 1,
+    paddingTop: 58,
+  },
+
+  image: {
+    width: 320,
+    height: 440,
+    borderRadius: 18,
+  },
+
+  scrollContainer: {
+    flexGrow: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+});
+import { StyleSheet } from 'react-native';
+
+import EditScreenInfo from '@/components/EditScreenInfo';
+import { Text, View } from '@/components/Themed';
+import {React,useState}from "react";
+import {
+  SafeAreaView,
+  Image,
+  TouchableOpacity,
+  TextInput,
+} from "react-native";
+import { StatusBar } from "expo-status-bar";
+import LogoBannerImage from "../../assets/login-page/logo.png";
+import RegisterForm from "../../components/RegisterForm";
+
+
+
+export default function TabThreeScreen() {
+  const [showAppOptions, setShowAppOptions] = useState(false);
+
+
+  return (
+    <>
+
+      <StatusBar style="light" />
+
+      {/* https://reactnative.dev/docs/image */}
+      {showAppOptions ?(
+        <RegisterForm setShowAppOptions={setShowAppOptions} />
+        ):(
+      <SafeAreaView style={styles.container}>
+      <Image source={LogoBannerImage} style={styles.banner} />
+        <View style={styles.content}>
+          <TextInput
+            style={[styles.input, styles.inputUsername]}
+            placeholder="电话号码或电子邮件"
+            placeholderTextColor="#cdcdcf"
+          />
+
+          <TextInput
+            style={[styles.input, styles.inputPassword]}
+            secureTextEntry={true}
+            placeholder="密码"
+            placeholderTextColor="#cdcdcf"
+          />
+
+          <TouchableOpacity style={styles.button}>
+            <Text style={styles.buttonText}>登录</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity style={styles.link}>
+            <Text style={styles.linkText}>忘记密码？</Text>
+          </TouchableOpacity>
+
+        </View>
+
+        <View style={styles.footer}>
+          <View style={styles.divider}>
+            <View style={styles.dividerLine} />
+            <Text style={styles.dividerText}>或者</Text>
+            <View style={styles.dividerLine} />
+          </View>
+
+                <TouchableOpacity style={[styles.button, styles.buttonRegister]} onPress={()=>setShowAppOptions(true)}>
+                  <Text style={[styles.buttonText, styles.buttonRegisterText]}>
+                    创建新账号
+                  </Text>
+                </TouchableOpacity>
+        
+
+        </View>
+      </SafeAreaView>
+              )}
+    </>
+  );
+
+}
+
+const styles = StyleSheet.create({
+  title: {
+    fontSize: 20,
+    fontWeight: 'bold',
+  },
+  separator: {
+    marginVertical: 30,
+    height: 1,
+    width: '80%',
+  },
+
+banner: {
+    resizeMode: "contain",
+    width: "100%",
+    height: null,
+    aspectRatio: 750 / 460, // Image ratio
+  },
+  container: {
+    flex: 1,
+    justifyContent: "space-between",
+  },
+  content: {
+    padding: 22,
+  },
+  input: {
+    borderWidth: 1,
+    borderColor: "#cdcdcf",
+    color: "#333333",
+    fontSize: 16,
+    height: 44,
+    paddingHorizontal: 15,
+  },
+  inputUsername: {
+    borderBottomWidth: 0,
+    borderTopLeftRadius: 3,
+    borderTopRightRadius: 3,
+  },
+  inputPassword: {
+    borderBottomLeftRadius: 3,
+    borderBottomRightRadius: 3,
+  },
+  button: {
+    height: 42,
+    borderRadius: 6,
+    backgroundColor: "#1977f3",
+    justifyContent: "center",
+    marginVertical: 15,
+  },
+  buttonText: {
+    color: "#b4cafb",
+    textAlign: "center",
+    fontSize: 16,
+  },
+  link: {
+    paddingVertical: 8,
+  },
+  linkText: {
+    color: "#1c6ede",
+    textAlign: "center",
+    fontSize: 16,
+    fontWeight: "500",
+  },
+  footer: {
+    alignItems: "center",
+    padding: 22,
+    paddingBottom: 0,
+  },
+  divider: {
+    flexDirection: "row",
+    alignItems: "center",
+    width: "70%",
+    marginBottom: 10,
+  },
+  dividerLine: {
+    flex: 1,
+    borderBottomWidth: 1,
+    borderColor: "#cbccd0",
+  },
+  dividerText: {
+    width: 50,
+    textAlign: "center",
+  },
+  buttonRegister: {
+    width: "100%",
+    backgroundColor: "#e7f3ff",
+  },
+  buttonRegisterText: {
+    color: "#1077f7",
+  },
+
+});
+import React from 'react';
+import { StyleSheet, ScrollView, View, Text } from 'react-native';
+import Button from '@/components/Button';
+import Slider from '@react-native-community/slider';
+
+export default function TabTwoScreen() {
+  const [lightIntensity, setLightIntensity] = React.useState(50);
+  const [soundVolume, setSoundVolume] = React.useState(50);
+  const [pulseFrequency, setPulseFrequency] = React.useState(1);
+  const [pulseDuration, setPulseDuration] = React.useState(30);
+  const [isLightEnabled, setIsLightEnabled] = React.useState(false);
+  const [isSoundEnabled, setIsSoundEnabled] = React.useState(false);
+  const [isPulseEnabled, setIsPulseEnabled] = React.useState(false);
+
+  return (
+    <ScrollView contentContainerStyle={styles.scrollContainer}>
+      <View style={styles.container}>
+        <Text style={styles.title}>通用</Text>
+        
+        <View style={styles.row}>
+          <Button label="睡前辅助功能" theme="primary" />
+          <Button label="光和音频控制选项" theme="primary" />
+        </View>
+
+        <View style={styles.row}>
+          <Button label="Another Button" theme="primary" />
+          <Button label="One More Button" theme="primary" />
+        </View>
+        <View style={styles.row}>
+          <Button label="睡前辅助功能" theme="primary" />
+          <Button label="光和音频控制选项" theme="primary" />
+        </View>
+
+
+        <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
+        
+        <Text style={styles.title}>光调节</Text>
+        
+        <View style={styles.row}>
+          <Slider
+            style={{ width: 200 }}
+            minimumValue={0}
+            maximumValue={100}
+            value={lightIntensity}
+            onValueChange={(value) => setLightIntensity(value)}
+          />
+          <Slider
+            style={{ width: 200 }}
+            minimumValue={0}
+            maximumValue={100}
+            value={lightIntensity}
+            onValueChange={(value) => setLightIntensity(value)}
+          />
+        </View>
+
+        <View style={styles.row}>
+          <Button label="睡前辅助功能" theme="primary" />
+          <Button label="光和音频控制选项" theme="primary" />
+        </View>
+
+
+
+        <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
+        
+        <Text style={styles.title}>音调节</Text>
+        
+        <View style={styles.row}>
+          <Slider
+            style={{ width: 200 }}
+            minimumValue={0}
+            maximumValue={100}
+            value={soundVolume}
+            onValueChange={(value) => setSoundVolume(value)}
+          />
+        </View>
+
+
+        <Text style={styles.title}>脉冲调节</Text>
+        
+        <View style={styles.row}>
+          <Slider
+            style={{ width: 200 }}
+            minimumValue={1}
+            maximumValue={10}
+            value={pulseFrequency}
+            onValueChange={(value) => setPulseFrequency(value)}
+          />
+        </View>
+
+      </View>
+    </ScrollView>
+  );
+}
+
+const styles = StyleSheet.create({
+  row: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-around',
+    marginVertical: 10,
+  },
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  title: {
+    fontSize: 20,
+    fontWeight: 'bold',
+  },
+  separator: {
+    marginVertical: 30,
+    height: 1,
+    width: '80%',
+  },
+
+  scrollContainer: {
+    flexGrow: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+});
+
+
+
+
+
+var path = require('path')
+var glob = require('glob')
+var HtmlWebpackPlugin = require('html-webpack-plugin')
+
+const fs = require('fs')
+const config = require('./config')
+
+// 是否是线上环境（测试|预上线|生产）
+var isProduction = process.env.NODE_ENV !== 'development'
+
+// 资源路径
+exports.assetsPath = function (_path) {
+  var assetsSubDirectory = isProduction
+    ? config.build.assetsSubDirectory
+    : config.dev.assetsSubDirectory
+  return path.posix.join(assetsSubDirectory, _path)
+}
+
+// 获取指定路径下的入口文件
+exports.getEntries = function () {
+  let entries = {}
+  const globPath = './src/pages/**/index.js'
+  glob.sync(globPath).forEach(function (filepath) {
+    const split = filepath.split('/')
+    const name = split[split.length - 2]
+    entries[name] = ['./' + filepath]
+  })
+  // 抽出的全页面公共的js／css
+  return entries
+}
+
+// 生成模板
+exports.generateTemplates = function (entry, isOnline) {
+  const commonsChunk = ['commons', 'jquery', 'runtime']
+  let plugins = []
+
+  Object.keys(entry).forEach(function (entryName) {
+    if (!commonsChunk.some(function (item) { return item === entryName })) {
+      let filePath = entry[entryName][0].replace('.js', '')
+      let fileName = filePath
+        .replace(/(.*\.\/src\/pages)/, isOnline ? 'view' : '')
+        .replace(/\/index\/index/, '/index')
+        .replace(/^\//, '')
+      let options = {
+        filename: `${fileName}.html`,
+        template: `${filePath}.html`,
+        chunks: [...commonsChunk, entryName],
+        inject: true,
+        hash: true,
+        chunksSortMode: function (chunk1, chunk2) {
+          var order = [...commonsChunk, entryName];
+          var order1 = order.indexOf(chunk1.names[0]);
+          var order2 = order.indexOf(chunk2.names[0]);
+          return order1 - order2;
+        }
+      }
+      if (isOnline) {
+        options.minify = {
+          removeComments: true,
+          collapseWhitespace: true,
+          removeAttributeQuotes: true
+        }
+        options.chunksSortMode = 'dependency'
+      }
+      plugins.push(new HtmlWebpackPlugin(options))
+    }
+  })
+  return plugins
+}
+
+
+
+
+/*
+ *  base64.js
+ *
+ *  Licensed under the BSD 3-Clause License.
+ *    http://opensource.org/licenses/BSD-3-Clause
+ *
+ *  References:
+ *    http://en.wikipedia.org/wiki/Base64
+ */
+;(function (global, factory) {
+  typeof exports === 'object' && typeof module !== 'undefined'
+    ? module.exports = factory(global)
+    : typeof define === 'function' && define.amd
+    ? define(factory) : factory(global)
+}((
+  typeof self !== 'undefined' ? self
+    : typeof window !== 'undefined' ? window
+    : typeof global !== 'undefined' ? global
+      : this
+), function(global) {
+  'use strict';
+  // existing version for noConflict()
+  global = global || {};
+  var _Base64 = global.Base64;
+  var version = "2.5.1";
+  // if node.js and NOT React Native, we use Buffer
+  var buffer;
+  if (typeof module !== 'undefined' && module.exports) {
+    try {
+      buffer = eval("require('buffer').Buffer");
+    } catch (err) {
+      buffer = undefined;
+    }
+  }
+  // constants
+  var b64chars
+    = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
+  var b64tab = function(bin) {
+    var t = {};
+    for (var i = 0, l = bin.length; i < l; i++) t[bin.charAt(i)] = i;
+    return t;
+  }(b64chars);
+  var fromCharCode = String.fromCharCode;
+  // encoder stuff
+  var cb_utob = function(c) {
+    if (c.length < 2) {
+      var cc = c.charCodeAt(0);
+      return cc < 0x80 ? c
+        : cc < 0x800 ? (fromCharCode(0xc0 | (cc >>> 6))
+        + fromCharCode(0x80 | (cc & 0x3f)))
+          : (fromCharCode(0xe0 | ((cc >>> 12) & 0x0f))
+          + fromCharCode(0x80 | ((cc >>>  6) & 0x3f))
+          + fromCharCode(0x80 | ( cc         & 0x3f)));
+    } else {
+      var cc = 0x10000
+        + (c.charCodeAt(0) - 0xD800) * 0x400
+        + (c.charCodeAt(1) - 0xDC00);
+      return (fromCharCode(0xf0 | ((cc >>> 18) & 0x07))
+      + fromCharCode(0x80 | ((cc >>> 12) & 0x3f))
+      + fromCharCode(0x80 | ((cc >>>  6) & 0x3f))
+      + fromCharCode(0x80 | ( cc         & 0x3f)));
+    }
+  };
+  var re_utob = /[\uD800-\uDBFF][\uDC00-\uDFFFF]|[^\x00-\x7F]/g;
+  var utob = function(u) {
+    return u.replace(re_utob, cb_utob);
+  };
+  var cb_encode = function(ccc) {
+    var padlen = [0, 2, 1][ccc.length % 3],
+      ord = ccc.charCodeAt(0) << 16
+        | ((ccc.length > 1 ? ccc.charCodeAt(1) : 0) << 8)
+        | ((ccc.length > 2 ? ccc.charCodeAt(2) : 0)),
+      chars = [
+        b64chars.charAt( ord >>> 18),
+        b64chars.charAt((ord >>> 12) & 63),
+        padlen >= 2 ? '=' : b64chars.charAt((ord >>> 6) & 63),
+        padlen >= 1 ? '=' : b64chars.charAt(ord & 63)
+      ];
+    return chars.join('');
+  };
+  var btoa = global.btoa ? function(b) {
+    return global.btoa(b);
+  } : function(b) {
+    return b.replace(/[\s\S]{1,3}/g, cb_encode);
+  };
+  var _encode = buffer ?
+    buffer.from && Uint8Array && buffer.from !== Uint8Array.from
+      ? function (u) {
+      return (u.constructor === buffer.constructor ? u : buffer.from(u))
+        .toString('base64')
+    }
+      :  function (u) {
+      return (u.constructor === buffer.constructor ? u : new  buffer(u))
+        .toString('base64')
+    }
+    : function (u) { return btoa(utob(u)) }
+  ;
+  var encode = function(u, urisafe) {
+    return !urisafe
+      ? _encode(String(u))
+      : _encode(String(u)).replace(/[+\/]/g, function(m0) {
+        return m0 == '+' ? '-' : '_';
+      }).replace(/=/g, '');
+  };
+  var encodeURI = function(u) { return encode(u, true) };
+  // decoder stuff
+  var re_btou = new RegExp([
+    '[\xC0-\xDF][\x80-\xBF]',
+    '[\xE0-\xEF][\x80-\xBF]{2}',
+    '[\xF0-\xF7][\x80-\xBF]{3}'
+  ].join('|'), 'g');
+  var cb_btou = function(cccc) {
+    switch(cccc.length) {
+      case 4:
+        var cp = ((0x07 & cccc.charCodeAt(0)) << 18)
+            |    ((0x3f & cccc.charCodeAt(1)) << 12)
+            |    ((0x3f & cccc.charCodeAt(2)) <<  6)
+            |     (0x3f & cccc.charCodeAt(3)),
+          offset = cp - 0x10000;
+        return (fromCharCode((offset  >>> 10) + 0xD800)
+        + fromCharCode((offset & 0x3FF) + 0xDC00));
+      case 3:
+        return fromCharCode(
+          ((0x0f & cccc.charCodeAt(0)) << 12)
+          | ((0x3f & cccc.charCodeAt(1)) << 6)
+          |  (0x3f & cccc.charCodeAt(2))
+        );
+      default:
+        return  fromCharCode(
+          ((0x1f & cccc.charCodeAt(0)) << 6)
+          |  (0x3f & cccc.charCodeAt(1))
+        );
+    }
+  };
+  var btou = function(b) {
+    return b.replace(re_btou, cb_btou);
+  };
+  var cb_decode = function(cccc) {
+    var len = cccc.length,
+      padlen = len % 4,
+      n = (len > 0 ? b64tab[cccc.charAt(0)] << 18 : 0)
+        | (len > 1 ? b64tab[cccc.charAt(1)] << 12 : 0)
+        | (len > 2 ? b64tab[cccc.charAt(2)] <<  6 : 0)
+        | (len > 3 ? b64tab[cccc.charAt(3)]       : 0),
+      chars = [
+        fromCharCode( n >>> 16),
+        fromCharCode((n >>>  8) & 0xff),
+        fromCharCode( n         & 0xff)
+      ];
+    chars.length -= [0, 0, 2, 1][padlen];
+    return chars.join('');
+  };
+  var _atob = global.atob ? function(a) {
+    return global.atob(a);
+  } : function(a){
+    return a.replace(/\S{1,4}/g, cb_decode);
+  };
+  var atob = function(a) {
+    return _atob(String(a).replace(/[^A-Za-z0-9\+\/]/g, ''));
+  };
+  var _decode = buffer ?
+    buffer.from && Uint8Array && buffer.from !== Uint8Array.from
+      ? function(a) {
+      return (a.constructor === buffer.constructor
+        ? a : buffer.from(a, 'base64')).toString();
+    }
+      : function(a) {
+      return (a.constructor === buffer.constructor
+        ? a : new buffer(a, 'base64')).toString();
+    }
+    : function(a) { return btou(_atob(a)) };
+  var decode = function(a){
+    return _decode(
+      String(a).replace(/[-_]/g, function(m0) { return m0 == '-' ? '+' : '/' })
+        .replace(/[^A-Za-z0-9\+\/]/g, '')
+    );
+  };
+  var noConflict = function() {
+    var Base64 = global.Base64;
+    global.Base64 = _Base64;
+    return Base64;
+  };
+  // export Base64
+  global.Base64 = {
+    VERSION: version,
+    atob: atob,
+    btoa: btoa,
+    fromBase64: decode,
+    toBase64: encode,
+    utob: utob,
+    encode: encode,
+    encodeURI: encodeURI,
+    btou: btou,
+    decode: decode,
+    noConflict: noConflict,
+    __buffer__: buffer
+  };
+  // if ES5 is available, make Base64.extendString() available
+  if (typeof Object.defineProperty === 'function') {
+    var noEnum = function(v){
+      return {value:v,enumerable:false,writable:true,configurable:true};
+    };
+    global.Base64.extendString = function () {
+      Object.defineProperty(
+        String.prototype, 'fromBase64', noEnum(function () {
+          return decode(this)
+        }));
+      Object.defineProperty(
+        String.prototype, 'toBase64', noEnum(function (urisafe) {
+          return encode(this, urisafe)
+        }));
+      Object.defineProperty(
+        String.prototype, 'toBase64URI', noEnum(function () {
+          return encode(this, true)
+        }));
+    };
+  }
+  //
+  // export Base64 to the namespace
+  //
+  if (global['Meteor']) { // Meteor.js
+    Base64 = global.Base64;
+  }
+  // module.exports and AMD are mutually exclusive.
+  // module.exports has precedence.
+  if (typeof module !== 'undefined' && module.exports) {
+    module.exports.Base64 = global.Base64;
+  }
+  else if (typeof define === 'function' && define.amd) {
+    // AMD. Register as an anonymous module.
+    define([], function(){ return global.Base64 });
+  }
+  // that's it!
+  return {Base64: global.Base64}
+}));
+
+
+
+//////////////////
+// WEBPACK FOOTER
+// ./node_modules/_js-base64@2.5.1@js-base64/base64.js
+// module id = 57
+// module chunks = 2
+
+
+
+
+
+import {downloadPCM, downloadWAV} from 'js/download.js'
+import CryptoJS from 'crypto-js'
+import Enc from 'enc'
+import TransWorker from 'js/transcode.worker.js'
+import VConsole from 'vconsole'
+import {Base64} from 'js-base64'
+import './index.css'
+
+let transWorker = new TransWorker()
+let httpUrl = new URL("https://spark-api.xf-yun.com/v3.5/chat");
+let modelDomain; // V1.1-V3.5动态获取，高于以上版本手动指定
+//APPID，APISecret，APIKey在https://console.xfyun.cn/services/cbm这里获取
+const APPID = ''
+const API_SECRET = ''
+const API_KEY = ''
+
+var total_res = "";
+
+function getWebsocketUrl() {
+    // console.log(httpUrl.pathname)
+    // 动态获取domain信息
+    switch (httpUrl.pathname) {
+        case "/v1.1/chat":
+            modelDomain = "general";
+            break;
+        case "/v2.1/chat":
+            modelDomain = "generalv2";
+            break;
+        case "/v3.1/chat":
+            modelDomain = "generalv3";
+            break;
+        case "/v3.5/chat":
+            modelDomain = "generalv3.5";
+            break;
+    }
+
+    return new Promise((resolve, reject) => {
+        var apiKey = API_KEY
+        var apiSecret = API_SECRET
+
+
+        var url = 'wss://' + httpUrl.host + httpUrl.pathname
+
+        var host = location.host
+        var date = new Date().toGMTString()
+        var algorithm = 'hmac-sha256'
+        var headers = 'host date request-line'
+        var signatureOrigin = `host: ${host}\ndate: ${date}\nGET ${httpUrl.pathname} HTTP/1.1`
+        var signatureSha = CryptoJS.HmacSHA256(signatureOrigin, apiSecret)
+        var signature = CryptoJS.enc.Base64.stringify(signatureSha)
+        var authorizationOrigin = `api_key="${apiKey}", algorithm="${algorithm}", headers="${headers}", signature="${signature}"`
+        var authorization = btoa(authorizationOrigin)
+        url = `${url}?authorization=${authorization}&date=${date}&host=${host}`
+        resolve(url)
+    })
+}
+
+class TTSRecorder {
+    constructor({
+                    appId = APPID
+                } = {}) {
+        this.appId = appId
+        this.status = 'init'
+    }
+
+    // 修改状态
+    setStatus(status) {
+        this.onWillStatusChange && this.onWillStatusChange(this.status, status)
+        this.status = status
+    }
+
+    // 连接websocket
+    connectWebSocket() {
+        this.setStatus('ttsing')
+        return getWebsocketUrl().then(url => {
+            let ttsWS
+            if ('WebSocket' in window) {
+                ttsWS = new WebSocket(url)
+            } else if ('MozWebSocket' in window) {
+                ttsWS = new MozWebSocket(url)
+            } else {
+                alert('浏览器不支持WebSocket')
+                return
+            }
+            this.ttsWS = ttsWS
+            ttsWS.onopen = e => {
+                this.webSocketSend()
+            }
+            ttsWS.onmessage = e => {
+                this.result(e.data)
+            }
+            ttsWS.onerror = e => {
+                clearTimeout(this.playTimeout)
+                this.setStatus('error')
+                alert('WebSocket报错，请f12查看详情')
+                console.error(`详情查看：${encodeURI(url.replace('wss:', 'https:'))}`)
+            }
+            ttsWS.onclose = e => {
+                console.log(e)
+            }
+        })
+    }
+
+
+
+    // websocket接收数据的处理
+    result(resultData) {
+        let jsonData = JSON.parse(resultData)
+        total_res = total_res + resultData
+        $('#output_text').val(total_res)
+        // console.log(resultData)
+        // 提问失败
+        if (jsonData.header.code !== 0) {
+            alert(`提问失败: ${jsonData.header.code}:${jsonData.header.message}`)
+            console.error(`${jsonData.header.code}:${jsonData.header.message}`)
+            return
+        }
+        if (jsonData.header.code === 0 && jsonData.header.status === 2) {
+            this.ttsWS.close()
+            bigModel.setStatus("init")
+        }
+    }
+}
+
+// ======================开始调用=============================
+var vConsole = new VConsole()
+let bigModel = new TTSRecorder()
+bigModel.onWillStatusChange = function (oldStatus, status) {
+    // 可以在这里进行页面中一些交互逻辑处理：按钮交互等
+    // 按钮中的文字
+    let btnState = {
+        init: '立即提问', ttsing: '回答中...'
+    }
+    $('.audio-ctrl-btn')
+        .removeClass(oldStatus)
+        .addClass(status)
+        .text(btnState[status])
+}
+
+$('.audio-ctrl-btn').click(function () {
+    if (['init', 'endPlay', 'errorTTS'].indexOf(bigModel.status) > -1) {
+        bigModel.start()
+    }
+})
+
+$("#input_text").on('input propertychange', function () {
+    $('#input_text').text(this.value)
+    // console.log($("#input_text").text())
+}
+
+
+
+
+
+# coding: utf-8
+import SparkApi
+import time
+#以下密钥信息从控制台获取   https://console.xfyun.cn/services/bm35
+appid = '--------'
+api_secret = '--------------------------------'
+api_key = '--------------------------------'
+
+
+domain = "generalv3.5"    # v3.0版本
+
+Spark_url = "wss://spark-api.xf-yun.com/v3.5/chat"  # v3.5环服务地址
+
+#初始上下文内容，当前可传system、user、assistant 等角色
+```json
+[
+    {"role": "system", "content": "你现在扮演睡眠专家，专注于睡眠问题；接下来请用睡眠专家的角度与用户对话。"},
+    {"role": "user", "content": "你是谁"},
+    {"role": "assistant", "content": "睡眠专家"},
+    {"role": "user", "content": "如果你想获得良好的睡眠，你会做什么?"},
+    {"role": "system", "content": "作为一位睡眠专家，我的建议是保持规律的睡眠时间，创建一个舒适的睡眠环境，避免在睡前过度使用电子设备，以及尽量避免饮用咖啡因含量高的饮料。如果有任何睡眠问题或需要更多建议，请随时向我咨询。"}
+]
+```
+
+def getText(role,content):
+    jsoncon = {}
+    jsoncon["role"] = role
+    jsoncon["content"] = content
+    text.append(jsoncon)
+    return text
+
+def getlength(text):
+    length = 0
+    for content in text:
+        temp = content["content"]
+        leng = len(temp)
+        length += leng
+    return length
+
+def checklen(text):
+    while (getlength(text) > 8000):
+        del text[0]
+    return text
+    
+
+
+if __name__ == '__main__':
+
+    while(1):
+        Input = input("\n" +"我:")
+        question = checklen(getText("user",Input))
+        SparkApi.answer =""
+        print("睡眠专家:",end ="")
+        SparkApi.main(appid,api_key,api_secret,Spark_url,domain,question)
+        # print(SparkApi.answer)
+        getText("assistant",SparkApi.answer)
+
+
+
+

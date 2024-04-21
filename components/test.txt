@@ -1,0 +1,641 @@
+import { StyleSheet, View, Pressable, Text } from "react-native";
+import FontAwesome from "@expo/vector-icons/FontAwesome";
+
+export default function Button({ label,theme,onPress}) {
+  if (theme === "primary") {
+    return (
+      <View style={[styles.buttonContainer, { borderWidth: 4, borderColor: "#ffd33d", borderRadius: 18 }]}>
+        <Pressable
+          style={[styles.button, { backgroundColor: "#fff" }]}
+          onPress={() => alert('You pressed a button.')}
+        >
+          <FontAwesome
+            name="picture-o"
+            size={21}
+            color="#25292e"
+            style={styles.buttonIcon}
+          />
+          <Text style={[styles.buttonLabel, { color: "#25292e" }]}>{label}</Text>
+        </Pressable>
+      </View>
+    );
+  }
+  if (theme === "index") {
+    return (
+      <View style={[styles.buttonContainer, { borderWidth: 2, borderColor: "#afd33d", borderRadius: 7,width: 110, height: 30, }]}> 
+        <Pressable
+          style={[styles.button, { backgroundColor: "#fff" }]}
+          onPress={() => alert('You pressed a button.')}
+        >
+          <Text style={[styles.buttonLabel, { color: "#25292e" }]}>{label}</Text>
+        </Pressable>
+      </View>
+    );
+  }
+  if (theme === "test") {
+    return (
+      <View style={[styles.buttonContainer, { borderWidth: 2, borderColor: "#afd33d", borderRadius: 7,width: 110, height: 30, }]}> 
+        <Pressable
+          style={[styles.button, { backgroundColor: "#fff" }]}
+          onPress={onPress}
+        >
+          <Text style={[styles.buttonLabel, { color: "#25292e" }]}>{label}</Text>
+        </Pressable>
+      </View>
+    );
+  }
+  return (
+    <View style={styles.buttonContainer}>
+      <Pressable
+        style={styles.button}
+        onPress={() => alert("You pressed a button.")}
+      >
+        <Text style={styles.buttonLabel}>{label}</Text>
+      </Pressable>
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  buttonContainer: {
+    width: 160,
+    height: 50,
+    marginHorizontal: 30,
+    alignItems: "center",
+    justifyContent: "center",
+    padding: 3,
+  },
+  button: {
+    borderRadius: 10,
+    width: "100%",
+    height: "100%",
+    alignItems: "center",
+    justifyContent: "center",
+    flexDirection: "row",
+  },
+  buttonIcon: {
+    paddingRight: 3,
+  },
+  buttonLabel: {
+    color: "#000",
+    fontSize: 13,
+  },
+});
+import { View, Pressable, StyleSheet,Text } from 'react-native';
+import MaterialIcons from '@expo/vector-icons/MaterialIcons';
+
+export default function CircleButton({label, onPress }) {
+  return (
+    <View style={styles.circleButtonContainer}>
+      <Pressable style={styles.circleButton} onPress={onPress}>
+          <Text style={[styles.buttonLabel, { color: "#25292e" }]}>{label}</Text>
+
+      </Pressable>
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  circleButtonContainer: {
+    width: 84,
+    height: 84,
+    marginHorizontal: 60,
+    borderWidth: 4,
+    borderColor: '#ffd33d',
+    borderRadius: 42,
+    padding: 3,
+  },
+  circleButton: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 42,
+    backgroundColor: '#fff',
+  },
+
+  buttonLabel: {
+    color: "#000",
+    fontSize: 13,
+  },
+
+});
+import React from 'react';
+import { StyleSheet } from 'react-native';
+
+import { ExternalLink } from './ExternalLink';
+import { MonoText } from './StyledText';
+import { Text, View } from './Themed';
+
+import Colors from '@/constants/Colors';
+
+export default function EditScreenInfo({ path }: { path: string }) {
+  if (path =="app/data.tsx"){
+    return (
+      <View>
+        <View style={styles.getStartedContainer}>
+          <Text
+            style={styles.getStartedText}
+            lightColor="rgba(0,0,0,0.8)"
+            darkColor="rgba(255,255,255,0.8)">
+            实时数据分析：展示用户的睡眠数据、脑电波图形以及睡眠改善效果的统计数据。
+          </Text>
+
+
+          <Text
+            style={styles.getStartedText}
+            lightColor="rgba(0,0,0,0.8)"
+            darkColor="rgba(255,255,255,0.8)">
+            个性化建议：根据分析结果向用户推荐个性化的改善睡眠方法。
+          </Text>
+        </View>
+
+        <View style={styles.helpContainer}>
+          <ExternalLink
+            style={styles.helpLink}
+            href="https://www.msdmanuals.cn/home/brain-spinal-cord-and-nerve-disorders/sleep-disorders/overview-of-sleep?query=%E7%9D%A1%E8%A7%89">
+            <Text style={styles.helpLinkText} lightColor={Colors.light.tint}>
+              点击了解更多关于睡眠的知识
+            </Text>
+          </ExternalLink>
+        </View>
+      </View>
+    ); 
+  }
+
+  if (path== "app/ctrl.tsx") {
+    return (
+      <View>
+        <View style={styles.getStartedContainer}>
+          <Text
+            style={styles.getStartedText}
+            lightColor="rgba(0,0,0,0.8)"
+            darkColor="rgba(255,255,255,0.8)">
+            Open up the code for this screen:
+          </Text>
+
+          <View
+            style={[styles.codeHighlightContainer, styles.homeScreenFilename]}
+            darkColor="rgba(255,255,255,0.05)"
+            lightColor="rgba(0,0,0,0.05)">
+            <MonoText>{path}</MonoText>
+          </View>
+
+          <Text
+            style={styles.getStartedText}
+            lightColor="rgba(0,0,0,0.8)"
+            darkColor="rgba(255,255,255,0.8)">
+            Change any of the text, save the file, and your app will automatically update.
+          </Text>
+        </View>
+
+        <View style={styles.helpContainer}>
+          <ExternalLink
+            style={styles.helpLink}
+            href="https://docs.expo.io/get-started/create-a-new-app/#opening-the-app-on-your-phonetablet">
+            <Text style={styles.helpLinkText} lightColor={Colors.light.tint}>
+              Tap here if your app doesn't automatically update after making changes
+            </Text>
+          </ExternalLink>
+        </View>
+      </View>
+    ); 
+  }
+  if (path == "app/user.tsx") {
+    return (
+      <View>
+        <View style={styles.getStartedContainer}>
+          <Text
+            style={styles.getStartedText}
+            lightColor="rgba(0,0,0,0.8)"
+            darkColor="rgba(255,255,255,0.8)">
+            Owhat
+          </Text>
+
+          <View
+            style={[styles.codeHighlightContainer, styles.homeScreenFilename]}
+            darkColor="rgba(255,255,255,0.05)"
+            lightColor="rgba(0,0,0,0.05)">
+            <MonoText>{path}</MonoText>
+          </View>
+
+          <Text
+            style={styles.getStartedText}
+            lightColor="rgba(0,0,0,0.8)"
+            darkColor="rgba(255,255,255,0.8)">
+            Change any of the text, save the file, and your app will automatically update.
+          </Text>
+        </View>
+
+        <View style={styles.helpContainer}>
+          <ExternalLink
+            style={styles.helpLink}
+            href="https://docs.expo.io/get-started/create-a-new-app/#opening-the-app-on-your-phonetablet">
+            <Text style={styles.helpLinkText} lightColor={Colors.light.tint}>
+              Tap here if your app doesn't automatically update after making changes
+            </Text>
+          </ExternalLink>
+        </View>
+      </View>
+    ); 
+  }
+}
+
+const styles = StyleSheet.create({
+  getStartedContainer: {
+    alignItems: 'center',
+    marginHorizontal: 50,
+  },
+  homeScreenFilename: {
+    marginVertical: 7,
+  },
+  codeHighlightContainer: {
+    borderRadius: 3,
+    paddingHorizontal: 4,
+  },
+  getStartedText: {
+    fontSize: 14,
+    lineHeight: 24,
+    textAlign: 'center',
+  },
+  helpContainer: {
+    marginTop: 15,
+    marginHorizontal: 20,
+    alignItems: 'center',
+  },
+  helpLink: {
+    paddingVertical: 15,
+  },
+  helpLinkText: {
+    textAlign: 'center',
+  },
+});
+import { Link } from 'expo-router';
+import * as WebBrowser from 'expo-web-browser';
+import React from 'react';
+import { Platform } from 'react-native';
+
+export function ExternalLink(
+  props: Omit<React.ComponentProps<typeof Link>, 'href'> & { href: string }
+) {
+  return (
+    <Link
+      target="_blank"
+      {...props}
+      // @ts-expect-error: External URLs are not typed.
+      href={props.href}
+      onPress={(e) => {
+        if (Platform.OS !== 'web') {
+          // Prevent the default behavior of linking to the default browser on native.
+          e.preventDefault();
+          // Open the link in an in-app browser.
+          WebBrowser.openBrowserAsync(props.href as string);
+        }
+      }}
+    />
+  );
+}
+import React from "react";
+import { View, Text, TextInput } from "react-native";
+import { styles } from "./styles";
+
+export default function FormField({
+  field,
+  label,
+  secureTextEntry,
+  autoCapitalize,
+  values,
+  touched,
+  errors,
+  handleChange,
+  handleBlur,
+}) {
+  return (
+    <View style={styles.formGroup}>
+      <Text style={styles.label}>{label}</Text>
+
+      <TextInput
+        style={styles.input}
+        value={values[field]}
+        onChangeText={handleChange(field)}
+        onBlur={handleBlur(field)}
+        secureTextEntry={secureTextEntry}
+        autoCapitalize={autoCapitalize || "none"}
+      />
+
+      {touched[field] && errors[field] ? (
+        <View style={styles.errorContainer}>
+          <Text style={styles.errorText}>{errors[field]}</Text>
+        </View>
+      ) : null}
+    </View>
+  );
+}
+import { StyleSheet,  View,Image } from 'react-native';
+
+export default function ImageViewer({ placeholderImageSource, selectedImage }) {
+  const imageSource = selectedImage ? { uri: selectedImage } : placeholderImageSource;
+  console.log('Selected Image:', selectedImage);
+  console.log('Image Source:', imageSource);
+
+  return (
+    <Image source={imageSource} style={styles.image} />
+  );
+}
+const styles = StyleSheet.create({
+  image: {
+    width: 440,
+    height: 240,
+    borderRadius: 18,
+  },
+});
+import React from "react";
+import {
+  SafeAreaView,
+  View,
+  Text,
+  TouchableOpacity,
+  Alert,
+} from "react-native";
+import { StatusBar } from "expo-status-bar";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import { Formik } from "formik";
+import { validationSchema } from "./validation";
+import { styles } from "./styles";
+import FormField from "./FormField";
+
+export default function RegisterForm( {setShowAppOptions} ) {
+
+  function onSubmitHandler(values) {
+
+    // Translate the content and customize the login instruction
+    let loginInstruction = `请使用您的邮箱 ${values.email} \n 和密码 ${values.password} 登录，即可使用设备`;
+
+    // Display the translated and customized alert message
+    Alert.alert(
+      "注册成功!",
+      `${loginInstruction}`
+    );
+    setShowAppOptions(false);
+  }
+
+  function isFormValid(isValid, touched) {
+    return isValid && Object.keys(touched).length !== 0;
+  }
+
+  return (
+    <>
+      <SafeAreaView style={styles.topSafeArea} />
+
+      <StatusBar style="light" />
+
+      <SafeAreaView style={styles.container}>
+        <View style={styles.header}>
+          <Text style={styles.headerText}>Zensleep账号注册</Text>
+        </View>
+
+        {/* https://github.com/APSL/react-native-keyboard-aware-scroll-view */}
+        <KeyboardAwareScrollView
+          style={styles.content}
+          showsVerticalScrollIndicator={false}
+          keyboardShouldPersistTaps="handled"
+          extraScrollHeight={150}
+        >
+          {/* https://formik.org/docs/overview */}
+          <Formik
+            initialValues={{
+              name: "test",
+              email: "test@test.test",
+              password: "testtt",
+              confirmPassword: "testtt",
+            }}
+            onSubmit={onSubmitHandler}
+            validationSchema={validationSchema}
+          >
+            {({
+              handleChange,
+              handleBlur,
+              handleSubmit,
+              values,
+              errors,
+              touched,
+              isValid,
+            }) => (
+              <>
+                <FormField
+                  field="name"
+                  label="昵称"
+                  autoCapitalize="words"
+                  values={values}
+                  touched={touched}
+                  errors={errors}
+                  handleChange={handleChange}
+                  handleBlur={handleBlur}
+                />
+
+                <FormField
+                  field="email"
+                  label="邮箱"
+                  values={values}
+                  touched={touched}
+                  errors={errors}
+                  handleChange={handleChange}
+                  handleBlur={handleBlur}
+                />
+
+                <FormField
+                  field="password"
+                  label="密码"
+                  secureTextEntry={true}
+                  values={values}
+                  touched={touched}
+                  errors={errors}
+                  handleChange={handleChange}
+                  handleBlur={handleBlur}
+                />
+
+                <FormField
+                  field="confirmPassword"
+                  label="确认密码"
+                  secureTextEntry={true}
+                  values={values}
+                  touched={touched}
+                  errors={errors}
+                  handleChange={handleChange}
+                  handleBlur={handleBlur}
+                />
+
+    <TouchableOpacity onPress={ handleSubmit }>
+                  <View
+                    style={[
+                      styles.button,
+                      {
+                        opacity: isFormValid(isValid, touched) ? 1 : 0.5,
+                      },
+                    ]}
+                  >
+                    <Text style={styles.buttonText}>提交</Text>
+                  </View>
+                </TouchableOpacity>
+              </>
+            )}
+          </Formik>
+        </KeyboardAwareScrollView>
+      </SafeAreaView>
+    </>
+  );
+}
+import { Text, TextProps } from './Themed';
+
+export function MonoText(props: TextProps) {
+  return <Text {...props} style={[props.style, { fontFamily: 'SpaceMono' }]} />;
+}
+import { StyleSheet, Platform } from "react-native";
+import Constants from "expo-constants";
+
+const HEADER_BACKGROUND = "#3498db";
+const CONTENT_BACKGROUND = "#f9f9f9";
+
+export const styles = StyleSheet.create({
+  topSafeArea: {
+    backgroundColor: HEADER_BACKGROUND,
+  },
+  container: {
+    flex: 1,
+    paddingTop: Constants.statusBarHeight,
+    backgroundColor:
+      Platform.OS === "ios" ? CONTENT_BACKGROUND : HEADER_BACKGROUND,
+  },
+  header: {
+    height: 60,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: HEADER_BACKGROUND,
+  },
+  headerText: {
+    color: "#fff",
+    fontSize: 18,
+  },
+  content: {
+    padding: 20,
+    backgroundColor: CONTENT_BACKGROUND,
+  },
+  formGroup: {
+    marginBottom: 10,
+  },
+  label: {
+    color: "#7d7e79",
+    fontSize: 16,
+    lineHeight: 30,
+  },
+  input: {
+    height: 50,
+    paddingHorizontal: 20,
+    borderRadius: 5,
+    borderWidth: 2,
+    borderColor: "#e3e3e3",
+    backgroundColor: "#fff",
+  },
+  errorContainer: {
+    marginVertical: 5,
+  },
+  errorText: {
+    color: "#ff7675",
+  },
+  button: {
+    marginTop: 20,
+    backgroundColor: "#2980b9",
+    padding: 15,
+    borderRadius: 15,
+  },
+  buttonText: {
+    color: "#fff",
+    fontWeight: "bold",
+    fontSize: 18,
+    textAlign: "center",
+  },
+});
+/**
+ * Learn more about Light and Dark modes:
+ * https://docs.expo.io/guides/color-schemes/
+ */
+
+import { Text as DefaultText, View as DefaultView } from 'react-native';
+
+import Colors from '@/constants/Colors';
+import { useColorScheme } from './useColorScheme';
+
+type ThemeProps = {
+  lightColor?: string;
+  darkColor?: string;
+};
+
+export type TextProps = ThemeProps & DefaultText['props'];
+export type ViewProps = ThemeProps & DefaultView['props'];
+
+export function useThemeColor(
+  props: { light?: string; dark?: string },
+  colorName: keyof typeof Colors.light & keyof typeof Colors.dark
+) {
+  const theme = useColorScheme() ?? 'light';
+  const colorFromProps = props[theme];
+
+  if (colorFromProps) {
+    return colorFromProps;
+  } else {
+    return Colors[theme][colorName];
+  }
+}
+
+export function Text(props: TextProps) {
+  const { style, lightColor, darkColor, ...otherProps } = props;
+  const color = useThemeColor({ light: lightColor, dark: darkColor }, 'text');
+
+  return <DefaultText style={[{ color }, style]} {...otherProps} />;
+}
+
+export function View(props: ViewProps) {
+  const { style, lightColor, darkColor, ...otherProps } = props;
+  const backgroundColor = useThemeColor({ light: lightColor, dark: darkColor }, 'background');
+
+  return <DefaultView style={[{ backgroundColor }, style]} {...otherProps} />;
+}
+// This function is web-only as native doesn't currently support server (or build-time) rendering.
+export function useClientOnlyValue<S, C>(server: S, client: C): S | C {
+  return client;
+}
+import React from 'react';
+
+// `useEffect` is not invoked during server rendering, meaning
+// we can use this to determine if we're on the server or not.
+export function useClientOnlyValue<S, C>(server: S, client: C): S | C {
+  const [value, setValue] = React.useState<S | C>(server);
+  React.useEffect(() => {
+    setValue(client);
+  }, [client]);
+
+  return value;
+}
+export { useColorScheme } from 'react-native';
+// NOTE: The default React Native styling doesn't support server rendering.
+// Server rendered styles should not change between the first render of the HTML
+// and the first render on the client. Typically, web developers will use CSS media queries
+// to render different styles on the client and server, these aren't directly supported in React Native
+// but can be achieved using a styling library like Nativewind.
+export function useColorScheme() {
+  return 'light';
+}
+import * as Yup from "yup";
+
+// https://github.com/jquense/yup
+export const validationSchema = Yup.object().shape({
+  name: Yup.string().required("必填项：请输入昵称"),
+  email: Yup.string()
+    .email("请输入有效的电子邮件地址")
+    .required("必填项：请输入已注册的电子邮件"),
+  password: Yup.string()
+    .required("必填项：请输入密码")
+    .min(6, "密码长度至少为6个字符"),
+  confirmPassword: Yup.string()
+    .required("请确认密码")
+    .oneOf([Yup.ref("password")], "密码和确认密码不匹配"),
+});
