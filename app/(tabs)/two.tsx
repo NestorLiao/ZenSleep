@@ -13,8 +13,9 @@ export default function TabTwoScreen() {
   const [isPulseEnabled, setIsPulseEnabled] = React.useState(false);
   const [colorTemperature,setColorTemperature]= React.useState(1);
   const [gradientIntensity,setGradientIntensity]= React.useState(1);
+  const [pluseVolume,setPluseVolume]= React.useState(1);
 
-  return (
+return (
 <ScrollView contentContainerStyle={styles.scrollContainer}>
     <View style={styles.container}>
         <Text style={styles.title}>通用</Text>
@@ -40,6 +41,9 @@ export default function TabTwoScreen() {
                 maximumValue={100}
                 value={lightIntensity}
                 onValueChange={(value) => setLightIntensity(value)}
+                minimumTrackTintColor="blue" // 设置轨道颜色为蓝色
+                maximumTrackTintColor="blue" // 设置轨道颜色为蓝色
+                thumbTintColor="blue" // 设置滑块颜色为蓝色
             />
             <Text>亮度调节</Text>
         </View>
@@ -51,6 +55,9 @@ export default function TabTwoScreen() {
                 maximumValue={100}
                 value={colorTemperature}
                 onValueChange={(value) => setColorTemperature(value)}
+                minimumTrackTintColor="green" // 设置轨道颜色为绿色
+                maximumTrackTintColor="green" // 设置轨道颜色为绿色
+                thumbTintColor="green" // 设置滑块颜色为绿色
             />
             <Text>颜色温度</Text>
         </View>
@@ -62,6 +69,9 @@ export default function TabTwoScreen() {
                 maximumValue={100}
                 value={gradientIntensity}
                 onValueChange={(value) => setGradientIntensity(value)}
+                minimumTrackTintColor="blue" // 设置轨道颜色为蓝色
+                maximumTrackTintColor="blue" // 设置轨道颜色为蓝色
+                thumbTintColor="blue" // 设置滑块颜色为蓝色
             />
             <Text>渐变设置</Text>
         </View>
@@ -77,17 +87,18 @@ export default function TabTwoScreen() {
                 maximumValue={100}
                 value={soundVolume}
                 onValueChange={(value) => setSoundVolume(value)}
+                minimumTrackTintColor="green" // 设置轨道颜色为绿色
+                maximumTrackTintColor="green" // 设置轨道颜色为绿色
+                thumbTintColor="green" // 设置滑块颜色为绿色
             />
             <Text>音量调节</Text>
         </View>
+
         <View style={styles.row}>
-            <Slider
-                style={{ width: 200 }}
-                minimumValue={0}
-                maximumValue={100}
-                value={soundVolume}
-                onValueChange={(value) => setSoundVolume(value)}
-            />
+            <Button label="助眠模式" theme="primary" />
+            <Button label="设定时间" theme="primary" />
+            <Button label="助眠模式" theme="primary" />
+            <Button label="设定时间" theme="primary" />
             <Text>音乐选择</Text>
         </View>
         <View style={styles.row}>
@@ -97,6 +108,9 @@ export default function TabTwoScreen() {
                 maximumValue={100}
                 value={soundVolume}
                 onValueChange={(value) => setSoundVolume(value)}
+                minimumTrackTintColor="green" // 设置轨道颜色为绿色
+                maximumTrackTintColor="green" // 设置轨道颜色为绿色
+                thumbTintColor="green" // 设置滑块颜色为绿色
             />
             <Text>定时关闭</Text>
         </View>
@@ -108,8 +122,11 @@ export default function TabTwoScreen() {
                 style={{ width: 200 }}
                 minimumValue={0}
                 maximumValue={100}
-                value={soundVolume}
-                onValueChange={(value) => setSoundVolume(value)}
+                value={pluseVolume}
+                onValueChange={(value) => setPluseVolume(value)}
+                minimumTrackTintColor="blue" // 设置轨道颜色为蓝色
+                maximumTrackTintColor="blue" // 设置轨道颜色为蓝色
+                thumbTintColor="blue" // 设置滑块颜色为蓝色
             />
             <Text>频率控制</Text>
         </View>
@@ -120,6 +137,9 @@ export default function TabTwoScreen() {
                 maximumValue={100}
                 value={soundVolume}
                 onValueChange={(value) => setSoundVolume(value)}
+                minimumTrackTintColor="blue" // 设置轨道颜色为蓝色
+                maximumTrackTintColor="blue" // 设置轨道颜色为蓝色
+                thumbTintColor="blue" // 设置滑块颜色为蓝色
             />
             <Text>强度设置</Text>
         </View>
@@ -140,11 +160,15 @@ export default function TabTwoScreen() {
               maximumValue={10}
               value={pulseFrequency}
               onValueChange={(value) => setPulseFrequency(value)}
+              minimumTrackTintColor="blue"
+              maximumTrackTintColor="blue"
+              thumbTintColor="blue"
           />
           <Text>高频</Text>
       </View>
     </View>
-</ScrollView>  );
+    </ScrollView>
+    ); 
 }
 
 const styles = StyleSheet.create({

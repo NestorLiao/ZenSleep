@@ -31,25 +31,25 @@ const postImageForPrediction = async (imageUri) => {
 };
 
 
-// const BaiduApiTest = () => {
-//   useEffect(() => {
-//     const fetchData = async () => {
-//       try {
-//         const response = await axios.get('https://baidu.com');
-//         console.log('Response data:', response.data);
-//       } catch (error) {
-//         console.error('Error:', error.message);
-//         // Handle the error, show a message to the user, etc.
-//       }
-//     };
+const BaiduApiTest = () => {
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get('https://baidu.com');
+        console.log('Response data:', response.data);
+      } catch (error) {
+        console.error('Error:', error.message);
+        // Handle the error, show a message to the user, etc.
+      }
+    };
 
-//     fetchData();
-//   }, []);
+    fetchData();
+  }, []);
 
-//   return (
-//     <></> // This component doesn't render anything in the UI
-//   );
-// };
+  return (
+    <></> // This component doesn't render anything in the UI
+  );
+};
 
 export default BaiduApiTest;
 // export default postImageForPrediction;
