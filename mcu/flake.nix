@@ -33,6 +33,18 @@
             lcov
             vcpkg
             vcpkg-tool
+
+            #embedded
+            pkgsi686Linux.glibc
+            gcc-arm-embedded
+            bear
+
+            tio
+            #make clean; bear -- make;
+            # stm32flash
+            # stm32loader
+            stlink
+            openocd
           ];
         };
     });

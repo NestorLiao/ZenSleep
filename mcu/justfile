@@ -12,13 +12,17 @@ run:
 test:
   echo 'Testing!'
 monitor:
-  echo 'Monitoring!'
+  cd cube;
+  rm -rf build/
 clean:
-  echo 'Cleaning!'
+  sudo st-flash reset
 build:
-  echo 'Building!'
+  cd cube;make clean; bear -- make; 
+  # cd cube;make; 
 deploy:
-  echo 'Deploying!'
+  sudo st-flash write cube/build/cube.bin 0x08000000 ;
+  # sudo st-flash write cube/build/cube.bin 0x08000000  --connect-under-reset;
+  sudo st-flash reset;
 lint:
   echo 'Linting!'
 

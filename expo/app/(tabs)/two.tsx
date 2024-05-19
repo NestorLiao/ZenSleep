@@ -95,10 +95,6 @@ return (
         </View>
 
         <View style={styles.row}>
-            <Button label="助眠模式" theme="primary" />
-            <Button label="设定时间" theme="primary" />
-            <Button label="助眠模式" theme="primary" />
-            <Button label="设定时间" theme="primary" />
             <Text>音乐选择</Text>
         </View>
         <View style={styles.row}>

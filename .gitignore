@@ -15,6 +15,10 @@ expo/*.p8
 expo/*.p12
 expo/*.key
 expo/*.mobileprovision
+ptt/files/*
+ptt/sit/*
+
+mcu/code/*
 
 # Metro
 expo/.metro-health-check*
@@ -38,3 +42,12 @@ expo/*.tsbuildinfo
 
 expo/expo-env.d.ts
 # @end expo-cli
+
+
+ptt/.venv
+ptt/.direnv
+
+server/.venv
+mcu/.direnv
+server/.venv
+mcu/.direnv
