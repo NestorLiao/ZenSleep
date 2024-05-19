@@ -40,6 +40,7 @@
             bear
 
             tio
+            wireshark
             #make clean; bear -- make;
             # stm32flash
             # stm32loader

@@ -22,7 +22,7 @@ build:
 deploy:
   sudo st-flash write cube/build/cube.bin 0x08000000 ;
   # sudo st-flash write cube/build/cube.bin 0x08000000  --connect-under-reset;
-  sudo st-flash reset;
+  # sudo st-flash reset;
 lint:
   echo 'Linting!'
 
