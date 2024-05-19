@@ -1,4 +1,4 @@
-ARM GAS  /tmp/cce4tE5S.s 			page 1
+ARM GAS  /tmp/ccmi2zuX.s 			page 1
 
 
    1              		.cpu cortex-m3
@@ -18,31 +18,14 @@ ARM GAS  /tmp/cce4tE5S.s 			page 1
   15              	.Ltext0:
   16              		.cfi_sections	.debug_frame
   17              		.file 1 "Core/Src/freertos.c"
-  18              		.section	.rodata.StartOled.str1.4,"aMS",%progbits,1
-  19              		.align	2
-  20              	.LC1:
-  21 0000 68656C6C 		.ascii	"hello\000"
-  21      6F00
-  22 0006 0000     		.align	2
-  23              	.LC2:
-  24 0008 776F726C 		.ascii	"world\000"
-  24      6400
-  25 000e 0000     		.align	2
-  26              	.LC0:
-  27 0010 7573625F 		.ascii	"usb_otg_fs!abcdefghijklmnopqrstuvwxyz\015\012\000"
-  27      6F74675F 
-  27      66732161 
-  27      62636465 
-  27      66676869 
-  28              		.section	.text.StartOled,"ax",%progbits
-  29              		.align	1
-  30              		.global	StartOled
-  31              		.syntax unified
-  32              		.thumb
-  33              		.thumb_func
-  35              	StartOled:
-  36              	.LVL0:
-  37              	.LFB73:
+  18              		.section	.text.StartMax,"ax",%progbits
+  19              		.align	1
+  20              		.global	StartMax
+  21              		.syntax unified
+  22              		.thumb
+  23              		.thumb_func
+  25              	StartMax:
+  26              	.LFB74:
    1:Core/Src/freertos.c **** /* USER CODE BEGIN Header */
    2:Core/Src/freertos.c **** /**
    3:Core/Src/freertos.c ****   ******************************************************************************
@@ -58,9 +41,6 @@ ARM GAS  /tmp/cce4tE5S.s 			page 1
   13:Core/Src/freertos.c ****   * in the root directory of this software component.
   14:Core/Src/freertos.c ****   * If no LICENSE file comes with this software, it is provided AS-IS.
   15:Core/Src/freertos.c ****   *
-ARM GAS  /tmp/cce4tE5S.s 			page 2
-
-
   16:Core/Src/freertos.c ****   ******************************************************************************
   17:Core/Src/freertos.c ****   */
   18:Core/Src/freertos.c **** /* USER CODE END Header */
@@ -74,418 +54,383 @@ ARM GAS  /tmp/cce4tE5S.s 			page 1
   26:Core/Src/freertos.c **** /* Private includes ----------------------------------------------------------*/
   27:Core/Src/freertos.c **** /* USER CODE BEGIN Includes */
   28:Core/Src/freertos.c **** #include "oled.h"
-  29:Core/Src/freertos.c **** #include "usb_device.h"
-  30:Core/Src/freertos.c **** #include "usbd_cdc_if.h"
-  31:Core/Src/freertos.c **** 
-  32:Core/Src/freertos.c **** /* USER CODE END Includes */
-  33:Core/Src/freertos.c **** 
-  34:Core/Src/freertos.c **** /* Private typedef -----------------------------------------------------------*/
-  35:Core/Src/freertos.c **** /* USER CODE BEGIN PTD */
-  36:Core/Src/freertos.c **** 
-  37:Core/Src/freertos.c **** /* USER CODE END PTD */
-  38:Core/Src/freertos.c **** 
-  39:Core/Src/freertos.c **** /* Private define ------------------------------------------------------------*/
-  40:Core/Src/freertos.c **** /* USER CODE BEGIN PD */
-  41:Core/Src/freertos.c **** 
-  42:Core/Src/freertos.c **** /* USER CODE END PD */
-  43:Core/Src/freertos.c **** 
-  44:Core/Src/freertos.c **** /* Private macro -------------------------------------------------------------*/
-  45:Core/Src/freertos.c **** /* USER CODE BEGIN PM */
-  46:Core/Src/freertos.c **** 
-  47:Core/Src/freertos.c **** /* USER CODE END PM */
-  48:Core/Src/freertos.c **** 
-  49:Core/Src/freertos.c **** /* Private variables ---------------------------------------------------------*/
-  50:Core/Src/freertos.c **** /* USER CODE BEGIN Variables */
-  51:Core/Src/freertos.c **** 
-  52:Core/Src/freertos.c **** /* USER CODE END Variables */
-  53:Core/Src/freertos.c **** /* Definitions for Oled */
-  54:Core/Src/freertos.c **** osThreadId_t OledHandle;
-  55:Core/Src/freertos.c **** const osThreadAttr_t Oled_attributes = {
-  56:Core/Src/freertos.c ****   .name = "Oled",
-  57:Core/Src/freertos.c ****   .stack_size = 128 * 4,
-  58:Core/Src/freertos.c ****   .priority = (osPriority_t) osPriorityNormal,
-  59:Core/Src/freertos.c **** };
-  60:Core/Src/freertos.c **** /* Definitions for Max */
-  61:Core/Src/freertos.c **** osThreadId_t MaxHandle;
-  62:Core/Src/freertos.c **** const osThreadAttr_t Max_attributes = {
-  63:Core/Src/freertos.c ****   .name = "Max",
-  64:Core/Src/freertos.c ****   .stack_size = 128 * 4,
-  65:Core/Src/freertos.c ****   .priority = (osPriority_t) osPriorityLow,
-  66:Core/Src/freertos.c **** };
-  67:Core/Src/freertos.c **** 
-  68:Core/Src/freertos.c **** /* Private function prototypes -----------------------------------------------*/
-  69:Core/Src/freertos.c **** /* USER CODE BEGIN FunctionPrototypes */
-  70:Core/Src/freertos.c **** 
-  71:Core/Src/freertos.c **** /* USER CODE END FunctionPrototypes */
-  72:Core/Src/freertos.c **** 
-ARM GAS  /tmp/cce4tE5S.s 			page 3
+  29:Core/Src/freertos.c **** #include "Max30102.h"
+  30:Core/Src/freertos.c **** #include "usb_device.h"
+  31:Core/Src/freertos.c **** #include "usbd_cdc_if.h"
+  32:Core/Src/freertos.c **** 
+ARM GAS  /tmp/ccmi2zuX.s 			page 2
 
 
-  73:Core/Src/freertos.c **** void StartOled(void *argument);
-  74:Core/Src/freertos.c **** void StartMax(void *argument);
-  75:Core/Src/freertos.c **** 
-  76:Core/Src/freertos.c **** extern void MX_USB_DEVICE_Init(void);
-  77:Core/Src/freertos.c **** void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
-  78:Core/Src/freertos.c **** 
-  79:Core/Src/freertos.c **** /**
-  80:Core/Src/freertos.c ****   * @brief  FreeRTOS initialization
-  81:Core/Src/freertos.c ****   * @param  None
-  82:Core/Src/freertos.c ****   * @retval None
-  83:Core/Src/freertos.c ****   */
-  84:Core/Src/freertos.c **** void MX_FREERTOS_Init(void) {
-  85:Core/Src/freertos.c ****   /* USER CODE BEGIN Init */
-  86:Core/Src/freertos.c **** 
-  87:Core/Src/freertos.c ****   /* USER CODE END Init */
+  33:Core/Src/freertos.c **** /* USER CODE END Includes */
+  34:Core/Src/freertos.c **** 
+  35:Core/Src/freertos.c **** /* Private typedef -----------------------------------------------------------*/
+  36:Core/Src/freertos.c **** /* USER CODE BEGIN PTD */
+  37:Core/Src/freertos.c **** 
+  38:Core/Src/freertos.c **** /* USER CODE END PTD */
+  39:Core/Src/freertos.c **** 
+  40:Core/Src/freertos.c **** /* Private define ------------------------------------------------------------*/
+  41:Core/Src/freertos.c **** /* USER CODE BEGIN PD */
+  42:Core/Src/freertos.c **** 
+  43:Core/Src/freertos.c **** /* USER CODE END PD */
+  44:Core/Src/freertos.c **** 
+  45:Core/Src/freertos.c **** /* Private macro -------------------------------------------------------------*/
+  46:Core/Src/freertos.c **** /* USER CODE BEGIN PM */
+  47:Core/Src/freertos.c **** 
+  48:Core/Src/freertos.c **** /* USER CODE END PM */
+  49:Core/Src/freertos.c **** 
+  50:Core/Src/freertos.c **** /* Private variables ---------------------------------------------------------*/
+  51:Core/Src/freertos.c **** /* USER CODE BEGIN Variables */
+  52:Core/Src/freertos.c **** 
+  53:Core/Src/freertos.c **** /* USER CODE END Variables */
+  54:Core/Src/freertos.c **** /* Definitions for Oled */
+  55:Core/Src/freertos.c **** osThreadId_t OledHandle;
+  56:Core/Src/freertos.c **** const osThreadAttr_t Oled_attributes = {
+  57:Core/Src/freertos.c ****   .name = "Oled",
+  58:Core/Src/freertos.c ****   .stack_size = 128 * 4,
+  59:Core/Src/freertos.c ****   .priority = (osPriority_t) osPriorityNormal,
+  60:Core/Src/freertos.c **** };
+  61:Core/Src/freertos.c **** /* Definitions for Max */
+  62:Core/Src/freertos.c **** osThreadId_t MaxHandle;
+  63:Core/Src/freertos.c **** const osThreadAttr_t Max_attributes = {
+  64:Core/Src/freertos.c ****   .name = "Max",
+  65:Core/Src/freertos.c ****   .stack_size = 128 * 4,
+  66:Core/Src/freertos.c ****   .priority = (osPriority_t) osPriorityLow,
+  67:Core/Src/freertos.c **** };
+  68:Core/Src/freertos.c **** 
+  69:Core/Src/freertos.c **** /* Private function prototypes -----------------------------------------------*/
+  70:Core/Src/freertos.c **** /* USER CODE BEGIN FunctionPrototypes */
+  71:Core/Src/freertos.c **** 
+  72:Core/Src/freertos.c **** /* USER CODE END FunctionPrototypes */
+  73:Core/Src/freertos.c **** 
+  74:Core/Src/freertos.c **** void StartOled(void *argument);
+  75:Core/Src/freertos.c **** void StartMax(void *argument);
+  76:Core/Src/freertos.c **** 
+  77:Core/Src/freertos.c **** extern void MX_USB_DEVICE_Init(void);
+  78:Core/Src/freertos.c **** void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
+  79:Core/Src/freertos.c **** 
+  80:Core/Src/freertos.c **** /**
+  81:Core/Src/freertos.c ****   * @brief  FreeRTOS initialization
+  82:Core/Src/freertos.c ****   * @param  None
+  83:Core/Src/freertos.c ****   * @retval None
+  84:Core/Src/freertos.c ****   */
+  85:Core/Src/freertos.c **** void MX_FREERTOS_Init(void) {
+  86:Core/Src/freertos.c ****   /* USER CODE BEGIN Init */
+  87:Core/Src/freertos.c ****   
   88:Core/Src/freertos.c **** 
-  89:Core/Src/freertos.c ****   /* USER CODE BEGIN RTOS_MUTEX */
-  90:Core/Src/freertos.c ****   /* add mutexes, ... */
-  91:Core/Src/freertos.c ****   /* USER CODE END RTOS_MUTEX */
-  92:Core/Src/freertos.c **** 
-  93:Core/Src/freertos.c ****   /* USER CODE BEGIN RTOS_SEMAPHORES */
-  94:Core/Src/freertos.c ****   /* add semaphores, ... */
-  95:Core/Src/freertos.c ****   /* USER CODE END RTOS_SEMAPHORES */
-  96:Core/Src/freertos.c **** 
-  97:Core/Src/freertos.c ****   /* USER CODE BEGIN RTOS_TIMERS */
-  98:Core/Src/freertos.c ****   /* start timers, add new ones, ... */
-  99:Core/Src/freertos.c ****   /* USER CODE END RTOS_TIMERS */
- 100:Core/Src/freertos.c **** 
- 101:Core/Src/freertos.c ****   /* USER CODE BEGIN RTOS_QUEUES */
- 102:Core/Src/freertos.c ****   /* add queues, ... */
- 103:Core/Src/freertos.c ****   /* USER CODE END RTOS_QUEUES */
- 104:Core/Src/freertos.c **** 
- 105:Core/Src/freertos.c ****   /* Create the thread(s) */
- 106:Core/Src/freertos.c ****   /* creation of Oled */
- 107:Core/Src/freertos.c ****   OledHandle = osThreadNew(StartOled, NULL, &Oled_attributes);
- 108:Core/Src/freertos.c **** 
- 109:Core/Src/freertos.c ****   /* creation of Max */
- 110:Core/Src/freertos.c ****   MaxHandle = osThreadNew(StartMax, NULL, &Max_attributes);
- 111:Core/Src/freertos.c **** 
- 112:Core/Src/freertos.c ****   /* USER CODE BEGIN RTOS_THREADS */
- 113:Core/Src/freertos.c ****   /* add threads, ... */
- 114:Core/Src/freertos.c ****   /* USER CODE END RTOS_THREADS */
- 115:Core/Src/freertos.c **** 
- 116:Core/Src/freertos.c ****   /* USER CODE BEGIN RTOS_EVENTS */
- 117:Core/Src/freertos.c ****   /* add events, ... */
- 118:Core/Src/freertos.c ****   /* USER CODE END RTOS_EVENTS */
- 119:Core/Src/freertos.c **** 
- 120:Core/Src/freertos.c **** }
+  89:Core/Src/freertos.c ****   /* USER CODE END Init */
+ARM GAS  /tmp/ccmi2zuX.s 			page 3
+
+
+  90:Core/Src/freertos.c **** 
+  91:Core/Src/freertos.c ****   /* USER CODE BEGIN RTOS_MUTEX */
+  92:Core/Src/freertos.c ****   /* add mutexes, ... */
+  93:Core/Src/freertos.c ****   /* USER CODE END RTOS_MUTEX */
+  94:Core/Src/freertos.c **** 
+  95:Core/Src/freertos.c ****   /* USER CODE BEGIN RTOS_SEMAPHORES */
+  96:Core/Src/freertos.c ****   /* add semaphores, ... */
+  97:Core/Src/freertos.c ****   /* USER CODE END RTOS_SEMAPHORES */
+  98:Core/Src/freertos.c **** 
+  99:Core/Src/freertos.c ****   /* USER CODE BEGIN RTOS_TIMERS */
+ 100:Core/Src/freertos.c ****   /* start timers, add new ones, ... */
+ 101:Core/Src/freertos.c ****   /* USER CODE END RTOS_TIMERS */
+ 102:Core/Src/freertos.c **** 
+ 103:Core/Src/freertos.c ****   /* USER CODE BEGIN RTOS_QUEUES */
+ 104:Core/Src/freertos.c ****   /* add queues, ... */
+ 105:Core/Src/freertos.c ****   /* USER CODE END RTOS_QUEUES */
+ 106:Core/Src/freertos.c **** 
+ 107:Core/Src/freertos.c ****   /* Create the thread(s) */
+ 108:Core/Src/freertos.c ****   /* creation of Oled */
+ 109:Core/Src/freertos.c ****   OledHandle = osThreadNew(StartOled, NULL, &Oled_attributes);
+ 110:Core/Src/freertos.c **** 
+ 111:Core/Src/freertos.c ****   /* creation of Max */
+ 112:Core/Src/freertos.c ****   MaxHandle = osThreadNew(StartMax, NULL, &Max_attributes);
+ 113:Core/Src/freertos.c **** 
+ 114:Core/Src/freertos.c ****   /* USER CODE BEGIN RTOS_THREADS */
+ 115:Core/Src/freertos.c ****   /* add threads, ... */
+ 116:Core/Src/freertos.c ****   /* USER CODE END RTOS_THREADS */
+ 117:Core/Src/freertos.c **** 
+ 118:Core/Src/freertos.c ****   /* USER CODE BEGIN RTOS_EVENTS */
+ 119:Core/Src/freertos.c ****   /* add events, ... */
+ 120:Core/Src/freertos.c ****   /* USER CODE END RTOS_EVENTS */
  121:Core/Src/freertos.c **** 
- 122:Core/Src/freertos.c **** /* USER CODE BEGIN Header_StartOled */
- 123:Core/Src/freertos.c **** /**
- 124:Core/Src/freertos.c ****   * @brief  Function implementing the Oled thread.
- 125:Core/Src/freertos.c ****   * @param  argument: Not used
- 126:Core/Src/freertos.c ****   * @retval None
- 127:Core/Src/freertos.c ****   */
- 128:Core/Src/freertos.c **** /* USER CODE END Header_StartOled */
- 129:Core/Src/freertos.c **** void StartOled(void *argument)
-ARM GAS  /tmp/cce4tE5S.s 			page 4
+ 122:Core/Src/freertos.c **** }
+ 123:Core/Src/freertos.c **** 
+ 124:Core/Src/freertos.c **** /* USER CODE BEGIN Header_StartOled */
+ 125:Core/Src/freertos.c **** /**
+ 126:Core/Src/freertos.c ****   * @brief  Function implementing the Oled thread.
+ 127:Core/Src/freertos.c ****   * @param  argument: Not used
+ 128:Core/Src/freertos.c ****   * @retval None
+ 129:Core/Src/freertos.c ****   */
+ 130:Core/Src/freertos.c **** /* USER CODE END Header_StartOled */
+ 131:Core/Src/freertos.c **** void StartOled(void *argument)
+ 132:Core/Src/freertos.c **** {
+ 133:Core/Src/freertos.c ****   /* init code for USB_DEVICE */
+ 134:Core/Src/freertos.c ****   MX_USB_DEVICE_Init();
+ 135:Core/Src/freertos.c ****   /* USER CODE BEGIN StartOled */
+ 136:Core/Src/freertos.c ****   /* Infinite loop */
+ 137:Core/Src/freertos.c ****   // uint8_t send_data[]="123456\r\n";
+ 138:Core/Src/freertos.c ****   
+ 139:Core/Src/freertos.c ****   OLED_ShowString(4,1,"jikli");
+ 140:Core/Src/freertos.c ****   Max30102_Safety();
+ 141:Core/Src/freertos.c ****   
+ 142:Core/Src/freertos.c ****   for(;;)
+ 143:Core/Src/freertos.c ****   { 
+ 144:Core/Src/freertos.c ****     // OLED_ShowString(0,0 ,"hello" ,8 );
+ 145:Core/Src/freertos.c ****     // CDC_Transmit_FS(send_data,sizeof(send_data));
+ 146:Core/Src/freertos.c ****     // osDelay(500);
+ARM GAS  /tmp/ccmi2zuX.s 			page 4
 
 
- 130:Core/Src/freertos.c **** {
-  38              		.loc 1 130 1 view -0
-  39              		.cfi_startproc
-  40              		@ Volatile: function does not return.
-  41              		@ args = 0, pretend = 0, frame = 40
-  42              		@ frame_needed = 0, uses_anonymous_args = 0
-  43              		.loc 1 130 1 is_stmt 0 view .LVU1
-  44 0000 00B5     		push	{lr}
-  45              	.LCFI0:
-  46              		.cfi_def_cfa_offset 4
-  47              		.cfi_offset 14, -4
-  48 0002 8BB0     		sub	sp, sp, #44
-  49              	.LCFI1:
-  50              		.cfi_def_cfa_offset 48
- 131:Core/Src/freertos.c ****   /* init code for USB_DEVICE */
- 132:Core/Src/freertos.c ****   MX_USB_DEVICE_Init();
-  51              		.loc 1 132 3 is_stmt 1 view .LVU2
-  52 0004 FFF7FEFF 		bl	MX_USB_DEVICE_Init
-  53              	.LVL1:
- 133:Core/Src/freertos.c ****   /* USER CODE BEGIN StartOled */
- 134:Core/Src/freertos.c ****   /* Infinite loop */
- 135:Core/Src/freertos.c ****   uint8_t send_data[]="usb_otg_fs!abcdefghijklmnopqrstuvwxyz\r\n";
-  54              		.loc 1 135 3 view .LVU3
-  55              		.loc 1 135 11 is_stmt 0 view .LVU4
-  56 0008 EC46     		mov	ip, sp
-  57 000a 114C     		ldr	r4, .L4
-  58 000c 0FCC     		ldmia	r4!, {r0, r1, r2, r3}
-  59 000e ACE80F00 		stmia	ip!, {r0, r1, r2, r3}
-  60 0012 0FCC     		ldmia	r4!, {r0, r1, r2, r3}
-  61 0014 ACE80F00 		stmia	ip!, {r0, r1, r2, r3}
-  62 0018 94E80300 		ldm	r4, {r0, r1}
-  63 001c 8CE80300 		stm	ip, {r0, r1}
-  64              	.L2:
- 136:Core/Src/freertos.c ****   for(;;)
-  65              		.loc 1 136 3 is_stmt 1 discriminator 1 view .LVU5
- 137:Core/Src/freertos.c ****   { 
- 138:Core/Src/freertos.c ****     OLED_ShowString(0,0 ,"hello" ,8 );
-  66              		.loc 1 138 5 discriminator 1 view .LVU6
-  67 0020 0823     		movs	r3, #8
-  68 0022 0C4A     		ldr	r2, .L4+4
-  69 0024 0021     		movs	r1, #0
-  70 0026 0846     		mov	r0, r1
-  71 0028 FFF7FEFF 		bl	OLED_ShowString
-  72              	.LVL2:
- 139:Core/Src/freertos.c ****     CDC_Transmit_FS(send_data,sizeof(send_data));
-  73              		.loc 1 139 5 discriminator 1 view .LVU7
-  74 002c 2821     		movs	r1, #40
-  75 002e 6846     		mov	r0, sp
-  76 0030 FFF7FEFF 		bl	CDC_Transmit_FS
-  77              	.LVL3:
- 140:Core/Src/freertos.c ****     osDelay(500);
-  78              		.loc 1 140 5 discriminator 1 view .LVU8
-  79 0034 4FF4FA70 		mov	r0, #500
-  80 0038 FFF7FEFF 		bl	osDelay
-  81              	.LVL4:
- 141:Core/Src/freertos.c ****     OLED_ShowString(10,10 ,"world" ,8 );
-  82              		.loc 1 141 5 discriminator 1 view .LVU9
-ARM GAS  /tmp/cce4tE5S.s 			page 5
+ 147:Core/Src/freertos.c ****     // OLED_ShowString(10,10 ,"world" ,8 );
+ 148:Core/Src/freertos.c ****  	Read();
+ 149:Core/Src/freertos.c ****     osDelay(200);
+ 150:Core/Src/freertos.c ****   }
+ 151:Core/Src/freertos.c ****   /* USER CODE END StartOled */
+ 152:Core/Src/freertos.c **** }
+ 153:Core/Src/freertos.c **** 
+ 154:Core/Src/freertos.c **** /* USER CODE BEGIN Header_StartMax */
+ 155:Core/Src/freertos.c **** /**
+ 156:Core/Src/freertos.c **** * @brief Function implementing the Max thread.
+ 157:Core/Src/freertos.c **** * @param argument: Not used
+ 158:Core/Src/freertos.c **** * @retval None
+ 159:Core/Src/freertos.c **** */
+ 160:Core/Src/freertos.c **** /* USER CODE END Header_StartMax */
+ 161:Core/Src/freertos.c **** void StartMax(void *argument)
+ 162:Core/Src/freertos.c **** {
+  27              		.loc 1 162 1 view -0
+  28              		.cfi_startproc
+  29              		@ Volatile: function does not return.
+  30              		@ args = 0, pretend = 0, frame = 0
+  31              		@ frame_needed = 0, uses_anonymous_args = 0
+  32              		@ link register save eliminated.
+  33              	.LVL0:
+  34              	.L2:
+ 163:Core/Src/freertos.c ****   /* USER CODE BEGIN StartMax */
+ 164:Core/Src/freertos.c ****   /* Infinite loop */
+ 165:Core/Src/freertos.c ****   for(;;)
+  35              		.loc 1 165 3 discriminator 1 view .LVU1
+ 166:Core/Src/freertos.c ****   { 
+ 167:Core/Src/freertos.c ****     // osDelay(200);
+ 168:Core/Src/freertos.c ****     // OLED_ShowString(0,0 ,"world" ,8 );
+ 169:Core/Src/freertos.c ****     // osDelay(500);
+ 170:Core/Src/freertos.c ****     // OLED_ShowString(10,10 ,"hello" ,8 );
+ 171:Core/Src/freertos.c ****   }
+  36              		.loc 1 171 3 discriminator 1 view .LVU2
+ 165:Core/Src/freertos.c ****   { 
+  37              		.loc 1 165 3 discriminator 1 view .LVU3
+  38 0000 FEE7     		b	.L2
+  39              		.cfi_endproc
+  40              	.LFE74:
+  42              		.section	.rodata.StartOled.str1.4,"aMS",%progbits,1
+  43              		.align	2
+  44              	.LC0:
+  45 0000 6A696B6C 		.ascii	"jikli\000"
+  45      6900
+  46              		.section	.text.StartOled,"ax",%progbits
+  47              		.align	1
+  48              		.global	StartOled
+  49              		.syntax unified
+  50              		.thumb
+  51              		.thumb_func
+  53              	StartOled:
+  54              	.LVL1:
+  55              	.LFB73:
+ 132:Core/Src/freertos.c ****   /* init code for USB_DEVICE */
+  56              		.loc 1 132 1 view -0
+  57              		.cfi_startproc
+ARM GAS  /tmp/ccmi2zuX.s 			page 5
 
 
-  83 003c 0823     		movs	r3, #8
-  84 003e 064A     		ldr	r2, .L4+8
-  85 0040 0A21     		movs	r1, #10
-  86 0042 0846     		mov	r0, r1
-  87 0044 FFF7FEFF 		bl	OLED_ShowString
-  88              	.LVL5:
- 142:Core/Src/freertos.c ****     osDelay(200);
-  89              		.loc 1 142 5 discriminator 1 view .LVU10
-  90 0048 C820     		movs	r0, #200
-  91 004a FFF7FEFF 		bl	osDelay
-  92              	.LVL6:
- 136:Core/Src/freertos.c ****   { 
-  93              		.loc 1 136 3 discriminator 1 view .LVU11
-  94 004e E7E7     		b	.L2
-  95              	.L5:
-  96              		.align	2
-  97              	.L4:
-  98 0050 10000000 		.word	.LC0
-  99 0054 00000000 		.word	.LC1
- 100 0058 08000000 		.word	.LC2
- 101              		.cfi_endproc
- 102              	.LFE73:
- 104              		.section	.text.StartMax,"ax",%progbits
- 105              		.align	1
- 106              		.global	StartMax
- 107              		.syntax unified
- 108              		.thumb
- 109              		.thumb_func
- 111              	StartMax:
- 112              	.LFB74:
- 143:Core/Src/freertos.c ****   }
- 144:Core/Src/freertos.c ****   /* USER CODE END StartOled */
- 145:Core/Src/freertos.c **** }
- 146:Core/Src/freertos.c **** 
- 147:Core/Src/freertos.c **** /* USER CODE BEGIN Header_StartMax */
- 148:Core/Src/freertos.c **** /**
- 149:Core/Src/freertos.c **** * @brief Function implementing the Max thread.
- 150:Core/Src/freertos.c **** * @param argument: Not used
- 151:Core/Src/freertos.c **** * @retval None
- 152:Core/Src/freertos.c **** */
- 153:Core/Src/freertos.c **** /* USER CODE END Header_StartMax */
- 154:Core/Src/freertos.c **** void StartMax(void *argument)
- 155:Core/Src/freertos.c **** {
- 113              		.loc 1 155 1 view -0
- 114              		.cfi_startproc
- 115              		@ Volatile: function does not return.
- 116              		@ args = 0, pretend = 0, frame = 0
- 117              		@ frame_needed = 0, uses_anonymous_args = 0
- 118              	.LVL7:
- 119              		.loc 1 155 1 is_stmt 0 view .LVU13
- 120 0000 08B5     		push	{r3, lr}
- 121              	.LCFI2:
- 122              		.cfi_def_cfa_offset 8
- 123              		.cfi_offset 3, -8
- 124              		.cfi_offset 14, -4
- 125              	.LVL8:
- 126              	.L7:
-ARM GAS  /tmp/cce4tE5S.s 			page 6
+  58              		@ Volatile: function does not return.
+  59              		@ args = 0, pretend = 0, frame = 0
+  60              		@ frame_needed = 0, uses_anonymous_args = 0
+ 132:Core/Src/freertos.c ****   /* init code for USB_DEVICE */
+  61              		.loc 1 132 1 is_stmt 0 view .LVU5
+  62 0000 08B5     		push	{r3, lr}
+  63              	.LCFI0:
+  64              		.cfi_def_cfa_offset 8
+  65              		.cfi_offset 3, -8
+  66              		.cfi_offset 14, -4
+ 134:Core/Src/freertos.c ****   /* USER CODE BEGIN StartOled */
+  67              		.loc 1 134 3 is_stmt 1 view .LVU6
+  68 0002 FFF7FEFF 		bl	MX_USB_DEVICE_Init
+  69              	.LVL2:
+ 139:Core/Src/freertos.c ****   Max30102_Safety();
+  70              		.loc 1 139 3 view .LVU7
+  71 0006 064A     		ldr	r2, .L6
+  72 0008 0121     		movs	r1, #1
+  73 000a 0420     		movs	r0, #4
+  74 000c FFF7FEFF 		bl	OLED_ShowString
+  75              	.LVL3:
+ 140:Core/Src/freertos.c ****   
+  76              		.loc 1 140 3 view .LVU8
+  77 0010 FFF7FEFF 		bl	Max30102_Safety
+  78              	.LVL4:
+  79              	.L4:
+ 142:Core/Src/freertos.c ****   { 
+  80              		.loc 1 142 3 discriminator 1 view .LVU9
+ 148:Core/Src/freertos.c ****     osDelay(200);
+  81              		.loc 1 148 3 discriminator 1 view .LVU10
+  82 0014 FFF7FEFF 		bl	Read
+  83              	.LVL5:
+ 149:Core/Src/freertos.c ****   }
+  84              		.loc 1 149 5 discriminator 1 view .LVU11
+  85 0018 C820     		movs	r0, #200
+  86 001a FFF7FEFF 		bl	osDelay
+  87              	.LVL6:
+ 142:Core/Src/freertos.c ****   { 
+  88              		.loc 1 142 3 discriminator 1 view .LVU12
+  89 001e F9E7     		b	.L4
+  90              	.L7:
+  91              		.align	2
+  92              	.L6:
+  93 0020 00000000 		.word	.LC0
+  94              		.cfi_endproc
+  95              	.LFE73:
+  97              		.section	.text.MX_FREERTOS_Init,"ax",%progbits
+  98              		.align	1
+  99              		.global	MX_FREERTOS_Init
+ 100              		.syntax unified
+ 101              		.thumb
+ 102              		.thumb_func
+ 104              	MX_FREERTOS_Init:
+ 105              	.LFB72:
+  85:Core/Src/freertos.c ****   /* USER CODE BEGIN Init */
+ 106              		.loc 1 85 29 view -0
+ 107              		.cfi_startproc
+ARM GAS  /tmp/ccmi2zuX.s 			page 6
 
 
- 156:Core/Src/freertos.c ****   /* USER CODE BEGIN StartMax */
- 157:Core/Src/freertos.c ****   /* Infinite loop */
- 158:Core/Src/freertos.c ****   for(;;)
- 127              		.loc 1 158 3 is_stmt 1 discriminator 1 view .LVU14
- 159:Core/Src/freertos.c ****   { 
- 160:Core/Src/freertos.c ****     osDelay(200);
- 128              		.loc 1 160 5 discriminator 1 view .LVU15
- 129 0002 C820     		movs	r0, #200
- 130 0004 FFF7FEFF 		bl	osDelay
- 131              	.LVL9:
- 161:Core/Src/freertos.c ****     OLED_ShowString(0,0 ,"world" ,8 );
- 132              		.loc 1 161 5 discriminator 1 view .LVU16
- 133 0008 0823     		movs	r3, #8
- 134 000a 084A     		ldr	r2, .L9
- 135 000c 0021     		movs	r1, #0
- 136 000e 0846     		mov	r0, r1
- 137 0010 FFF7FEFF 		bl	OLED_ShowString
- 138              	.LVL10:
- 162:Core/Src/freertos.c ****     osDelay(500);
- 139              		.loc 1 162 5 discriminator 1 view .LVU17
- 140 0014 4FF4FA70 		mov	r0, #500
- 141 0018 FFF7FEFF 		bl	osDelay
- 142              	.LVL11:
- 163:Core/Src/freertos.c ****     OLED_ShowString(10,10 ,"hello" ,8 );
- 143              		.loc 1 163 5 discriminator 1 view .LVU18
- 144 001c 0823     		movs	r3, #8
- 145 001e 044A     		ldr	r2, .L9+4
- 146 0020 0A21     		movs	r1, #10
- 147 0022 0846     		mov	r0, r1
- 148 0024 FFF7FEFF 		bl	OLED_ShowString
- 149              	.LVL12:
- 158:Core/Src/freertos.c ****   { 
- 150              		.loc 1 158 3 discriminator 1 view .LVU19
- 151 0028 EBE7     		b	.L7
- 152              	.L10:
- 153 002a 00BF     		.align	2
- 154              	.L9:
- 155 002c 08000000 		.word	.LC2
- 156 0030 00000000 		.word	.LC1
- 157              		.cfi_endproc
- 158              	.LFE74:
- 160              		.section	.text.MX_FREERTOS_Init,"ax",%progbits
- 161              		.align	1
- 162              		.global	MX_FREERTOS_Init
- 163              		.syntax unified
- 164              		.thumb
- 165              		.thumb_func
- 167              	MX_FREERTOS_Init:
- 168              	.LFB72:
-  84:Core/Src/freertos.c ****   /* USER CODE BEGIN Init */
- 169              		.loc 1 84 29 view -0
- 170              		.cfi_startproc
- 171              		@ args = 0, pretend = 0, frame = 0
- 172              		@ frame_needed = 0, uses_anonymous_args = 0
- 173 0000 08B5     		push	{r3, lr}
- 174              	.LCFI3:
- 175              		.cfi_def_cfa_offset 8
-ARM GAS  /tmp/cce4tE5S.s 			page 7
+ 108              		@ args = 0, pretend = 0, frame = 0
+ 109              		@ frame_needed = 0, uses_anonymous_args = 0
+ 110 0000 08B5     		push	{r3, lr}
+ 111              	.LCFI1:
+ 112              		.cfi_def_cfa_offset 8
+ 113              		.cfi_offset 3, -8
+ 114              		.cfi_offset 14, -4
+ 109:Core/Src/freertos.c **** 
+ 115              		.loc 1 109 3 view .LVU14
+ 109:Core/Src/freertos.c **** 
+ 116              		.loc 1 109 16 is_stmt 0 view .LVU15
+ 117 0002 074A     		ldr	r2, .L10
+ 118 0004 0021     		movs	r1, #0
+ 119 0006 0748     		ldr	r0, .L10+4
+ 120 0008 FFF7FEFF 		bl	osThreadNew
+ 121              	.LVL7:
+ 109:Core/Src/freertos.c **** 
+ 122              		.loc 1 109 14 view .LVU16
+ 123 000c 064B     		ldr	r3, .L10+8
+ 124 000e 1860     		str	r0, [r3]
+ 112:Core/Src/freertos.c **** 
+ 125              		.loc 1 112 3 is_stmt 1 view .LVU17
+ 112:Core/Src/freertos.c **** 
+ 126              		.loc 1 112 15 is_stmt 0 view .LVU18
+ 127 0010 064A     		ldr	r2, .L10+12
+ 128 0012 0021     		movs	r1, #0
+ 129 0014 0648     		ldr	r0, .L10+16
+ 130 0016 FFF7FEFF 		bl	osThreadNew
+ 131              	.LVL8:
+ 112:Core/Src/freertos.c **** 
+ 132              		.loc 1 112 13 view .LVU19
+ 133 001a 064B     		ldr	r3, .L10+20
+ 134 001c 1860     		str	r0, [r3]
+ 122:Core/Src/freertos.c **** 
+ 135              		.loc 1 122 1 view .LVU20
+ 136 001e 08BD     		pop	{r3, pc}
+ 137              	.L11:
+ 138              		.align	2
+ 139              	.L10:
+ 140 0020 00000000 		.word	Oled_attributes
+ 141 0024 00000000 		.word	StartOled
+ 142 0028 00000000 		.word	OledHandle
+ 143 002c 00000000 		.word	Max_attributes
+ 144 0030 00000000 		.word	StartMax
+ 145 0034 00000000 		.word	MaxHandle
+ 146              		.cfi_endproc
+ 147              	.LFE72:
+ 149              		.global	Max_attributes
+ 150              		.section	.rodata.str1.4,"aMS",%progbits,1
+ 151              		.align	2
+ 152              	.LC1:
+ 153 0000 4D617800 		.ascii	"Max\000"
+ 154              		.section	.rodata.Max_attributes,"a"
+ 155              		.align	2
+ 158              	Max_attributes:
+ 159 0000 00000000 		.word	.LC1
+ 160 0004 00000000 		.space	16
+ARM GAS  /tmp/ccmi2zuX.s 			page 7
 
 
- 176              		.cfi_offset 3, -8
- 177              		.cfi_offset 14, -4
- 107:Core/Src/freertos.c **** 
- 178              		.loc 1 107 3 view .LVU21
- 107:Core/Src/freertos.c **** 
- 179              		.loc 1 107 16 is_stmt 0 view .LVU22
- 180 0002 074A     		ldr	r2, .L13
- 181 0004 0021     		movs	r1, #0
- 182 0006 0748     		ldr	r0, .L13+4
- 183 0008 FFF7FEFF 		bl	osThreadNew
- 184              	.LVL13:
- 107:Core/Src/freertos.c **** 
- 185              		.loc 1 107 14 view .LVU23
- 186 000c 064B     		ldr	r3, .L13+8
- 187 000e 1860     		str	r0, [r3]
- 110:Core/Src/freertos.c **** 
- 188              		.loc 1 110 3 is_stmt 1 view .LVU24
- 110:Core/Src/freertos.c **** 
- 189              		.loc 1 110 15 is_stmt 0 view .LVU25
- 190 0010 064A     		ldr	r2, .L13+12
- 191 0012 0021     		movs	r1, #0
- 192 0014 0648     		ldr	r0, .L13+16
- 193 0016 FFF7FEFF 		bl	osThreadNew
- 194              	.LVL14:
- 110:Core/Src/freertos.c **** 
- 195              		.loc 1 110 13 view .LVU26
- 196 001a 064B     		ldr	r3, .L13+20
- 197 001c 1860     		str	r0, [r3]
- 120:Core/Src/freertos.c **** 
- 198              		.loc 1 120 1 view .LVU27
- 199 001e 08BD     		pop	{r3, pc}
- 200              	.L14:
- 201              		.align	2
- 202              	.L13:
- 203 0020 00000000 		.word	Oled_attributes
- 204 0024 00000000 		.word	StartOled
- 205 0028 00000000 		.word	OledHandle
- 206 002c 00000000 		.word	Max_attributes
- 207 0030 00000000 		.word	StartMax
- 208 0034 00000000 		.word	MaxHandle
- 209              		.cfi_endproc
- 210              	.LFE72:
- 212              		.global	Max_attributes
- 213              		.section	.rodata.str1.4,"aMS",%progbits,1
- 214              		.align	2
- 215              	.LC3:
- 216 0000 4D617800 		.ascii	"Max\000"
- 217              		.section	.rodata.Max_attributes,"a"
- 218              		.align	2
- 221              	Max_attributes:
- 222 0000 00000000 		.word	.LC3
- 223 0004 00000000 		.space	16
- 223      00000000 
- 223      00000000 
- 223      00000000 
- 224 0014 00020000 		.word	512
- 225 0018 08000000 		.word	8
-ARM GAS  /tmp/cce4tE5S.s 			page 8
-
-
- 226 001c 00000000 		.space	8
- 226      00000000 
- 227              		.global	MaxHandle
- 228              		.section	.bss.MaxHandle,"aw",%nobits
- 229              		.align	2
- 232              	MaxHandle:
- 233 0000 00000000 		.space	4
- 234              		.global	Oled_attributes
- 235              		.section	.rodata.str1.4
- 236              		.align	2
- 237              	.LC4:
- 238 0004 4F6C6564 		.ascii	"Oled\000"
- 238      00
- 239              		.section	.rodata.Oled_attributes,"a"
- 240              		.align	2
- 243              	Oled_attributes:
- 244 0000 04000000 		.word	.LC4
- 245 0004 00000000 		.space	16
- 245      00000000 
- 245      00000000 
- 245      00000000 
- 246 0014 00020000 		.word	512
- 247 0018 18000000 		.word	24
- 248 001c 00000000 		.space	8
- 248      00000000 
- 249              		.global	OledHandle
- 250              		.section	.bss.OledHandle,"aw",%nobits
- 251              		.align	2
- 254              	OledHandle:
- 255 0000 00000000 		.space	4
- 256              		.text
- 257              	.Letext0:
- 258              		.file 2 "/nix/store/244x2dv48nan65bmpk2pv3pfl5s5jjn8-gcc-arm-embedded-12.3.rel1/arm-none-eabi/incl
- 259              		.file 3 "/nix/store/244x2dv48nan65bmpk2pv3pfl5s5jjn8-gcc-arm-embedded-12.3.rel1/arm-none-eabi/incl
- 260              		.file 4 "Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.h"
- 261              		.file 5 "USB_DEVICE/App/usbd_cdc_if.h"
- 262              		.file 6 "Core/Inc/oled.h"
-ARM GAS  /tmp/cce4tE5S.s 			page 9
+ 160      00000000 
+ 160      00000000 
+ 160      00000000 
+ 161 0014 00020000 		.word	512
+ 162 0018 08000000 		.word	8
+ 163 001c 00000000 		.space	8
+ 163      00000000 
+ 164              		.global	MaxHandle
+ 165              		.section	.bss.MaxHandle,"aw",%nobits
+ 166              		.align	2
+ 169              	MaxHandle:
+ 170 0000 00000000 		.space	4
+ 171              		.global	Oled_attributes
+ 172              		.section	.rodata.str1.4
+ 173              		.align	2
+ 174              	.LC2:
+ 175 0004 4F6C6564 		.ascii	"Oled\000"
+ 175      00
+ 176              		.section	.rodata.Oled_attributes,"a"
+ 177              		.align	2
+ 180              	Oled_attributes:
+ 181 0000 04000000 		.word	.LC2
+ 182 0004 00000000 		.space	16
+ 182      00000000 
+ 182      00000000 
+ 182      00000000 
+ 183 0014 00020000 		.word	512
+ 184 0018 18000000 		.word	24
+ 185 001c 00000000 		.space	8
+ 185      00000000 
+ 186              		.global	OledHandle
+ 187              		.section	.bss.OledHandle,"aw",%nobits
+ 188              		.align	2
+ 191              	OledHandle:
+ 192 0000 00000000 		.space	4
+ 193              		.text
+ 194              	.Letext0:
+ 195              		.file 2 "/nix/store/244x2dv48nan65bmpk2pv3pfl5s5jjn8-gcc-arm-embedded-12.3.rel1/arm-none-eabi/incl
+ 196              		.file 3 "/nix/store/244x2dv48nan65bmpk2pv3pfl5s5jjn8-gcc-arm-embedded-12.3.rel1/arm-none-eabi/incl
+ 197              		.file 4 "Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.h"
+ 198              		.file 5 "Core/Inc/Max30102.h"
+ 199              		.file 6 "Core/Inc/oled.h"
+ARM GAS  /tmp/ccmi2zuX.s 			page 8
 
 
 DEFINED SYMBOLS
                             *ABS*:00000000 freertos.c
-     /tmp/cce4tE5S.s:19     .rodata.StartOled.str1.4:00000000 $d
-     /tmp/cce4tE5S.s:29     .text.StartOled:00000000 $t
-     /tmp/cce4tE5S.s:35     .text.StartOled:00000000 StartOled
-     /tmp/cce4tE5S.s:98     .text.StartOled:00000050 $d
-     /tmp/cce4tE5S.s:105    .text.StartMax:00000000 $t
-     /tmp/cce4tE5S.s:111    .text.StartMax:00000000 StartMax
-     /tmp/cce4tE5S.s:155    .text.StartMax:0000002c $d
-     /tmp/cce4tE5S.s:161    .text.MX_FREERTOS_Init:00000000 $t
-     /tmp/cce4tE5S.s:167    .text.MX_FREERTOS_Init:00000000 MX_FREERTOS_Init
-     /tmp/cce4tE5S.s:203    .text.MX_FREERTOS_Init:00000020 $d
-     /tmp/cce4tE5S.s:243    .rodata.Oled_attributes:00000000 Oled_attributes
-     /tmp/cce4tE5S.s:254    .bss.OledHandle:00000000 OledHandle
-     /tmp/cce4tE5S.s:221    .rodata.Max_attributes:00000000 Max_attributes
-     /tmp/cce4tE5S.s:232    .bss.MaxHandle:00000000 MaxHandle
-     /tmp/cce4tE5S.s:214    .rodata.str1.4:00000000 $d
-     /tmp/cce4tE5S.s:218    .rodata.Max_attributes:00000000 $d
-     /tmp/cce4tE5S.s:229    .bss.MaxHandle:00000000 $d
-     /tmp/cce4tE5S.s:240    .rodata.Oled_attributes:00000000 $d
-     /tmp/cce4tE5S.s:251    .bss.OledHandle:00000000 $d
+     /tmp/ccmi2zuX.s:19     .text.StartMax:00000000 $t
+     /tmp/ccmi2zuX.s:25     .text.StartMax:00000000 StartMax
+     /tmp/ccmi2zuX.s:43     .rodata.StartOled.str1.4:00000000 $d
+     /tmp/ccmi2zuX.s:47     .text.StartOled:00000000 $t
+     /tmp/ccmi2zuX.s:53     .text.StartOled:00000000 StartOled
+     /tmp/ccmi2zuX.s:93     .text.StartOled:00000020 $d
+     /tmp/ccmi2zuX.s:98     .text.MX_FREERTOS_Init:00000000 $t
+     /tmp/ccmi2zuX.s:104    .text.MX_FREERTOS_Init:00000000 MX_FREERTOS_Init
+     /tmp/ccmi2zuX.s:140    .text.MX_FREERTOS_Init:00000020 $d
+     /tmp/ccmi2zuX.s:180    .rodata.Oled_attributes:00000000 Oled_attributes
+     /tmp/ccmi2zuX.s:191    .bss.OledHandle:00000000 OledHandle
+     /tmp/ccmi2zuX.s:158    .rodata.Max_attributes:00000000 Max_attributes
+     /tmp/ccmi2zuX.s:169    .bss.MaxHandle:00000000 MaxHandle
+     /tmp/ccmi2zuX.s:151    .rodata.str1.4:00000000 $d
+     /tmp/ccmi2zuX.s:155    .rodata.Max_attributes:00000000 $d
+     /tmp/ccmi2zuX.s:166    .bss.MaxHandle:00000000 $d
+     /tmp/ccmi2zuX.s:177    .rodata.Oled_attributes:00000000 $d
+     /tmp/ccmi2zuX.s:188    .bss.OledHandle:00000000 $d
 
 UNDEFINED SYMBOLS
 MX_USB_DEVICE_Init
 OLED_ShowString
-CDC_Transmit_FS
+Max30102_Safety
+Read
 osDelay
 osThreadNew

@@ -26,6 +26,7 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "oled.h"
+#include "Max30102.h"
 #include "usb_device.h"
 #include "usbd_cdc_if.h"
 
@@ -83,6 +84,7 @@ void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
   */
 void MX_FREERTOS_Init(void) {
   /* USER CODE BEGIN Init */
+  
 
   /* USER CODE END Init */
 
@@ -132,13 +134,18 @@ void StartOled(void *argument)
   MX_USB_DEVICE_Init();
   /* USER CODE BEGIN StartOled */
   /* Infinite loop */
-  uint8_t send_data[]="usb_otg_fs!abcdefghijklmnopqrstuvwxyz\r\n";
+  // uint8_t send_data[]="123456\r\n";
+  
+  OLED_ShowString(4,1,"jikli");
+  Max30102_Safety();
+  
   for(;;)
   { 
-    OLED_ShowString(0,0 ,"hello" ,8 );
-    CDC_Transmit_FS(send_data,sizeof(send_data));
-    osDelay(500);
-    OLED_ShowString(10,10 ,"world" ,8 );
+    // OLED_ShowString(0,0 ,"hello" ,8 );
+    // CDC_Transmit_FS(send_data,sizeof(send_data));
+    // osDelay(500);
+    // OLED_ShowString(10,10 ,"world" ,8 );
+ 	Read();
     osDelay(200);
   }
   /* USER CODE END StartOled */
@@ -157,10 +164,10 @@ void StartMax(void *argument)
   /* Infinite loop */
   for(;;)
   { 
-    osDelay(200);
-    OLED_ShowString(0,0 ,"world" ,8 );
-    osDelay(500);
-    OLED_ShowString(10,10 ,"hello" ,8 );
+    // osDelay(200);
+    // OLED_ShowString(0,0 ,"world" ,8 );
+    // osDelay(500);
+    // OLED_ShowString(10,10 ,"hello" ,8 );
   }
   /* USER CODE END StartMax */
 }

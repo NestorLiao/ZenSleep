@@ -1,0 +1,1280 @@
+ARM GAS  /tmp/ccN5iRpA.s 			page 1
+
+
+   1              		.cpu cortex-m3
+   2              		.arch armv7-m
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"Max30102.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.file 1 "Core/Src/Max30102.c"
+  18              		.section	.text.Max30102_WriteData,"ax",%progbits
+  19              		.align	1
+  20              		.global	Max30102_WriteData
+  21              		.syntax unified
+  22              		.thumb
+  23              		.thumb_func
+  25              	Max30102_WriteData:
+  26              	.LVL0:
+  27              	.LFB65:
+   1:Core/Src/Max30102.c **** #include "i2c.h"
+   2:Core/Src/Max30102.c **** #include "OLED.h"
+   3:Core/Src/Max30102.c **** #include "Max30102.h"
+   4:Core/Src/Max30102.c **** #include "algorithm.h"
+   5:Core/Src/Max30102.c **** 
+   6:Core/Src/Max30102.c **** //写Data到max30102中
+   7:Core/Src/Max30102.c **** HAL_StatusTypeDef Max30102_WriteData(uint8_t MemAddress,uint8_t Command,uint16_t SendCount)
+   8:Core/Src/Max30102.c **** {
+  28              		.loc 1 8 1 view -0
+  29              		.cfi_startproc
+  30              		@ args = 0, pretend = 0, frame = 8
+  31              		@ frame_needed = 0, uses_anonymous_args = 0
+  32              		.loc 1 8 1 is_stmt 0 view .LVU1
+  33 0000 00B5     		push	{lr}
+  34              	.LCFI0:
+  35              		.cfi_def_cfa_offset 4
+  36              		.cfi_offset 14, -4
+  37 0002 87B0     		sub	sp, sp, #28
+  38              	.LCFI1:
+  39              		.cfi_def_cfa_offset 32
+  40 0004 8DF81710 		strb	r1, [sp, #23]
+   9:Core/Src/Max30102.c **** 	HAL_StatusTypeDef status=HAL_OK;
+  41              		.loc 1 9 2 is_stmt 1 view .LVU2
+  42              	.LVL1:
+  10:Core/Src/Max30102.c **** 	status=HAL_I2C_Mem_Write(&hi2c2,Max30102_Write_Address,MemAddress,I2C_MEMADD_SIZE_8BIT,&Command,Se
+  43              		.loc 1 10 2 view .LVU3
+  44              		.loc 1 10 9 is_stmt 0 view .LVU4
+  45 0008 6423     		movs	r3, #100
+  46 000a 0293     		str	r3, [sp, #8]
+  47 000c 0192     		str	r2, [sp, #4]
+  48 000e 0DF11703 		add	r3, sp, #23
+ARM GAS  /tmp/ccN5iRpA.s 			page 2
+
+
+  49 0012 0093     		str	r3, [sp]
+  50 0014 0123     		movs	r3, #1
+  51 0016 0246     		mov	r2, r0
+  52              	.LVL2:
+  53              		.loc 1 10 9 view .LVU5
+  54 0018 AE21     		movs	r1, #174
+  55              	.LVL3:
+  56              		.loc 1 10 9 view .LVU6
+  57 001a 0348     		ldr	r0, .L3
+  58              	.LVL4:
+  59              		.loc 1 10 9 view .LVU7
+  60 001c FFF7FEFF 		bl	HAL_I2C_Mem_Write
+  61              	.LVL5:
+  11:Core/Src/Max30102.c **** 	return status;
+  62              		.loc 1 11 2 is_stmt 1 view .LVU8
+  12:Core/Src/Max30102.c **** }
+  63              		.loc 1 12 1 is_stmt 0 view .LVU9
+  64 0020 07B0     		add	sp, sp, #28
+  65              	.LCFI2:
+  66              		.cfi_def_cfa_offset 4
+  67              		@ sp needed
+  68 0022 5DF804FB 		ldr	pc, [sp], #4
+  69              	.L4:
+  70 0026 00BF     		.align	2
+  71              	.L3:
+  72 0028 00000000 		.word	hi2c2
+  73              		.cfi_endproc
+  74              	.LFE65:
+  76              		.section	.text.Max30102_ReadData,"ax",%progbits
+  77              		.align	1
+  78              		.global	Max30102_ReadData
+  79              		.syntax unified
+  80              		.thumb
+  81              		.thumb_func
+  83              	Max30102_ReadData:
+  84              	.LVL6:
+  85              	.LFB66:
+  13:Core/Src/Max30102.c **** 
+  14:Core/Src/Max30102.c **** //读出来
+  15:Core/Src/Max30102.c **** HAL_StatusTypeDef Max30102_ReadData(uint8_t DatAddress,uint8_t *Data,uint16_t ReceiveCount)
+  16:Core/Src/Max30102.c **** {
+  86              		.loc 1 16 1 is_stmt 1 view -0
+  87              		.cfi_startproc
+  88              		@ args = 0, pretend = 0, frame = 0
+  89              		@ frame_needed = 0, uses_anonymous_args = 0
+  90              		.loc 1 16 1 is_stmt 0 view .LVU11
+  91 0000 00B5     		push	{lr}
+  92              	.LCFI3:
+  93              		.cfi_def_cfa_offset 4
+  94              		.cfi_offset 14, -4
+  95 0002 85B0     		sub	sp, sp, #20
+  96              	.LCFI4:
+  97              		.cfi_def_cfa_offset 24
+  17:Core/Src/Max30102.c **** 	HAL_StatusTypeDef status=HAL_OK;
+  98              		.loc 1 17 2 is_stmt 1 view .LVU12
+  99              	.LVL7:
+  18:Core/Src/Max30102.c **** 	status=HAL_I2C_Mem_Read(&hi2c2,Max30102_Read_Address,DatAddress,I2C_MEMADD_SIZE_8BIT,Data,ReceiveC
+ARM GAS  /tmp/ccN5iRpA.s 			page 3
+
+
+ 100              		.loc 1 18 2 view .LVU13
+ 101              		.loc 1 18 9 is_stmt 0 view .LVU14
+ 102 0004 6423     		movs	r3, #100
+ 103 0006 0293     		str	r3, [sp, #8]
+ 104 0008 0192     		str	r2, [sp, #4]
+ 105 000a 0091     		str	r1, [sp]
+ 106 000c 0123     		movs	r3, #1
+ 107 000e 0246     		mov	r2, r0
+ 108              	.LVL8:
+ 109              		.loc 1 18 9 view .LVU15
+ 110 0010 AF21     		movs	r1, #175
+ 111              	.LVL9:
+ 112              		.loc 1 18 9 view .LVU16
+ 113 0012 0348     		ldr	r0, .L7
+ 114              	.LVL10:
+ 115              		.loc 1 18 9 view .LVU17
+ 116 0014 FFF7FEFF 		bl	HAL_I2C_Mem_Read
+ 117              	.LVL11:
+  19:Core/Src/Max30102.c **** 	return status;
+ 118              		.loc 1 19 2 is_stmt 1 view .LVU18
+  20:Core/Src/Max30102.c **** }
+ 119              		.loc 1 20 1 is_stmt 0 view .LVU19
+ 120 0018 05B0     		add	sp, sp, #20
+ 121              	.LCFI5:
+ 122              		.cfi_def_cfa_offset 4
+ 123              		@ sp needed
+ 124 001a 5DF804FB 		ldr	pc, [sp], #4
+ 125              	.L8:
+ 126 001e 00BF     		.align	2
+ 127              	.L7:
+ 128 0020 00000000 		.word	hi2c2
+ 129              		.cfi_endproc
+ 130              	.LFE66:
+ 132              		.section	.text.Max30102_FIFO_ReadData,"ax",%progbits
+ 133              		.align	1
+ 134              		.global	Max30102_FIFO_ReadData
+ 135              		.syntax unified
+ 136              		.thumb
+ 137              		.thumb_func
+ 139              	Max30102_FIFO_ReadData:
+ 140              	.LVL12:
+ 141              	.LFB67:
+  21:Core/Src/Max30102.c **** 
+  22:Core/Src/Max30102.c **** void Max30102_FIFO_ReadData(uint8_t DatAddress,uint8_t SixData[6],uint16_t Size)
+  23:Core/Src/Max30102.c **** {
+ 142              		.loc 1 23 1 is_stmt 1 view -0
+ 143              		.cfi_startproc
+ 144              		@ args = 0, pretend = 0, frame = 8
+ 145              		@ frame_needed = 0, uses_anonymous_args = 0
+ 146              		.loc 1 23 1 is_stmt 0 view .LVU21
+ 147 0000 70B5     		push	{r4, r5, r6, lr}
+ 148              	.LCFI6:
+ 149              		.cfi_def_cfa_offset 16
+ 150              		.cfi_offset 4, -16
+ 151              		.cfi_offset 5, -12
+ 152              		.cfi_offset 6, -8
+ 153              		.cfi_offset 14, -4
+ARM GAS  /tmp/ccN5iRpA.s 			page 4
+
+
+ 154 0002 82B0     		sub	sp, sp, #8
+ 155              	.LCFI7:
+ 156              		.cfi_def_cfa_offset 24
+ 157 0004 0446     		mov	r4, r0
+ 158 0006 0D46     		mov	r5, r1
+ 159 0008 1646     		mov	r6, r2
+  24:Core/Src/Max30102.c **** 	uint8_t temp;
+ 160              		.loc 1 24 2 is_stmt 1 view .LVU22
+  25:Core/Src/Max30102.c **** 	Max30102_ReadData(REG_INTR_STATUS_1,&temp,1);
+ 161              		.loc 1 25 2 view .LVU23
+ 162 000a 0122     		movs	r2, #1
+ 163              	.LVL13:
+ 164              		.loc 1 25 2 is_stmt 0 view .LVU24
+ 165 000c 0DF10701 		add	r1, sp, #7
+ 166              	.LVL14:
+ 167              		.loc 1 25 2 view .LVU25
+ 168 0010 0020     		movs	r0, #0
+ 169              	.LVL15:
+ 170              		.loc 1 25 2 view .LVU26
+ 171 0012 FFF7FEFF 		bl	Max30102_ReadData
+ 172              	.LVL16:
+  26:Core/Src/Max30102.c **** 	Max30102_ReadData(REG_INTR_STATUS_2,&temp,1);
+ 173              		.loc 1 26 2 is_stmt 1 view .LVU27
+ 174 0016 0122     		movs	r2, #1
+ 175 0018 0DF10701 		add	r1, sp, #7
+ 176 001c 1046     		mov	r0, r2
+ 177 001e FFF7FEFF 		bl	Max30102_ReadData
+ 178              	.LVL17:
+  27:Core/Src/Max30102.c **** 	Max30102_ReadData(DatAddress,SixData,Size);
+ 179              		.loc 1 27 2 view .LVU28
+ 180 0022 3246     		mov	r2, r6
+ 181 0024 2946     		mov	r1, r5
+ 182 0026 2046     		mov	r0, r4
+ 183 0028 FFF7FEFF 		bl	Max30102_ReadData
+ 184              	.LVL18:
+  28:Core/Src/Max30102.c **** }
+ 185              		.loc 1 28 1 is_stmt 0 view .LVU29
+ 186 002c 02B0     		add	sp, sp, #8
+ 187              	.LCFI8:
+ 188              		.cfi_def_cfa_offset 16
+ 189              		@ sp needed
+ 190 002e 70BD     		pop	{r4, r5, r6, pc}
+ 191              		.loc 1 28 1 view .LVU30
+ 192              		.cfi_endproc
+ 193              	.LFE67:
+ 195              		.section	.text.Max30102_Safety,"ax",%progbits
+ 196              		.align	1
+ 197              		.global	Max30102_Safety
+ 198              		.syntax unified
+ 199              		.thumb
+ 200              		.thumb_func
+ 202              	Max30102_Safety:
+ 203              	.LFB68:
+  29:Core/Src/Max30102.c **** 
+  30:Core/Src/Max30102.c **** uint8_t TempData[6];
+  31:Core/Src/Max30102.c **** uint32_t red_buffer[500];  //红光数据red，用于计算心率
+  32:Core/Src/Max30102.c **** uint32_t ir_buffer[500];  //红外数据 ir，用于计算血氧
+ARM GAS  /tmp/ccN5iRpA.s 			page 5
+
+
+  33:Core/Src/Max30102.c **** int32_t ir_buffer_length=500;   //计算前500个样本得到的数据
+  34:Core/Src/Max30102.c **** int32_t pn_SpO2_value;   //血氧实际值
+  35:Core/Src/Max30102.c **** int8_t SpO2_valid;        //血氧值有效标志
+  36:Core/Src/Max30102.c **** int32_t pn_hr_value;    //心率实际值
+  37:Core/Src/Max30102.c **** int8_t hr_valid;         //心率有效标志
+  38:Core/Src/Max30102.c **** uint32_t red_max=0,red_min=0x3FFFF;  //红光取值范围
+  39:Core/Src/Max30102.c **** uint32_t prev_data;      //前一次的值
+  40:Core/Src/Max30102.c **** float f_temp;           //临时变量
+  41:Core/Src/Max30102.c **** int32_t n_brightness;    //明确变量 
+  42:Core/Src/Max30102.c **** 
+  43:Core/Src/Max30102.c **** void Max30102_Safety(void)
+  44:Core/Src/Max30102.c **** {
+ 204              		.loc 1 44 1 is_stmt 1 view -0
+ 205              		.cfi_startproc
+ 206              		@ args = 0, pretend = 0, frame = 0
+ 207              		@ frame_needed = 0, uses_anonymous_args = 0
+ 208 0000 30B5     		push	{r4, r5, lr}
+ 209              	.LCFI9:
+ 210              		.cfi_def_cfa_offset 12
+ 211              		.cfi_offset 4, -12
+ 212              		.cfi_offset 5, -8
+ 213              		.cfi_offset 14, -4
+ 214 0002 85B0     		sub	sp, sp, #20
+ 215              	.LCFI10:
+ 216              		.cfi_def_cfa_offset 32
+  45:Core/Src/Max30102.c **** 	for(int i=0;i<ir_buffer_length;i++)
+ 217              		.loc 1 45 2 view .LVU32
+ 218              	.LBB2:
+ 219              		.loc 1 45 6 view .LVU33
+ 220              	.LVL19:
+ 221              		.loc 1 45 10 is_stmt 0 view .LVU34
+ 222 0004 0024     		movs	r4, #0
+ 223              		.loc 1 45 2 view .LVU35
+ 224 0006 00E0     		b	.L12
+ 225              	.LVL20:
+ 226              	.L15:
+ 227              		.loc 1 45 34 is_stmt 1 discriminator 2 view .LVU36
+ 228 0008 0134     		adds	r4, r4, #1
+ 229              	.LVL21:
+ 230              	.L12:
+ 231              		.loc 1 45 15 discriminator 1 view .LVU37
+ 232 000a 214B     		ldr	r3, .L18
+ 233 000c 1968     		ldr	r1, [r3]
+ 234 000e A142     		cmp	r1, r4
+ 235 0010 30DD     		ble	.L17
+ 236              	.L13:
+  46:Core/Src/Max30102.c **** 	{
+  47:Core/Src/Max30102.c **** 		while(Max30102_INT==GPIO_PIN_SET); //等待中断引脚相应，默认为高,当触发后会拉低
+ 237              		.loc 1 47 21 discriminator 1 view .LVU38
+ 238              		.loc 1 47 9 is_stmt 0 discriminator 1 view .LVU39
+ 239 0012 8021     		movs	r1, #128
+ 240 0014 1F48     		ldr	r0, .L18+4
+ 241 0016 FFF7FEFF 		bl	HAL_GPIO_ReadPin
+ 242              	.LVL22:
+ 243              		.loc 1 47 21 discriminator 1 view .LVU40
+ 244 001a 0128     		cmp	r0, #1
+ 245 001c F9D0     		beq	.L13
+ARM GAS  /tmp/ccN5iRpA.s 			page 6
+
+
+  48:Core/Src/Max30102.c **** 		Max30102_FIFO_ReadData(REG_FIFO_DATA,TempData,6);
+ 246              		.loc 1 48 3 is_stmt 1 view .LVU41
+ 247 001e 1E4D     		ldr	r5, .L18+8
+ 248 0020 0622     		movs	r2, #6
+ 249 0022 2946     		mov	r1, r5
+ 250 0024 0720     		movs	r0, #7
+ 251 0026 FFF7FEFF 		bl	Max30102_FIFO_ReadData
+ 252              	.LVL23:
+  49:Core/Src/Max30102.c **** 		red_buffer[i]=((TempData[0]&0x03)<<16) | (TempData[1]<<8) | (TempData[2]); //前三位数据组成HR
+ 253              		.loc 1 49 3 view .LVU42
+ 254              		.loc 1 49 27 is_stmt 0 view .LVU43
+ 255 002a 2B78     		ldrb	r3, [r5]	@ zero_extendqisi2
+ 256              		.loc 1 49 36 view .LVU44
+ 257 002c 1B04     		lsls	r3, r3, #16
+ 258 002e 03F44033 		and	r3, r3, #196608
+ 259              		.loc 1 49 53 view .LVU45
+ 260 0032 6A78     		ldrb	r2, [r5, #1]	@ zero_extendqisi2
+ 261              		.loc 1 49 42 view .LVU46
+ 262 0034 43EA0223 		orr	r3, r3, r2, lsl #8
+ 263              		.loc 1 49 72 view .LVU47
+ 264 0038 AA78     		ldrb	r2, [r5, #2]	@ zero_extendqisi2
+ 265              		.loc 1 49 61 view .LVU48
+ 266 003a 1343     		orrs	r3, r3, r2
+ 267              		.loc 1 49 16 view .LVU49
+ 268 003c 174A     		ldr	r2, .L18+12
+ 269 003e 42F82430 		str	r3, [r2, r4, lsl #2]
+  50:Core/Src/Max30102.c **** 		ir_buffer[i]=((TempData[3]&0x03)<<16) | (TempData[4]<<8) | (TempData[5]); //后三位数据组成BO
+ 270              		.loc 1 50 3 is_stmt 1 view .LVU50
+ 271              		.loc 1 50 26 is_stmt 0 view .LVU51
+ 272 0042 EA78     		ldrb	r2, [r5, #3]	@ zero_extendqisi2
+ 273              		.loc 1 50 35 view .LVU52
+ 274 0044 1204     		lsls	r2, r2, #16
+ 275 0046 02F44032 		and	r2, r2, #196608
+ 276              		.loc 1 50 52 view .LVU53
+ 277 004a 2979     		ldrb	r1, [r5, #4]	@ zero_extendqisi2
+ 278              		.loc 1 50 41 view .LVU54
+ 279 004c 42EA0122 		orr	r2, r2, r1, lsl #8
+ 280              		.loc 1 50 71 view .LVU55
+ 281 0050 6979     		ldrb	r1, [r5, #5]	@ zero_extendqisi2
+ 282              		.loc 1 50 60 view .LVU56
+ 283 0052 0A43     		orrs	r2, r2, r1
+ 284              		.loc 1 50 15 view .LVU57
+ 285 0054 1249     		ldr	r1, .L18+16
+ 286 0056 41F82420 		str	r2, [r1, r4, lsl #2]
+  51:Core/Src/Max30102.c **** 		if(red_min>red_buffer[i]) red_min=red_buffer[i];  //更新当前最小值
+ 287              		.loc 1 51 3 is_stmt 1 view .LVU58
+ 288              		.loc 1 51 13 is_stmt 0 view .LVU59
+ 289 005a 124A     		ldr	r2, .L18+20
+ 290 005c 1268     		ldr	r2, [r2]
+ 291              		.loc 1 51 5 view .LVU60
+ 292 005e 9342     		cmp	r3, r2
+ 293 0060 01D2     		bcs	.L14
+ 294              		.loc 1 51 29 is_stmt 1 discriminator 1 view .LVU61
+ 295              		.loc 1 51 36 is_stmt 0 discriminator 1 view .LVU62
+ 296 0062 104A     		ldr	r2, .L18+20
+ 297 0064 1360     		str	r3, [r2]
+ 298              	.L14:
+ARM GAS  /tmp/ccN5iRpA.s 			page 7
+
+
+  52:Core/Src/Max30102.c **** 		if(red_max<red_buffer[i]) red_max=red_buffer[i];  //更新当前最大值
+ 299              		.loc 1 52 3 is_stmt 1 view .LVU63
+ 300              		.loc 1 52 13 is_stmt 0 view .LVU64
+ 301 0066 104A     		ldr	r2, .L18+24
+ 302 0068 1268     		ldr	r2, [r2]
+ 303              		.loc 1 52 5 view .LVU65
+ 304 006a 9342     		cmp	r3, r2
+ 305 006c CCD9     		bls	.L15
+ 306              		.loc 1 52 29 is_stmt 1 discriminator 1 view .LVU66
+ 307              		.loc 1 52 36 is_stmt 0 discriminator 1 view .LVU67
+ 308 006e 0E4A     		ldr	r2, .L18+24
+ 309 0070 1360     		str	r3, [r2]
+ 310 0072 C9E7     		b	.L15
+ 311              	.L17:
+ 312              		.loc 1 52 36 discriminator 1 view .LVU68
+ 313              	.LBE2:
+  53:Core/Src/Max30102.c **** 	}
+  54:Core/Src/Max30102.c **** 	maxim_heart_rate_and_oxygen_saturation(ir_buffer,ir_buffer_length,red_buffer,&pn_SpO2_value,&SpO2_
+ 314              		.loc 1 54 2 is_stmt 1 view .LVU69
+ 315 0074 0D4B     		ldr	r3, .L18+28
+ 316 0076 0293     		str	r3, [sp, #8]
+ 317 0078 0D4B     		ldr	r3, .L18+32
+ 318 007a 0193     		str	r3, [sp, #4]
+ 319 007c 0D4B     		ldr	r3, .L18+36
+ 320 007e 0093     		str	r3, [sp]
+ 321 0080 0D4B     		ldr	r3, .L18+40
+ 322 0082 064A     		ldr	r2, .L18+12
+ 323 0084 0648     		ldr	r0, .L18+16
+ 324 0086 FFF7FEFF 		bl	maxim_heart_rate_and_oxygen_saturation
+ 325              	.LVL24:
+  55:Core/Src/Max30102.c **** 	//传入500个采样，通过算法得出实际心率血氧值
+  56:Core/Src/Max30102.c **** }
+ 326              		.loc 1 56 1 is_stmt 0 view .LVU70
+ 327 008a 05B0     		add	sp, sp, #20
+ 328              	.LCFI11:
+ 329              		.cfi_def_cfa_offset 12
+ 330              		@ sp needed
+ 331 008c 30BD     		pop	{r4, r5, pc}
+ 332              	.LVL25:
+ 333              	.L19:
+ 334              		.loc 1 56 1 view .LVU71
+ 335 008e 00BF     		.align	2
+ 336              	.L18:
+ 337 0090 00000000 		.word	ir_buffer_length
+ 338 0094 00080140 		.word	1073809408
+ 339 0098 00000000 		.word	TempData
+ 340 009c 00000000 		.word	red_buffer
+ 341 00a0 00000000 		.word	ir_buffer
+ 342 00a4 00000000 		.word	red_min
+ 343 00a8 00000000 		.word	red_max
+ 344 00ac 00000000 		.word	hr_valid
+ 345 00b0 00000000 		.word	pn_hr_value
+ 346 00b4 00000000 		.word	SpO2_valid
+ 347 00b8 00000000 		.word	pn_SpO2_value
+ 348              		.cfi_endproc
+ 349              	.LFE68:
+ 351              		.global	__aeabi_ui2f
+ARM GAS  /tmp/ccN5iRpA.s 			page 8
+
+
+ 352              		.global	__aeabi_fdiv
+ 353              		.global	__aeabi_fmul
+ 354              		.global	__aeabi_f2iz
+ 355              		.section	.text.Max30102_Calculate_HR_BO_Value,"ax",%progbits
+ 356              		.align	1
+ 357              		.global	Max30102_Calculate_HR_BO_Value
+ 358              		.syntax unified
+ 359              		.thumb
+ 360              		.thumb_func
+ 362              	Max30102_Calculate_HR_BO_Value:
+ 363              	.LVL26:
+ 364              	.LFB69:
+  57:Core/Src/Max30102.c **** 
+  58:Core/Src/Max30102.c **** void Max30102_Calculate_HR_BO_Value(int32_t* HR_Value,int8_t* HR_Valid,int32_t* BO_Value,int8_t* BO
+  59:Core/Src/Max30102.c **** {
+ 365              		.loc 1 59 1 is_stmt 1 view -0
+ 366              		.cfi_startproc
+ 367              		@ args = 0, pretend = 0, frame = 0
+ 368              		@ frame_needed = 0, uses_anonymous_args = 0
+ 369              		.loc 1 59 1 is_stmt 0 view .LVU73
+ 370 0000 2DE9F043 		push	{r4, r5, r6, r7, r8, r9, lr}
+ 371              	.LCFI12:
+ 372              		.cfi_def_cfa_offset 28
+ 373              		.cfi_offset 4, -28
+ 374              		.cfi_offset 5, -24
+ 375              		.cfi_offset 6, -20
+ 376              		.cfi_offset 7, -16
+ 377              		.cfi_offset 8, -12
+ 378              		.cfi_offset 9, -8
+ 379              		.cfi_offset 14, -4
+ 380 0004 85B0     		sub	sp, sp, #20
+ 381              	.LCFI13:
+ 382              		.cfi_def_cfa_offset 48
+ 383 0006 0546     		mov	r5, r0
+ 384 0008 0E46     		mov	r6, r1
+ 385 000a 1746     		mov	r7, r2
+ 386 000c 9846     		mov	r8, r3
+  60:Core/Src/Max30102.c **** 	for(int i=100;i<500;i++)  //将数组中的100~500采样值向前挪到0~400
+ 387              		.loc 1 60 2 is_stmt 1 view .LVU74
+ 388              	.LBB3:
+ 389              		.loc 1 60 6 view .LVU75
+ 390              	.LVL27:
+ 391              		.loc 1 60 10 is_stmt 0 view .LVU76
+ 392 000e 6423     		movs	r3, #100
+ 393              	.LVL28:
+ 394              		.loc 1 60 2 view .LVU77
+ 395 0010 00E0     		b	.L21
+ 396              	.LVL29:
+ 397              	.L23:
+ 398              		.loc 1 60 23 is_stmt 1 discriminator 2 view .LVU78
+ 399 0012 0133     		adds	r3, r3, #1
+ 400              	.LVL30:
+ 401              	.L21:
+ 402              		.loc 1 60 17 discriminator 1 view .LVU79
+ 403 0014 B3F5FA7F 		cmp	r3, #500
+ 404 0018 18DA     		bge	.L31
+  61:Core/Src/Max30102.c **** 	{
+ARM GAS  /tmp/ccN5iRpA.s 			page 9
+
+
+  62:Core/Src/Max30102.c **** 		red_buffer[i-100]=red_buffer[i];
+ 405              		.loc 1 62 3 view .LVU80
+ 406              		.loc 1 62 15 is_stmt 0 view .LVU81
+ 407 001a A3F16401 		sub	r1, r3, #100
+ 408              		.loc 1 62 31 view .LVU82
+ 409 001e 5848     		ldr	r0, .L33
+ 410 0020 50F82320 		ldr	r2, [r0, r3, lsl #2]
+ 411              		.loc 1 62 20 view .LVU83
+ 412 0024 40F82120 		str	r2, [r0, r1, lsl #2]
+  63:Core/Src/Max30102.c **** 		ir_buffer[i-100]=ir_buffer[i];
+ 413              		.loc 1 63 3 is_stmt 1 view .LVU84
+ 414              		.loc 1 63 29 is_stmt 0 view .LVU85
+ 415 0028 564C     		ldr	r4, .L33+4
+ 416 002a 54F82300 		ldr	r0, [r4, r3, lsl #2]
+ 417              		.loc 1 63 19 view .LVU86
+ 418 002e 44F82100 		str	r0, [r4, r1, lsl #2]
+  64:Core/Src/Max30102.c **** 		if(red_min>red_buffer[i]) red_min=red_buffer[i];  //更新当前最小值
+ 419              		.loc 1 64 3 is_stmt 1 view .LVU87
+ 420              		.loc 1 64 13 is_stmt 0 view .LVU88
+ 421 0032 5549     		ldr	r1, .L33+8
+ 422 0034 0968     		ldr	r1, [r1]
+ 423              		.loc 1 64 5 view .LVU89
+ 424 0036 8A42     		cmp	r2, r1
+ 425 0038 01D2     		bcs	.L22
+ 426              		.loc 1 64 29 is_stmt 1 discriminator 1 view .LVU90
+ 427              		.loc 1 64 36 is_stmt 0 discriminator 1 view .LVU91
+ 428 003a 5349     		ldr	r1, .L33+8
+ 429 003c 0A60     		str	r2, [r1]
+ 430              	.L22:
+  65:Core/Src/Max30102.c **** 		if(red_max<red_buffer[i]) red_max=red_buffer[i];  //更新当前最大值
+ 431              		.loc 1 65 3 is_stmt 1 view .LVU92
+ 432              		.loc 1 65 13 is_stmt 0 view .LVU93
+ 433 003e 5349     		ldr	r1, .L33+12
+ 434 0040 0968     		ldr	r1, [r1]
+ 435              		.loc 1 65 5 view .LVU94
+ 436 0042 8A42     		cmp	r2, r1
+ 437 0044 E5D9     		bls	.L23
+ 438              		.loc 1 65 29 is_stmt 1 discriminator 1 view .LVU95
+ 439              		.loc 1 65 36 is_stmt 0 discriminator 1 view .LVU96
+ 440 0046 5149     		ldr	r1, .L33+12
+ 441 0048 0A60     		str	r2, [r1]
+ 442 004a E2E7     		b	.L23
+ 443              	.L31:
+ 444              	.LBE3:
+ 445              	.LBB4:
+  66:Core/Src/Max30102.c **** 	}
+  67:Core/Src/Max30102.c **** 	for(int i=400;i<500;i++)  //实际只取100个采样值来计算
+ 446              		.loc 1 67 10 view .LVU97
+ 447 004c 4FF4C874 		mov	r4, #400
+ 448 0050 2DE0     		b	.L25
+ 449              	.LVL31:
+ 450              	.L27:
+  68:Core/Src/Max30102.c **** 	{
+  69:Core/Src/Max30102.c **** 		prev_data=red_buffer[i-1];
+  70:Core/Src/Max30102.c **** 		while(Max30102_INT==1); //等待中断引脚相应，默认为高,当触发后会拉低
+  71:Core/Src/Max30102.c **** 		Max30102_FIFO_ReadData(REG_FIFO_DATA,TempData,6);
+  72:Core/Src/Max30102.c **** 		red_buffer[i]=((TempData[0]&0x03)<<16) | (TempData[1]<<8) | (TempData[2]); //前三位数据组成HR
+ARM GAS  /tmp/ccN5iRpA.s 			page 10
+
+
+  73:Core/Src/Max30102.c **** 		ir_buffer[i]=((TempData[3]&0x03)<<16) | (TempData[4]<<8) | (TempData[5]); //后三位数据组成BO
+  74:Core/Src/Max30102.c **** 		if(red_buffer[i]>prev_data)
+  75:Core/Src/Max30102.c **** 		{    //心率公式：|上一次的值-当前值| / (最大值-最小值) * 255
+  76:Core/Src/Max30102.c **** 			f_temp=(float)(red_buffer[i]-prev_data)/(red_max-red_min)*255;
+  77:Core/Src/Max30102.c **** 			n_brightness-=(int)f_temp;
+  78:Core/Src/Max30102.c **** 			if(n_brightness<0) n_brightness=0;
+  79:Core/Src/Max30102.c **** 		}
+  80:Core/Src/Max30102.c **** 		else
+  81:Core/Src/Max30102.c **** 		{
+  82:Core/Src/Max30102.c **** 			f_temp=(float)(prev_data-red_buffer[i])/(red_max-red_min)*255;
+ 451              		.loc 1 82 4 is_stmt 1 view .LVU98
+ 452              		.loc 1 82 11 is_stmt 0 view .LVU99
+ 453 0052 C01A     		subs	r0, r0, r3
+ 454 0054 FFF7FEFF 		bl	__aeabi_ui2f
+ 455              	.LVL32:
+ 456 0058 8146     		mov	r9, r0
+ 457              		.loc 1 82 52 view .LVU100
+ 458 005a 4C4B     		ldr	r3, .L33+12
+ 459 005c 1868     		ldr	r0, [r3]
+ 460 005e 4A4B     		ldr	r3, .L33+8
+ 461 0060 1B68     		ldr	r3, [r3]
+ 462              		.loc 1 82 43 view .LVU101
+ 463 0062 C01A     		subs	r0, r0, r3
+ 464 0064 FFF7FEFF 		bl	__aeabi_ui2f
+ 465              	.LVL33:
+ 466 0068 0146     		mov	r1, r0
+ 467 006a 4846     		mov	r0, r9
+ 468 006c FFF7FEFF 		bl	__aeabi_fdiv
+ 469              	.LVL34:
+ 470              		.loc 1 82 61 view .LVU102
+ 471 0070 4749     		ldr	r1, .L33+16
+ 472 0072 FFF7FEFF 		bl	__aeabi_fmul
+ 473              	.LVL35:
+ 474              		.loc 1 82 10 view .LVU103
+ 475 0076 474B     		ldr	r3, .L33+20
+ 476 0078 1860     		str	r0, [r3]	@ float
+  83:Core/Src/Max30102.c **** 			n_brightness+=(int)f_temp;
+ 477              		.loc 1 83 4 is_stmt 1 view .LVU104
+ 478              		.loc 1 83 18 is_stmt 0 view .LVU105
+ 479 007a FFF7FEFF 		bl	__aeabi_f2iz
+ 480              	.LVL36:
+ 481              		.loc 1 83 16 view .LVU106
+ 482 007e 464B     		ldr	r3, .L33+24
+ 483 0080 1A68     		ldr	r2, [r3]
+ 484 0082 1044     		add	r0, r0, r2
+ 485 0084 1860     		str	r0, [r3]
+  84:Core/Src/Max30102.c **** 			if(n_brightness>255) n_brightness=255;
+ 486              		.loc 1 84 4 is_stmt 1 view .LVU107
+ 487              		.loc 1 84 6 is_stmt 0 view .LVU108
+ 488 0086 FF28     		cmp	r0, #255
+ 489 0088 01DD     		ble	.L28
+ 490              		.loc 1 84 25 is_stmt 1 discriminator 1 view .LVU109
+ 491              		.loc 1 84 37 is_stmt 0 discriminator 1 view .LVU110
+ 492 008a FF22     		movs	r2, #255
+ 493 008c 1A60     		str	r2, [r3]
+ 494              	.L28:
+  85:Core/Src/Max30102.c **** 		}
+ARM GAS  /tmp/ccN5iRpA.s 			page 11
+
+
+  86:Core/Src/Max30102.c **** 		*HR_Value=pn_hr_value;
+ 495              		.loc 1 86 3 is_stmt 1 discriminator 2 view .LVU111
+ 496              		.loc 1 86 12 is_stmt 0 discriminator 2 view .LVU112
+ 497 008e 434B     		ldr	r3, .L33+28
+ 498 0090 1B68     		ldr	r3, [r3]
+ 499 0092 2B60     		str	r3, [r5]
+  87:Core/Src/Max30102.c **** 		*HR_Valid=hr_valid;
+ 500              		.loc 1 87 3 is_stmt 1 discriminator 2 view .LVU113
+ 501              		.loc 1 87 12 is_stmt 0 discriminator 2 view .LVU114
+ 502 0094 424B     		ldr	r3, .L33+32
+ 503 0096 93F90030 		ldrsb	r3, [r3]
+ 504 009a 3370     		strb	r3, [r6]
+  88:Core/Src/Max30102.c **** 		*BO_Value=pn_SpO2_value;
+ 505              		.loc 1 88 3 is_stmt 1 discriminator 2 view .LVU115
+ 506              		.loc 1 88 12 is_stmt 0 discriminator 2 view .LVU116
+ 507 009c 414B     		ldr	r3, .L33+36
+ 508 009e 1B68     		ldr	r3, [r3]
+ 509 00a0 3B60     		str	r3, [r7]
+  89:Core/Src/Max30102.c **** 		*BO_Valid=SpO2_valid;
+ 510              		.loc 1 89 3 is_stmt 1 discriminator 2 view .LVU117
+ 511              		.loc 1 89 12 is_stmt 0 discriminator 2 view .LVU118
+ 512 00a2 414B     		ldr	r3, .L33+40
+ 513 00a4 93F90030 		ldrsb	r3, [r3]
+ 514 00a8 88F80030 		strb	r3, [r8]
+  67:Core/Src/Max30102.c **** 	{
+ 515              		.loc 1 67 23 is_stmt 1 discriminator 2 view .LVU119
+ 516 00ac 0134     		adds	r4, r4, #1
+ 517              	.LVL37:
+ 518              	.L25:
+  67:Core/Src/Max30102.c **** 	{
+ 519              		.loc 1 67 17 discriminator 1 view .LVU120
+ 520 00ae B4F5FA7F 		cmp	r4, #500
+ 521 00b2 54DA     		bge	.L32
+  69:Core/Src/Max30102.c **** 		while(Max30102_INT==1); //等待中断引脚相应，默认为高,当触发后会拉低
+ 522              		.loc 1 69 3 view .LVU121
+  69:Core/Src/Max30102.c **** 		while(Max30102_INT==1); //等待中断引脚相应，默认为高,当触发后会拉低
+ 523              		.loc 1 69 25 is_stmt 0 view .LVU122
+ 524 00b4 631E     		subs	r3, r4, #1
+  69:Core/Src/Max30102.c **** 		while(Max30102_INT==1); //等待中断引脚相应，默认为高,当触发后会拉低
+ 525              		.loc 1 69 23 view .LVU123
+ 526 00b6 324A     		ldr	r2, .L33
+ 527 00b8 52F82320 		ldr	r2, [r2, r3, lsl #2]
+  69:Core/Src/Max30102.c **** 		while(Max30102_INT==1); //等待中断引脚相应，默认为高,当触发后会拉低
+ 528              		.loc 1 69 12 view .LVU124
+ 529 00bc 3B4B     		ldr	r3, .L33+44
+ 530 00be 1A60     		str	r2, [r3]
+  70:Core/Src/Max30102.c **** 		Max30102_FIFO_ReadData(REG_FIFO_DATA,TempData,6);
+ 531              		.loc 1 70 3 is_stmt 1 view .LVU125
+ 532              	.L26:
+  70:Core/Src/Max30102.c **** 		Max30102_FIFO_ReadData(REG_FIFO_DATA,TempData,6);
+ 533              		.loc 1 70 21 discriminator 1 view .LVU126
+  70:Core/Src/Max30102.c **** 		Max30102_FIFO_ReadData(REG_FIFO_DATA,TempData,6);
+ 534              		.loc 1 70 9 is_stmt 0 discriminator 1 view .LVU127
+ 535 00c0 8021     		movs	r1, #128
+ 536 00c2 3B48     		ldr	r0, .L33+48
+ 537 00c4 FFF7FEFF 		bl	HAL_GPIO_ReadPin
+ 538              	.LVL38:
+ARM GAS  /tmp/ccN5iRpA.s 			page 12
+
+
+  70:Core/Src/Max30102.c **** 		Max30102_FIFO_ReadData(REG_FIFO_DATA,TempData,6);
+ 539              		.loc 1 70 21 discriminator 1 view .LVU128
+ 540 00c8 0128     		cmp	r0, #1
+ 541 00ca F9D0     		beq	.L26
+  71:Core/Src/Max30102.c **** 		red_buffer[i]=((TempData[0]&0x03)<<16) | (TempData[1]<<8) | (TempData[2]); //前三位数据组成HR
+ 542              		.loc 1 71 3 is_stmt 1 view .LVU129
+ 543 00cc DFF8E490 		ldr	r9, .L33+52
+ 544 00d0 0622     		movs	r2, #6
+ 545 00d2 4946     		mov	r1, r9
+ 546 00d4 0720     		movs	r0, #7
+ 547 00d6 FFF7FEFF 		bl	Max30102_FIFO_ReadData
+ 548              	.LVL39:
+  72:Core/Src/Max30102.c **** 		ir_buffer[i]=((TempData[3]&0x03)<<16) | (TempData[4]<<8) | (TempData[5]); //后三位数据组成BO
+ 549              		.loc 1 72 3 view .LVU130
+  72:Core/Src/Max30102.c **** 		ir_buffer[i]=((TempData[3]&0x03)<<16) | (TempData[4]<<8) | (TempData[5]); //后三位数据组成BO
+ 550              		.loc 1 72 27 is_stmt 0 view .LVU131
+ 551 00da 99F80030 		ldrb	r3, [r9]	@ zero_extendqisi2
+  72:Core/Src/Max30102.c **** 		ir_buffer[i]=((TempData[3]&0x03)<<16) | (TempData[4]<<8) | (TempData[5]); //后三位数据组成BO
+ 552              		.loc 1 72 36 view .LVU132
+ 553 00de 1B04     		lsls	r3, r3, #16
+ 554 00e0 03F44033 		and	r3, r3, #196608
+  72:Core/Src/Max30102.c **** 		ir_buffer[i]=((TempData[3]&0x03)<<16) | (TempData[4]<<8) | (TempData[5]); //后三位数据组成BO
+ 555              		.loc 1 72 53 view .LVU133
+ 556 00e4 99F80120 		ldrb	r2, [r9, #1]	@ zero_extendqisi2
+  72:Core/Src/Max30102.c **** 		ir_buffer[i]=((TempData[3]&0x03)<<16) | (TempData[4]<<8) | (TempData[5]); //后三位数据组成BO
+ 557              		.loc 1 72 42 view .LVU134
+ 558 00e8 43EA0223 		orr	r3, r3, r2, lsl #8
+  72:Core/Src/Max30102.c **** 		ir_buffer[i]=((TempData[3]&0x03)<<16) | (TempData[4]<<8) | (TempData[5]); //后三位数据组成BO
+ 559              		.loc 1 72 72 view .LVU135
+ 560 00ec 99F80220 		ldrb	r2, [r9, #2]	@ zero_extendqisi2
+  72:Core/Src/Max30102.c **** 		ir_buffer[i]=((TempData[3]&0x03)<<16) | (TempData[4]<<8) | (TempData[5]); //后三位数据组成BO
+ 561              		.loc 1 72 61 view .LVU136
+ 562 00f0 1343     		orrs	r3, r3, r2
+  72:Core/Src/Max30102.c **** 		ir_buffer[i]=((TempData[3]&0x03)<<16) | (TempData[4]<<8) | (TempData[5]); //后三位数据组成BO
+ 563              		.loc 1 72 16 view .LVU137
+ 564 00f2 234A     		ldr	r2, .L33
+ 565 00f4 42F82430 		str	r3, [r2, r4, lsl #2]
+  73:Core/Src/Max30102.c **** 		if(red_buffer[i]>prev_data)
+ 566              		.loc 1 73 3 is_stmt 1 view .LVU138
+  73:Core/Src/Max30102.c **** 		if(red_buffer[i]>prev_data)
+ 567              		.loc 1 73 26 is_stmt 0 view .LVU139
+ 568 00f8 99F80320 		ldrb	r2, [r9, #3]	@ zero_extendqisi2
+  73:Core/Src/Max30102.c **** 		if(red_buffer[i]>prev_data)
+ 569              		.loc 1 73 35 view .LVU140
+ 570 00fc 1204     		lsls	r2, r2, #16
+ 571 00fe 02F44032 		and	r2, r2, #196608
+  73:Core/Src/Max30102.c **** 		if(red_buffer[i]>prev_data)
+ 572              		.loc 1 73 52 view .LVU141
+ 573 0102 99F80410 		ldrb	r1, [r9, #4]	@ zero_extendqisi2
+  73:Core/Src/Max30102.c **** 		if(red_buffer[i]>prev_data)
+ 574              		.loc 1 73 41 view .LVU142
+ 575 0106 42EA0122 		orr	r2, r2, r1, lsl #8
+  73:Core/Src/Max30102.c **** 		if(red_buffer[i]>prev_data)
+ 576              		.loc 1 73 71 view .LVU143
+ 577 010a 99F80510 		ldrb	r1, [r9, #5]	@ zero_extendqisi2
+  73:Core/Src/Max30102.c **** 		if(red_buffer[i]>prev_data)
+ 578              		.loc 1 73 60 view .LVU144
+ARM GAS  /tmp/ccN5iRpA.s 			page 13
+
+
+ 579 010e 0A43     		orrs	r2, r2, r1
+  73:Core/Src/Max30102.c **** 		if(red_buffer[i]>prev_data)
+ 580              		.loc 1 73 15 view .LVU145
+ 581 0110 1C49     		ldr	r1, .L33+4
+ 582 0112 41F82420 		str	r2, [r1, r4, lsl #2]
+  74:Core/Src/Max30102.c **** 		{    //心率公式：|上一次的值-当前值| / (最大值-最小值) * 255
+ 583              		.loc 1 74 3 is_stmt 1 view .LVU146
+  74:Core/Src/Max30102.c **** 		{    //心率公式：|上一次的值-当前值| / (最大值-最小值) * 255
+ 584              		.loc 1 74 19 is_stmt 0 view .LVU147
+ 585 0116 254A     		ldr	r2, .L33+44
+ 586 0118 1068     		ldr	r0, [r2]
+  74:Core/Src/Max30102.c **** 		{    //心率公式：|上一次的值-当前值| / (最大值-最小值) * 255
+ 587              		.loc 1 74 5 view .LVU148
+ 588 011a 8342     		cmp	r3, r0
+ 589 011c 99D9     		bls	.L27
+  76:Core/Src/Max30102.c **** 			n_brightness-=(int)f_temp;
+ 590              		.loc 1 76 4 is_stmt 1 view .LVU149
+  76:Core/Src/Max30102.c **** 			n_brightness-=(int)f_temp;
+ 591              		.loc 1 76 11 is_stmt 0 view .LVU150
+ 592 011e 181A     		subs	r0, r3, r0
+ 593 0120 FFF7FEFF 		bl	__aeabi_ui2f
+ 594              	.LVL40:
+ 595 0124 8146     		mov	r9, r0
+  76:Core/Src/Max30102.c **** 			n_brightness-=(int)f_temp;
+ 596              		.loc 1 76 52 view .LVU151
+ 597 0126 194B     		ldr	r3, .L33+12
+ 598 0128 1868     		ldr	r0, [r3]
+ 599 012a 174B     		ldr	r3, .L33+8
+ 600 012c 1B68     		ldr	r3, [r3]
+  76:Core/Src/Max30102.c **** 			n_brightness-=(int)f_temp;
+ 601              		.loc 1 76 43 view .LVU152
+ 602 012e C01A     		subs	r0, r0, r3
+ 603 0130 FFF7FEFF 		bl	__aeabi_ui2f
+ 604              	.LVL41:
+ 605 0134 0146     		mov	r1, r0
+ 606 0136 4846     		mov	r0, r9
+ 607 0138 FFF7FEFF 		bl	__aeabi_fdiv
+ 608              	.LVL42:
+  76:Core/Src/Max30102.c **** 			n_brightness-=(int)f_temp;
+ 609              		.loc 1 76 61 view .LVU153
+ 610 013c 1449     		ldr	r1, .L33+16
+ 611 013e FFF7FEFF 		bl	__aeabi_fmul
+ 612              	.LVL43:
+  76:Core/Src/Max30102.c **** 			n_brightness-=(int)f_temp;
+ 613              		.loc 1 76 10 view .LVU154
+ 614 0142 144B     		ldr	r3, .L33+20
+ 615 0144 1860     		str	r0, [r3]	@ float
+  77:Core/Src/Max30102.c **** 			if(n_brightness<0) n_brightness=0;
+ 616              		.loc 1 77 4 is_stmt 1 view .LVU155
+  77:Core/Src/Max30102.c **** 			if(n_brightness<0) n_brightness=0;
+ 617              		.loc 1 77 18 is_stmt 0 view .LVU156
+ 618 0146 FFF7FEFF 		bl	__aeabi_f2iz
+ 619              	.LVL44:
+  77:Core/Src/Max30102.c **** 			if(n_brightness<0) n_brightness=0;
+ 620              		.loc 1 77 16 view .LVU157
+ 621 014a 134A     		ldr	r2, .L33+24
+ 622 014c 1368     		ldr	r3, [r2]
+ARM GAS  /tmp/ccN5iRpA.s 			page 14
+
+
+ 623 014e 181A     		subs	r0, r3, r0
+ 624 0150 1060     		str	r0, [r2]
+  78:Core/Src/Max30102.c **** 		}
+ 625              		.loc 1 78 4 is_stmt 1 view .LVU158
+  78:Core/Src/Max30102.c **** 		}
+ 626              		.loc 1 78 6 is_stmt 0 view .LVU159
+ 627 0152 0028     		cmp	r0, #0
+ 628 0154 9BDA     		bge	.L28
+  78:Core/Src/Max30102.c **** 		}
+ 629              		.loc 1 78 23 is_stmt 1 discriminator 1 view .LVU160
+  78:Core/Src/Max30102.c **** 		}
+ 630              		.loc 1 78 35 is_stmt 0 discriminator 1 view .LVU161
+ 631 0156 1346     		mov	r3, r2
+ 632 0158 0022     		movs	r2, #0
+ 633 015a 1A60     		str	r2, [r3]
+ 634 015c 97E7     		b	.L28
+ 635              	.L32:
+  78:Core/Src/Max30102.c **** 		}
+ 636              		.loc 1 78 35 discriminator 1 view .LVU162
+ 637              	.LBE4:
+  90:Core/Src/Max30102.c **** 	}
+  91:Core/Src/Max30102.c **** 	maxim_heart_rate_and_oxygen_saturation(ir_buffer,ir_buffer_length,red_buffer,&pn_SpO2_value,&SpO2_
+ 638              		.loc 1 91 2 is_stmt 1 view .LVU163
+ 639 015e 104B     		ldr	r3, .L33+32
+ 640 0160 0293     		str	r3, [sp, #8]
+ 641 0162 0E4B     		ldr	r3, .L33+28
+ 642 0164 0193     		str	r3, [sp, #4]
+ 643 0166 104B     		ldr	r3, .L33+40
+ 644 0168 0093     		str	r3, [sp]
+ 645 016a 0E4B     		ldr	r3, .L33+36
+ 646 016c 044A     		ldr	r2, .L33
+ 647 016e 1249     		ldr	r1, .L33+56
+ 648 0170 0968     		ldr	r1, [r1]
+ 649 0172 0448     		ldr	r0, .L33+4
+ 650 0174 FFF7FEFF 		bl	maxim_heart_rate_and_oxygen_saturation
+ 651              	.LVL45:
+  92:Core/Src/Max30102.c **** }
+ 652              		.loc 1 92 1 is_stmt 0 view .LVU164
+ 653 0178 05B0     		add	sp, sp, #20
+ 654              	.LCFI14:
+ 655              		.cfi_def_cfa_offset 28
+ 656              		@ sp needed
+ 657 017a BDE8F083 		pop	{r4, r5, r6, r7, r8, r9, pc}
+ 658              	.LVL46:
+ 659              	.L34:
+ 660              		.loc 1 92 1 view .LVU165
+ 661 017e 00BF     		.align	2
+ 662              	.L33:
+ 663 0180 00000000 		.word	red_buffer
+ 664 0184 00000000 		.word	ir_buffer
+ 665 0188 00000000 		.word	red_min
+ 666 018c 00000000 		.word	red_max
+ 667 0190 00007F43 		.word	1132396544
+ 668 0194 00000000 		.word	f_temp
+ 669 0198 00000000 		.word	n_brightness
+ 670 019c 00000000 		.word	pn_hr_value
+ 671 01a0 00000000 		.word	hr_valid
+ARM GAS  /tmp/ccN5iRpA.s 			page 15
+
+
+ 672 01a4 00000000 		.word	pn_SpO2_value
+ 673 01a8 00000000 		.word	SpO2_valid
+ 674 01ac 00000000 		.word	prev_data
+ 675 01b0 00080140 		.word	1073809408
+ 676 01b4 00000000 		.word	TempData
+ 677 01b8 00000000 		.word	ir_buffer_length
+ 678              		.cfi_endproc
+ 679              	.LFE69:
+ 681              		.section	.text.Max30102_Reset,"ax",%progbits
+ 682              		.align	1
+ 683              		.global	Max30102_Reset
+ 684              		.syntax unified
+ 685              		.thumb
+ 686              		.thumb_func
+ 688              	Max30102_Reset:
+ 689              	.LFB70:
+  93:Core/Src/Max30102.c **** 
+  94:Core/Src/Max30102.c **** void Max30102_Reset(void)
+  95:Core/Src/Max30102.c **** {
+ 690              		.loc 1 95 1 is_stmt 1 view -0
+ 691              		.cfi_startproc
+ 692              		@ args = 0, pretend = 0, frame = 0
+ 693              		@ frame_needed = 0, uses_anonymous_args = 0
+ 694 0000 08B5     		push	{r3, lr}
+ 695              	.LCFI15:
+ 696              		.cfi_def_cfa_offset 8
+ 697              		.cfi_offset 3, -8
+ 698              		.cfi_offset 14, -4
+  96:Core/Src/Max30102.c **** 	Max30102_WriteData(REG_MODE_CONFIG,0x40,1);
+ 699              		.loc 1 96 2 view .LVU167
+ 700 0002 0122     		movs	r2, #1
+ 701 0004 4021     		movs	r1, #64
+ 702 0006 0920     		movs	r0, #9
+ 703 0008 FFF7FEFF 		bl	Max30102_WriteData
+ 704              	.LVL47:
+  97:Core/Src/Max30102.c **** 	Max30102_WriteData(REG_MODE_CONFIG,0x40,1);
+ 705              		.loc 1 97 2 view .LVU168
+ 706 000c 0122     		movs	r2, #1
+ 707 000e 4021     		movs	r1, #64
+ 708 0010 0920     		movs	r0, #9
+ 709 0012 FFF7FEFF 		bl	Max30102_WriteData
+ 710              	.LVL48:
+  98:Core/Src/Max30102.c **** }
+ 711              		.loc 1 98 1 is_stmt 0 view .LVU169
+ 712 0016 08BD     		pop	{r3, pc}
+ 713              		.cfi_endproc
+ 714              	.LFE70:
+ 716              		.section	.text.Max30102_Init,"ax",%progbits
+ 717              		.align	1
+ 718              		.global	Max30102_Init
+ 719              		.syntax unified
+ 720              		.thumb
+ 721              		.thumb_func
+ 723              	Max30102_Init:
+ 724              	.LFB71:
+  99:Core/Src/Max30102.c **** 
+ 100:Core/Src/Max30102.c **** void Max30102_Init(void)
+ARM GAS  /tmp/ccN5iRpA.s 			page 16
+
+
+ 101:Core/Src/Max30102.c **** {
+ 725              		.loc 1 101 1 is_stmt 1 view -0
+ 726              		.cfi_startproc
+ 727              		@ args = 0, pretend = 0, frame = 0
+ 728              		@ frame_needed = 0, uses_anonymous_args = 0
+ 729 0000 08B5     		push	{r3, lr}
+ 730              	.LCFI16:
+ 731              		.cfi_def_cfa_offset 8
+ 732              		.cfi_offset 3, -8
+ 733              		.cfi_offset 14, -4
+ 102:Core/Src/Max30102.c **** 	Max30102_Reset();
+ 734              		.loc 1 102 2 view .LVU171
+ 735 0002 FFF7FEFF 		bl	Max30102_Reset
+ 736              	.LVL49:
+ 103:Core/Src/Max30102.c **** 	
+ 104:Core/Src/Max30102.c **** 	Max30102_WriteData(REG_INTR_ENABLE_1,0xc0,1);	// INTR setting
+ 737              		.loc 1 104 2 view .LVU172
+ 738 0006 0122     		movs	r2, #1
+ 739 0008 C021     		movs	r1, #192
+ 740 000a 0220     		movs	r0, #2
+ 741 000c FFF7FEFF 		bl	Max30102_WriteData
+ 742              	.LVL50:
+ 105:Core/Src/Max30102.c **** 	Max30102_WriteData(REG_INTR_ENABLE_2,0x00,1);
+ 743              		.loc 1 105 2 view .LVU173
+ 744 0010 0122     		movs	r2, #1
+ 745 0012 0021     		movs	r1, #0
+ 746 0014 0320     		movs	r0, #3
+ 747 0016 FFF7FEFF 		bl	Max30102_WriteData
+ 748              	.LVL51:
+ 106:Core/Src/Max30102.c **** 	Max30102_WriteData(REG_FIFO_WR_PTR,0x00,1);  	//FIFO_WR_PTR[4:0]
+ 749              		.loc 1 106 2 view .LVU174
+ 750 001a 0122     		movs	r2, #1
+ 751 001c 0021     		movs	r1, #0
+ 752 001e 0420     		movs	r0, #4
+ 753 0020 FFF7FEFF 		bl	Max30102_WriteData
+ 754              	.LVL52:
+ 107:Core/Src/Max30102.c **** 	Max30102_WriteData(REG_OVF_COUNTER,0x00,1);  	//OVF_COUNTER[4:0]
+ 755              		.loc 1 107 2 view .LVU175
+ 756 0024 0122     		movs	r2, #1
+ 757 0026 0021     		movs	r1, #0
+ 758 0028 0520     		movs	r0, #5
+ 759 002a FFF7FEFF 		bl	Max30102_WriteData
+ 760              	.LVL53:
+ 108:Core/Src/Max30102.c **** 	Max30102_WriteData(REG_FIFO_RD_PTR,0x00,1);  	//FIFO_RD_PTR[4:0]
+ 761              		.loc 1 108 2 view .LVU176
+ 762 002e 0122     		movs	r2, #1
+ 763 0030 0021     		movs	r1, #0
+ 764 0032 0620     		movs	r0, #6
+ 765 0034 FFF7FEFF 		bl	Max30102_WriteData
+ 766              	.LVL54:
+ 109:Core/Src/Max30102.c **** 	Max30102_WriteData(REG_FIFO_CONFIG,0x0f,1);  	//sample avg = 1, fifo rollover=false, fifo almost f
+ 767              		.loc 1 109 2 view .LVU177
+ 768 0038 0122     		movs	r2, #1
+ 769 003a 0F21     		movs	r1, #15
+ 770 003c 0820     		movs	r0, #8
+ 771 003e FFF7FEFF 		bl	Max30102_WriteData
+ 772              	.LVL55:
+ARM GAS  /tmp/ccN5iRpA.s 			page 17
+
+
+ 110:Core/Src/Max30102.c **** 	Max30102_WriteData(REG_MODE_CONFIG,0x03,1);  	//0x02 for Red only, 0x03 for SpO2 mode 0x07 multimo
+ 773              		.loc 1 110 2 view .LVU178
+ 774 0042 0122     		movs	r2, #1
+ 775 0044 0321     		movs	r1, #3
+ 776 0046 0920     		movs	r0, #9
+ 777 0048 FFF7FEFF 		bl	Max30102_WriteData
+ 778              	.LVL56:
+ 111:Core/Src/Max30102.c **** 	Max30102_WriteData(REG_SPO2_CONFIG,0x27,1);  	// SPO2_ADC range = 4096nA, SPO2 sample rate (100 Hz
+ 779              		.loc 1 111 2 view .LVU179
+ 780 004c 0122     		movs	r2, #1
+ 781 004e 2721     		movs	r1, #39
+ 782 0050 0A20     		movs	r0, #10
+ 783 0052 FFF7FEFF 		bl	Max30102_WriteData
+ 784              	.LVL57:
+ 112:Core/Src/Max30102.c **** 	Max30102_WriteData(REG_LED1_PA,0x24,1);   	//Choose value for ~ 7mA for LED1
+ 785              		.loc 1 112 2 view .LVU180
+ 786 0056 0122     		movs	r2, #1
+ 787 0058 2421     		movs	r1, #36
+ 788 005a 0C20     		movs	r0, #12
+ 789 005c FFF7FEFF 		bl	Max30102_WriteData
+ 790              	.LVL58:
+ 113:Core/Src/Max30102.c **** 	Max30102_WriteData(REG_LED2_PA,0x24,1);   	// Choose value for ~ 7mA for LED2
+ 791              		.loc 1 113 2 view .LVU181
+ 792 0060 0122     		movs	r2, #1
+ 793 0062 2421     		movs	r1, #36
+ 794 0064 0D20     		movs	r0, #13
+ 795 0066 FFF7FEFF 		bl	Max30102_WriteData
+ 796              	.LVL59:
+ 114:Core/Src/Max30102.c **** 	Max30102_WriteData(REG_PILOT_PA,0x7f,1);   	// Choose value for ~ 25mA for Pilot LED
+ 797              		.loc 1 114 2 view .LVU182
+ 798 006a 0122     		movs	r2, #1
+ 799 006c 7F21     		movs	r1, #127
+ 800 006e 1020     		movs	r0, #16
+ 801 0070 FFF7FEFF 		bl	Max30102_WriteData
+ 802              	.LVL60:
+ 115:Core/Src/Max30102.c **** }
+ 803              		.loc 1 115 1 is_stmt 0 view .LVU183
+ 804 0074 08BD     		pop	{r3, pc}
+ 805              		.cfi_endproc
+ 806              	.LFE71:
+ 808              		.section	.rodata.Read.str1.4,"aMS",%progbits,1
+ 809              		.align	2
+ 810              	.LC0:
+ 811 0000 48523A00 		.ascii	"HR:\000"
+ 812              		.align	2
+ 813              	.LC1:
+ 814 0004 424F3A00 		.ascii	"BO:\000"
+ 815              		.section	.text.Read,"ax",%progbits
+ 816              		.align	1
+ 817              		.global	Read
+ 818              		.syntax unified
+ 819              		.thumb
+ 820              		.thumb_func
+ 822              	Read:
+ 823              	.LFB72:
+ 116:Core/Src/Max30102.c **** 
+ 117:Core/Src/Max30102.c **** void Read(void)
+ARM GAS  /tmp/ccN5iRpA.s 			page 18
+
+
+ 118:Core/Src/Max30102.c **** {
+ 824              		.loc 1 118 1 is_stmt 1 view -0
+ 825              		.cfi_startproc
+ 826              		@ args = 0, pretend = 0, frame = 16
+ 827              		@ frame_needed = 0, uses_anonymous_args = 0
+ 828 0000 00B5     		push	{lr}
+ 829              	.LCFI17:
+ 830              		.cfi_def_cfa_offset 4
+ 831              		.cfi_offset 14, -4
+ 832 0002 85B0     		sub	sp, sp, #20
+ 833              	.LCFI18:
+ 834              		.cfi_def_cfa_offset 24
+ 119:Core/Src/Max30102.c **** 	int32_t HR_Value,BO_Value;
+ 835              		.loc 1 119 2 view .LVU185
+ 120:Core/Src/Max30102.c **** 	int8_t HR_Valid,BO_Valid;
+ 836              		.loc 1 120 2 view .LVU186
+ 121:Core/Src/Max30102.c **** 	Max30102_Calculate_HR_BO_Value(&HR_Value,&HR_Valid,&BO_Value,&BO_Valid);
+ 837              		.loc 1 121 2 view .LVU187
+ 838 0004 0DF10603 		add	r3, sp, #6
+ 839 0008 02AA     		add	r2, sp, #8
+ 840 000a 0DF10701 		add	r1, sp, #7
+ 841 000e 03A8     		add	r0, sp, #12
+ 842 0010 FFF7FEFF 		bl	Max30102_Calculate_HR_BO_Value
+ 843              	.LVL61:
+ 122:Core/Src/Max30102.c **** 	if(HR_Valid==1 && BO_Valid==1)
+ 844              		.loc 1 122 2 view .LVU188
+ 845              		.loc 1 122 13 is_stmt 0 view .LVU189
+ 846 0014 9DF90730 		ldrsb	r3, [sp, #7]
+ 847              		.loc 1 122 4 view .LVU190
+ 848 0018 012B     		cmp	r3, #1
+ 849 001a 02D0     		beq	.L42
+ 850              	.L39:
+ 123:Core/Src/Max30102.c **** 	{
+ 124:Core/Src/Max30102.c **** 		OLED_ShowString(1,1,"HR:");
+ 125:Core/Src/Max30102.c **** 		OLED_ShowString(2,1,"BO:");
+ 126:Core/Src/Max30102.c **** 		OLED_ShowNum(1,5,HR_Value,3);
+ 127:Core/Src/Max30102.c **** 		OLED_ShowNum(2,5,BO_Value,3);
+ 128:Core/Src/Max30102.c **** 	}
+ 129:Core/Src/Max30102.c **** }...
+ 851              		.loc 1 129 1 view .LVU191
+ 852 001c 05B0     		add	sp, sp, #20
+ 853              	.LCFI19:
+ 854              		.cfi_remember_state
+ 855              		.cfi_def_cfa_offset 4
+ 856              		@ sp needed
+ 857 001e 5DF804FB 		ldr	pc, [sp], #4
+ 858              	.L42:
+ 859              	.LCFI20:
+ 860              		.cfi_restore_state
+ 122:Core/Src/Max30102.c **** 	if(HR_Valid==1 && BO_Valid==1)
+ 861              		.loc 1 122 28 discriminator 1 view .LVU192
+ 862 0022 9DF90630 		ldrsb	r3, [sp, #6]
+ 122:Core/Src/Max30102.c **** 	if(HR_Valid==1 && BO_Valid==1)
+ 863              		.loc 1 122 17 discriminator 1 view .LVU193
+ 864 0026 012B     		cmp	r3, #1
+ 865 0028 F8D1     		bne	.L39
+ 124:Core/Src/Max30102.c **** 		OLED_ShowString(1,1,"HR:");
+ARM GAS  /tmp/ccN5iRpA.s 			page 19
+
+
+ 866              		.loc 1 124 3 is_stmt 1 view .LVU194
+ 867 002a 0B4A     		ldr	r2, .L43
+ 868 002c 0121     		movs	r1, #1
+ 869 002e 0846     		mov	r0, r1
+ 870 0030 FFF7FEFF 		bl	OLED_ShowString
+ 871              	.LVL62:
+ 125:Core/Src/Max30102.c **** 		OLED_ShowString(2,1,"BO:");
+ 872              		.loc 1 125 3 view .LVU195
+ 873 0034 094A     		ldr	r2, .L43+4
+ 874 0036 0121     		movs	r1, #1
+ 875 0038 0220     		movs	r0, #2
+ 876 003a FFF7FEFF 		bl	OLED_ShowString
+ 877              	.LVL63:
+ 126:Core/Src/Max30102.c **** 		OLED_ShowNum(1,5,HR_Value,3);
+ 878              		.loc 1 126 3 view .LVU196
+ 879 003e 0323     		movs	r3, #3
+ 880 0040 039A     		ldr	r2, [sp, #12]
+ 881 0042 0521     		movs	r1, #5
+ 882 0044 0120     		movs	r0, #1
+ 883 0046 FFF7FEFF 		bl	OLED_ShowNum
+ 884              	.LVL64:
+ 127:Core/Src/Max30102.c **** 		OLED_ShowNum(2,5,BO_Value,3);
+ 885              		.loc 1 127 3 view .LVU197
+ 886 004a 0323     		movs	r3, #3
+ 887 004c 029A     		ldr	r2, [sp, #8]
+ 888 004e 0521     		movs	r1, #5
+ 889 0050 0220     		movs	r0, #2
+ 890 0052 FFF7FEFF 		bl	OLED_ShowNum
+ 891              	.LVL65:
+ 892              		.loc 1 129 1 is_stmt 0 view .LVU198
+ 893 0056 E1E7     		b	.L39
+ 894              	.L44:
+ 895              		.align	2
+ 896              	.L43:
+ 897 0058 00000000 		.word	.LC0
+ 898 005c 04000000 		.word	.LC1
+ 899              		.cfi_endproc
+ 900              	.LFE72:
+ 902              		.global	n_brightness
+ 903              		.section	.bss.n_brightness,"aw",%nobits
+ 904              		.align	2
+ 907              	n_brightness:
+ 908 0000 00000000 		.space	4
+ 909              		.global	f_temp
+ 910              		.section	.bss.f_temp,"aw",%nobits
+ 911              		.align	2
+ 914              	f_temp:
+ 915 0000 00000000 		.space	4
+ 916              		.global	prev_data
+ 917              		.section	.bss.prev_data,"aw",%nobits
+ 918              		.align	2
+ 921              	prev_data:
+ 922 0000 00000000 		.space	4
+ 923              		.global	red_min
+ 924              		.section	.data.red_min,"aw"
+ 925              		.align	2
+ 928              	red_min:
+ARM GAS  /tmp/ccN5iRpA.s 			page 20
+
+
+ 929 0000 FFFF0300 		.word	262143
+ 930              		.global	red_max
+ 931              		.section	.bss.red_max,"aw",%nobits
+ 932              		.align	2
+ 935              	red_max:
+ 936 0000 00000000 		.space	4
+ 937              		.global	hr_valid
+ 938              		.section	.bss.hr_valid,"aw",%nobits
+ 941              	hr_valid:
+ 942 0000 00       		.space	1
+ 943              		.global	pn_hr_value
+ 944              		.section	.bss.pn_hr_value,"aw",%nobits
+ 945              		.align	2
+ 948              	pn_hr_value:
+ 949 0000 00000000 		.space	4
+ 950              		.global	SpO2_valid
+ 951              		.section	.bss.SpO2_valid,"aw",%nobits
+ 954              	SpO2_valid:
+ 955 0000 00       		.space	1
+ 956              		.global	pn_SpO2_value
+ 957              		.section	.bss.pn_SpO2_value,"aw",%nobits
+ 958              		.align	2
+ 961              	pn_SpO2_value:
+ 962 0000 00000000 		.space	4
+ 963              		.global	ir_buffer_length
+ 964              		.section	.data.ir_buffer_length,"aw"
+ 965              		.align	2
+ 968              	ir_buffer_length:
+ 969 0000 F4010000 		.word	500
+ 970              		.global	ir_buffer
+ 971              		.section	.bss.ir_buffer,"aw",%nobits
+ 972              		.align	2
+ 975              	ir_buffer:
+ 976 0000 00000000 		.space	2000
+ 976      00000000 
+ 976      00000000 
+ 976      00000000 
+ 976      00000000 
+ 977              		.global	red_buffer
+ 978              		.section	.bss.red_buffer,"aw",%nobits
+ 979              		.align	2
+ 982              	red_buffer:
+ 983 0000 00000000 		.space	2000
+ 983      00000000 
+ 983      00000000 
+ 983      00000000 
+ 983      00000000 
+ 984              		.global	TempData
+ 985              		.section	.bss.TempData,"aw",%nobits
+ 986              		.align	2
+ 989              	TempData:
+ 990 0000 00000000 		.space	6
+ 990      0000
+ 991              		.text
+ 992              	.Letext0:
+ 993              		.file 2 "/nix/store/244x2dv48nan65bmpk2pv3pfl5s5jjn8-gcc-arm-embedded-12.3.rel1/arm-none-eabi/incl
+ 994              		.file 3 "/nix/store/244x2dv48nan65bmpk2pv3pfl5s5jjn8-gcc-arm-embedded-12.3.rel1/arm-none-eabi/incl
+ARM GAS  /tmp/ccN5iRpA.s 			page 21
+
+
+ 995              		.file 4 "Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103xb.h"
+ 996              		.file 5 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_def.h"
+ 997              		.file 6 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_gpio.h"
+ 998              		.file 7 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_dma.h"
+ 999              		.file 8 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_i2c.h"
+ 1000              		.file 9 "Core/Inc/i2c.h"
+ 1001              		.file 10 "Core/OLED/OLED.h"
+ 1002              		.file 11 "Core/algorithm/algorithm.h"
+ARM GAS  /tmp/ccN5iRpA.s 			page 22
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 Max30102.c
+     /tmp/ccN5iRpA.s:19     .text.Max30102_WriteData:00000000 $t
+     /tmp/ccN5iRpA.s:25     .text.Max30102_WriteData:00000000 Max30102_WriteData
+     /tmp/ccN5iRpA.s:72     .text.Max30102_WriteData:00000028 $d
+     /tmp/ccN5iRpA.s:77     .text.Max30102_ReadData:00000000 $t
+     /tmp/ccN5iRpA.s:83     .text.Max30102_ReadData:00000000 Max30102_ReadData
+     /tmp/ccN5iRpA.s:128    .text.Max30102_ReadData:00000020 $d
+     /tmp/ccN5iRpA.s:133    .text.Max30102_FIFO_ReadData:00000000 $t
+     /tmp/ccN5iRpA.s:139    .text.Max30102_FIFO_ReadData:00000000 Max30102_FIFO_ReadData
+     /tmp/ccN5iRpA.s:196    .text.Max30102_Safety:00000000 $t
+     /tmp/ccN5iRpA.s:202    .text.Max30102_Safety:00000000 Max30102_Safety
+     /tmp/ccN5iRpA.s:337    .text.Max30102_Safety:00000090 $d
+     /tmp/ccN5iRpA.s:968    .data.ir_buffer_length:00000000 ir_buffer_length
+     /tmp/ccN5iRpA.s:989    .bss.TempData:00000000 TempData
+     /tmp/ccN5iRpA.s:982    .bss.red_buffer:00000000 red_buffer
+     /tmp/ccN5iRpA.s:975    .bss.ir_buffer:00000000 ir_buffer
+     /tmp/ccN5iRpA.s:928    .data.red_min:00000000 red_min
+     /tmp/ccN5iRpA.s:935    .bss.red_max:00000000 red_max
+     /tmp/ccN5iRpA.s:941    .bss.hr_valid:00000000 hr_valid
+     /tmp/ccN5iRpA.s:948    .bss.pn_hr_value:00000000 pn_hr_value
+     /tmp/ccN5iRpA.s:954    .bss.SpO2_valid:00000000 SpO2_valid
+     /tmp/ccN5iRpA.s:961    .bss.pn_SpO2_value:00000000 pn_SpO2_value
+     /tmp/ccN5iRpA.s:356    .text.Max30102_Calculate_HR_BO_Value:00000000 $t
+     /tmp/ccN5iRpA.s:362    .text.Max30102_Calculate_HR_BO_Value:00000000 Max30102_Calculate_HR_BO_Value
+     /tmp/ccN5iRpA.s:663    .text.Max30102_Calculate_HR_BO_Value:00000180 $d
+     /tmp/ccN5iRpA.s:914    .bss.f_temp:00000000 f_temp
+     /tmp/ccN5iRpA.s:907    .bss.n_brightness:00000000 n_brightness
+     /tmp/ccN5iRpA.s:921    .bss.prev_data:00000000 prev_data
+     /tmp/ccN5iRpA.s:682    .text.Max30102_Reset:00000000 $t
+     /tmp/ccN5iRpA.s:688    .text.Max30102_Reset:00000000 Max30102_Reset
+     /tmp/ccN5iRpA.s:717    .text.Max30102_Init:00000000 $t
+     /tmp/ccN5iRpA.s:723    .text.Max30102_Init:00000000 Max30102_Init
+     /tmp/ccN5iRpA.s:809    .rodata.Read.str1.4:00000000 $d
+     /tmp/ccN5iRpA.s:816    .text.Read:00000000 $t
+     /tmp/ccN5iRpA.s:822    .text.Read:00000000 Read
+     /tmp/ccN5iRpA.s:897    .text.Read:00000058 $d
+     /tmp/ccN5iRpA.s:904    .bss.n_brightness:00000000 $d
+     /tmp/ccN5iRpA.s:911    .bss.f_temp:00000000 $d
+     /tmp/ccN5iRpA.s:918    .bss.prev_data:00000000 $d
+     /tmp/ccN5iRpA.s:925    .data.red_min:00000000 $d
+     /tmp/ccN5iRpA.s:932    .bss.red_max:00000000 $d
+     /tmp/ccN5iRpA.s:942    .bss.hr_valid:00000000 $d
+     /tmp/ccN5iRpA.s:945    .bss.pn_hr_value:00000000 $d
+     /tmp/ccN5iRpA.s:955    .bss.SpO2_valid:00000000 $d
+     /tmp/ccN5iRpA.s:958    .bss.pn_SpO2_value:00000000 $d
+     /tmp/ccN5iRpA.s:965    .data.ir_buffer_length:00000000 $d
+     /tmp/ccN5iRpA.s:972    .bss.ir_buffer:00000000 $d
+     /tmp/ccN5iRpA.s:979    .bss.red_buffer:00000000 $d
+     /tmp/ccN5iRpA.s:986    .bss.TempData:00000000 $d
+
+UNDEFINED SYMBOLS
+HAL_I2C_Mem_Write
+hi2c2
+HAL_I2C_Mem_Read
+HAL_GPIO_ReadPin
+maxim_heart_rate_and_oxygen_saturation
+ARM GAS  /tmp/ccN5iRpA.s 			page 23
+
+
+__aeabi_ui2f
+__aeabi_fdiv
+__aeabi_fmul
+__aeabi_f2iz
+OLED_ShowString
+OLED_ShowNum
