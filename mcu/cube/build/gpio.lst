@@ -1,4 +1,4 @@
-ARM GAS  /tmp/ccq4AHDK.s 			page 1
+ARM GAS  /tmp/ccam60gQ.s 			page 1
 
 
    1              		.cpu cortex-m3
@@ -58,7 +58,7 @@ ARM GAS  /tmp/ccq4AHDK.s 			page 1
   30:Core/Src/gpio.c **** /*----------------------------------------------------------------------------*/
   31:Core/Src/gpio.c **** /* USER CODE BEGIN 1 */
   32:Core/Src/gpio.c **** 
-ARM GAS  /tmp/ccq4AHDK.s 			page 2
+ARM GAS  /tmp/ccam60gQ.s 			page 2
 
 
   33:Core/Src/gpio.c **** /* USER CODE END 1 */
@@ -118,7 +118,7 @@ ARM GAS  /tmp/ccq4AHDK.s 			page 1
   48:Core/Src/gpio.c ****   __HAL_RCC_GPIOA_CLK_ENABLE();
   66              		.loc 1 48 3 view .LVU13
   67              	.LBB4:
-ARM GAS  /tmp/ccq4AHDK.s 			page 3
+ARM GAS  /tmp/ccam60gQ.s 			page 3
 
 
   68              		.loc 1 48 3 view .LVU14
@@ -153,13 +153,13 @@ ARM GAS  /tmp/ccq4AHDK.s 			page 1
   96              		.file 2 "/nix/store/244x2dv48nan65bmpk2pv3pfl5s5jjn8-gcc-arm-embedded-12.3.rel1/arm-none-eabi/incl
   97              		.file 3 "/nix/store/244x2dv48nan65bmpk2pv3pfl5s5jjn8-gcc-arm-embedded-12.3.rel1/arm-none-eabi/incl
   98              		.file 4 "Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103xb.h"
-ARM GAS  /tmp/ccq4AHDK.s 			page 4
+ARM GAS  /tmp/ccam60gQ.s 			page 4
 
 
 DEFINED SYMBOLS
                             *ABS*:00000000 gpio.c
-     /tmp/ccq4AHDK.s:19     .text.MX_GPIO_Init:00000000 $t
-     /tmp/ccq4AHDK.s:25     .text.MX_GPIO_Init:00000000 MX_GPIO_Init
-     /tmp/ccq4AHDK.s:90     .text.MX_GPIO_Init:00000040 $d
+     /tmp/ccam60gQ.s:19     .text.MX_GPIO_Init:00000000 $t
+     /tmp/ccam60gQ.s:25     .text.MX_GPIO_Init:00000000 MX_GPIO_Init
+     /tmp/ccam60gQ.s:90     .text.MX_GPIO_Init:00000040 $d
 
 NO UNDEFINED SYMBOLS

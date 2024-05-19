@@ -41,6 +41,7 @@ Core/Src/gpio.c \
 Core/Src/freertos.c \
 Core/Src/i2c.c \
 Core/Src/usb.c \
+# Core/Src/usb.c \
 Core/Src/stm32f1xx_it.c \
 Core/Src/stm32f1xx_hal_msp.c \
 Core/Src/stm32f1xx_hal_timebase_tim.c \
