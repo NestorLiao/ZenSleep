@@ -34,7 +34,8 @@ build/main.o: Core/Src/main.c Core/Inc/main.h \
  Middlewares/Third_Party/FreeRTOS/Source/include/deprecated_definitions.h \
  Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM3/portmacro.h \
  Middlewares/Third_Party/FreeRTOS/Source/include/mpu_wrappers.h \
- Core/Inc/i2c.h Core/Inc/main.h Core/Inc/usb.h Core/Inc/gpio.h
+ Core/Inc/i2c.h Core/Inc/main.h Core/Inc/usb.h Core/Inc/oled.h \
+ Core/Inc/i2c.h Core/Inc/gpio.h
 Core/Inc/main.h:
 Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h:
 Core/Inc/stm32f1xx_hal_conf.h:
@@ -76,4 +77,6 @@ Middlewares/Third_Party/FreeRTOS/Source/include/mpu_wrappers.h:
 Core/Inc/i2c.h:
 Core/Inc/main.h:
 Core/Inc/usb.h:
+Core/Inc/oled.h:
+Core/Inc/i2c.h:
 Core/Inc/gpio.h:

@@ -21,6 +21,7 @@
 #include "cmsis_os.h"
 #include "i2c.h"
 #include "usb.h"
+#include "oled.h"
 #include "gpio.h"
 
 /* Private includes ----------------------------------------------------------*/
@@ -94,6 +95,10 @@ int main(void)
   MX_I2C2_Init();
   MX_USB_PCD_Init();
   /* USER CODE BEGIN 2 */
+  
+  OLED_Init();
+  OLED_Clear();
+  
 
   /* USER CODE END 2 */
 

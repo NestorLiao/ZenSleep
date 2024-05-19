@@ -1,0 +1,1698 @@
+ARM GAS  /tmp/ccBJL7MB.s 			page 1
+
+
+   1              		.cpu cortex-m3
+   2              		.arch armv7-m
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"oled.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.file 1 "Core/Src/oled.c"
+  18              		.section	.text.SSD1306_WriteByte,"ax",%progbits
+  19              		.align	1
+  20              		.global	SSD1306_WriteByte
+  21              		.syntax unified
+  22              		.thumb
+  23              		.thumb_func
+  25              	SSD1306_WriteByte:
+  26              	.LVL0:
+  27              	.LFB65:
+   1:Core/Src/oled.c **** #include "oled.h"
+   2:Core/Src/oled.c **** #include "f6x8.h"
+   3:Core/Src/oled.c ****  
+   4:Core/Src/oled.c ****  
+   5:Core/Src/oled.c **** void SSD1306_WriteByte(uint8_t dat,uint8_t cmd)
+   6:Core/Src/oled.c **** {
+  28              		.loc 1 6 1 view -0
+  29              		.cfi_startproc
+  30              		@ args = 0, pretend = 0, frame = 8
+  31              		@ frame_needed = 0, uses_anonymous_args = 0
+  32              		.loc 1 6 1 is_stmt 0 view .LVU1
+  33 0000 00B5     		push	{lr}
+  34              	.LCFI0:
+  35              		.cfi_def_cfa_offset 4
+  36              		.cfi_offset 14, -4
+  37 0002 85B0     		sub	sp, sp, #20
+  38              	.LCFI1:
+  39              		.cfi_def_cfa_offset 24
+   7:Core/Src/oled.c **** 	uint8_t buffer[2];
+  40              		.loc 1 7 2 is_stmt 1 view .LVU2
+   8:Core/Src/oled.c **** 	buffer[0]=cmd;
+  41              		.loc 1 8 2 view .LVU3
+  42              		.loc 1 8 11 is_stmt 0 view .LVU4
+  43 0004 8DF80C10 		strb	r1, [sp, #12]
+   9:Core/Src/oled.c **** 	buffer[1]=dat;
+  44              		.loc 1 9 2 is_stmt 1 view .LVU5
+  45              		.loc 1 9 11 is_stmt 0 view .LVU6
+  46 0008 8DF80D00 		strb	r0, [sp, #13]
+  10:Core/Src/oled.c **** 	HAL_I2C_Master_Transmit(&hi2c1,0x78,buffer,2,0xffff);
+  47              		.loc 1 10 2 is_stmt 1 view .LVU7
+  48 000c 4FF6FF73 		movw	r3, #65535
+ARM GAS  /tmp/ccBJL7MB.s 			page 2
+
+
+  49 0010 0093     		str	r3, [sp]
+  50 0012 0223     		movs	r3, #2
+  51 0014 03AA     		add	r2, sp, #12
+  52 0016 7821     		movs	r1, #120
+  53              	.LVL1:
+  54              		.loc 1 10 2 is_stmt 0 view .LVU8
+  55 0018 0248     		ldr	r0, .L3
+  56              	.LVL2:
+  57              		.loc 1 10 2 view .LVU9
+  58 001a FFF7FEFF 		bl	HAL_I2C_Master_Transmit
+  59              	.LVL3:
+  11:Core/Src/oled.c **** }
+  60              		.loc 1 11 1 view .LVU10
+  61 001e 05B0     		add	sp, sp, #20
+  62              	.LCFI2:
+  63              		.cfi_def_cfa_offset 4
+  64              		@ sp needed
+  65 0020 5DF804FB 		ldr	pc, [sp], #4
+  66              	.L4:
+  67              		.align	2
+  68              	.L3:
+  69 0024 00000000 		.word	hi2c1
+  70              		.cfi_endproc
+  71              	.LFE65:
+  73              		.section	.text.OLED_Init,"ax",%progbits
+  74              		.align	1
+  75              		.global	OLED_Init
+  76              		.syntax unified
+  77              		.thumb
+  78              		.thumb_func
+  80              	OLED_Init:
+  81              	.LFB66:
+  12:Core/Src/oled.c ****  
+  13:Core/Src/oled.c **** void OLED_Init()
+  14:Core/Src/oled.c **** {
+  82              		.loc 1 14 1 is_stmt 1 view -0
+  83              		.cfi_startproc
+  84              		@ args = 0, pretend = 0, frame = 0
+  85              		@ frame_needed = 0, uses_anonymous_args = 0
+  86 0000 08B5     		push	{r3, lr}
+  87              	.LCFI3:
+  88              		.cfi_def_cfa_offset 8
+  89              		.cfi_offset 3, -8
+  90              		.cfi_offset 14, -4
+  15:Core/Src/oled.c **** 	HAL_Delay(100);
+  91              		.loc 1 15 2 view .LVU12
+  92 0002 6420     		movs	r0, #100
+  93 0004 FFF7FEFF 		bl	HAL_Delay
+  94              	.LVL4:
+  16:Core/Src/oled.c **** 	SSD1306_WriteByte(0xAE,OLED_CMD); //display off
+  95              		.loc 1 16 2 view .LVU13
+  96 0008 0021     		movs	r1, #0
+  97 000a AE20     		movs	r0, #174
+  98 000c FFF7FEFF 		bl	SSD1306_WriteByte
+  99              	.LVL5:
+  17:Core/Src/oled.c **** 	
+  18:Core/Src/oled.c **** 	SSD1306_WriteByte(0x20,OLED_CMD); //Set Memory Addressing Mode   
+ARM GAS  /tmp/ccBJL7MB.s 			page 3
+
+
+ 100              		.loc 1 18 2 view .LVU14
+ 101 0010 0021     		movs	r1, #0
+ 102 0012 2020     		movs	r0, #32
+ 103 0014 FFF7FEFF 		bl	SSD1306_WriteByte
+ 104              	.LVL6:
+  19:Core/Src/oled.c **** 	SSD1306_WriteByte(0x10,OLED_CMD); //00,Horizontal Addressing Mode;01,Vertical Addressing Mode;10,P
+ 105              		.loc 1 19 2 view .LVU15
+ 106 0018 0021     		movs	r1, #0
+ 107 001a 1020     		movs	r0, #16
+ 108 001c FFF7FEFF 		bl	SSD1306_WriteByte
+ 109              	.LVL7:
+  20:Core/Src/oled.c **** 	
+  21:Core/Src/oled.c **** 	SSD1306_WriteByte(0xB0,OLED_CMD); //Set Page Start Address for Page Addressing Mode,0-7
+ 110              		.loc 1 21 2 view .LVU16
+ 111 0020 0021     		movs	r1, #0
+ 112 0022 B020     		movs	r0, #176
+ 113 0024 FFF7FEFF 		bl	SSD1306_WriteByte
+ 114              	.LVL8:
+  22:Core/Src/oled.c **** 	
+  23:Core/Src/oled.c **** 	SSD1306_WriteByte(0x00,OLED_CMD); //---set low column address
+ 115              		.loc 1 23 2 view .LVU17
+ 116 0028 0021     		movs	r1, #0
+ 117 002a 0846     		mov	r0, r1
+ 118 002c FFF7FEFF 		bl	SSD1306_WriteByte
+ 119              	.LVL9:
+  24:Core/Src/oled.c **** 	SSD1306_WriteByte(0x10,OLED_CMD); //---set high column address
+ 120              		.loc 1 24 2 view .LVU18
+ 121 0030 0021     		movs	r1, #0
+ 122 0032 1020     		movs	r0, #16
+ 123 0034 FFF7FEFF 		bl	SSD1306_WriteByte
+ 124              	.LVL10:
+  25:Core/Src/oled.c **** 	
+  26:Core/Src/oled.c **** 	SSD1306_WriteByte(0xC8,OLED_CMD); //Set COM Output Scan Direction
+ 125              		.loc 1 26 2 view .LVU19
+ 126 0038 0021     		movs	r1, #0
+ 127 003a C820     		movs	r0, #200
+ 128 003c FFF7FEFF 		bl	SSD1306_WriteByte
+ 129              	.LVL11:
+  27:Core/Src/oled.c ****  
+  28:Core/Src/oled.c **** 	SSD1306_WriteByte(0x40,OLED_CMD); //--set start line address
+ 130              		.loc 1 28 2 view .LVU20
+ 131 0040 0021     		movs	r1, #0
+ 132 0042 4020     		movs	r0, #64
+ 133 0044 FFF7FEFF 		bl	SSD1306_WriteByte
+ 134              	.LVL12:
+  29:Core/Src/oled.c **** 	
+  30:Core/Src/oled.c **** 	SSD1306_WriteByte(0x81,OLED_CMD); //--set contrast control register
+ 135              		.loc 1 30 2 view .LVU21
+ 136 0048 0021     		movs	r1, #0
+ 137 004a 8120     		movs	r0, #129
+ 138 004c FFF7FEFF 		bl	SSD1306_WriteByte
+ 139              	.LVL13:
+  31:Core/Src/oled.c **** 	SSD1306_WriteByte(0xff,OLED_CMD); //对比度设置
+ 140              		.loc 1 31 2 view .LVU22
+ 141 0050 0021     		movs	r1, #0
+ 142 0052 FF20     		movs	r0, #255
+ 143 0054 FFF7FEFF 		bl	SSD1306_WriteByte
+ARM GAS  /tmp/ccBJL7MB.s 			page 4
+
+
+ 144              	.LVL14:
+  32:Core/Src/oled.c **** 	
+  33:Core/Src/oled.c **** 	SSD1306_WriteByte(0xA1,OLED_CMD); //--set segment re-map 0 to 127
+ 145              		.loc 1 33 2 view .LVU23
+ 146 0058 0021     		movs	r1, #0
+ 147 005a A120     		movs	r0, #161
+ 148 005c FFF7FEFF 		bl	SSD1306_WriteByte
+ 149              	.LVL15:
+  34:Core/Src/oled.c **** 	SSD1306_WriteByte(0xC8,OLED_CMD); //--set segment re-map 0 to 127
+ 150              		.loc 1 34 2 view .LVU24
+ 151 0060 0021     		movs	r1, #0
+ 152 0062 C820     		movs	r0, #200
+ 153 0064 FFF7FEFF 		bl	SSD1306_WriteByte
+ 154              	.LVL16:
+  35:Core/Src/oled.c **** 	
+  36:Core/Src/oled.c **** 	SSD1306_WriteByte(0xA6,OLED_CMD); //--set normal display
+ 155              		.loc 1 36 2 view .LVU25
+ 156 0068 0021     		movs	r1, #0
+ 157 006a A620     		movs	r0, #166
+ 158 006c FFF7FEFF 		bl	SSD1306_WriteByte
+ 159              	.LVL17:
+  37:Core/Src/oled.c **** 	
+  38:Core/Src/oled.c **** 	SSD1306_WriteByte(0xA8,OLED_CMD); //--set multiplex ratio(1 to 64)
+ 160              		.loc 1 38 2 view .LVU26
+ 161 0070 0021     		movs	r1, #0
+ 162 0072 A820     		movs	r0, #168
+ 163 0074 FFF7FEFF 		bl	SSD1306_WriteByte
+ 164              	.LVL18:
+  39:Core/Src/oled.c **** 	SSD1306_WriteByte(0x3F,OLED_CMD); //
+ 165              		.loc 1 39 2 view .LVU27
+ 166 0078 0021     		movs	r1, #0
+ 167 007a 3F20     		movs	r0, #63
+ 168 007c FFF7FEFF 		bl	SSD1306_WriteByte
+ 169              	.LVL19:
+  40:Core/Src/oled.c **** 	
+  41:Core/Src/oled.c **** 	SSD1306_WriteByte(0xA4,OLED_CMD); //0xa4,Output follows RAM content;0xa5,Output ignores RAM conten
+ 170              		.loc 1 41 2 view .LVU28
+ 171 0080 0021     		movs	r1, #0
+ 172 0082 A420     		movs	r0, #164
+ 173 0084 FFF7FEFF 		bl	SSD1306_WriteByte
+ 174              	.LVL20:
+  42:Core/Src/oled.c **** 	
+  43:Core/Src/oled.c **** 	SSD1306_WriteByte(0xD3,OLED_CMD); //-set display offset
+ 175              		.loc 1 43 2 view .LVU29
+ 176 0088 0021     		movs	r1, #0
+ 177 008a D320     		movs	r0, #211
+ 178 008c FFF7FEFF 		bl	SSD1306_WriteByte
+ 179              	.LVL21:
+  44:Core/Src/oled.c **** 	SSD1306_WriteByte(0x00,OLED_CMD); //-not offset
+ 180              		.loc 1 44 2 view .LVU30
+ 181 0090 0021     		movs	r1, #0
+ 182 0092 0846     		mov	r0, r1
+ 183 0094 FFF7FEFF 		bl	SSD1306_WriteByte
+ 184              	.LVL22:
+  45:Core/Src/oled.c **** 	
+  46:Core/Src/oled.c **** 	SSD1306_WriteByte(0xD5,OLED_CMD); //--set display clock divide ratio/oscillator frequency
+ 185              		.loc 1 46 2 view .LVU31
+ARM GAS  /tmp/ccBJL7MB.s 			page 5
+
+
+ 186 0098 0021     		movs	r1, #0
+ 187 009a D520     		movs	r0, #213
+ 188 009c FFF7FEFF 		bl	SSD1306_WriteByte
+ 189              	.LVL23:
+  47:Core/Src/oled.c **** 	SSD1306_WriteByte(0xF0,OLED_CMD); //--set divide ratio
+ 190              		.loc 1 47 2 view .LVU32
+ 191 00a0 0021     		movs	r1, #0
+ 192 00a2 F020     		movs	r0, #240
+ 193 00a4 FFF7FEFF 		bl	SSD1306_WriteByte
+ 194              	.LVL24:
+  48:Core/Src/oled.c **** 	
+  49:Core/Src/oled.c **** 	SSD1306_WriteByte(0xD9,OLED_CMD); //--set pre-charge period
+ 195              		.loc 1 49 2 view .LVU33
+ 196 00a8 0021     		movs	r1, #0
+ 197 00aa D920     		movs	r0, #217
+ 198 00ac FFF7FEFF 		bl	SSD1306_WriteByte
+ 199              	.LVL25:
+  50:Core/Src/oled.c **** 	SSD1306_WriteByte(0x22,OLED_CMD); //
+ 200              		.loc 1 50 2 view .LVU34
+ 201 00b0 0021     		movs	r1, #0
+ 202 00b2 2220     		movs	r0, #34
+ 203 00b4 FFF7FEFF 		bl	SSD1306_WriteByte
+ 204              	.LVL26:
+  51:Core/Src/oled.c **** 	
+  52:Core/Src/oled.c **** 	SSD1306_WriteByte(0xDA,OLED_CMD); //--set com pins hardware configuration
+ 205              		.loc 1 52 2 view .LVU35
+ 206 00b8 0021     		movs	r1, #0
+ 207 00ba DA20     		movs	r0, #218
+ 208 00bc FFF7FEFF 		bl	SSD1306_WriteByte
+ 209              	.LVL27:
+  53:Core/Src/oled.c **** 	SSD1306_WriteByte(0x12,OLED_CMD);
+ 210              		.loc 1 53 2 view .LVU36
+ 211 00c0 0021     		movs	r1, #0
+ 212 00c2 1220     		movs	r0, #18
+ 213 00c4 FFF7FEFF 		bl	SSD1306_WriteByte
+ 214              	.LVL28:
+  54:Core/Src/oled.c **** 	
+  55:Core/Src/oled.c **** 	SSD1306_WriteByte(0xDB,OLED_CMD); //--set vcomh
+ 215              		.loc 1 55 2 view .LVU37
+ 216 00c8 0021     		movs	r1, #0
+ 217 00ca DB20     		movs	r0, #219
+ 218 00cc FFF7FEFF 		bl	SSD1306_WriteByte
+ 219              	.LVL29:
+  56:Core/Src/oled.c **** 	SSD1306_WriteByte(0x20,OLED_CMD); //0x20,0.77xVcc
+ 220              		.loc 1 56 2 view .LVU38
+ 221 00d0 0021     		movs	r1, #0
+ 222 00d2 2020     		movs	r0, #32
+ 223 00d4 FFF7FEFF 		bl	SSD1306_WriteByte
+ 224              	.LVL30:
+  57:Core/Src/oled.c **** 	
+  58:Core/Src/oled.c **** 	SSD1306_WriteByte(0x8D,OLED_CMD); //--set DC-DC enable
+ 225              		.loc 1 58 2 view .LVU39
+ 226 00d8 0021     		movs	r1, #0
+ 227 00da 8D20     		movs	r0, #141
+ 228 00dc FFF7FEFF 		bl	SSD1306_WriteByte
+ 229              	.LVL31:
+  59:Core/Src/oled.c **** 	SSD1306_WriteByte(0x14,OLED_CMD); //
+ARM GAS  /tmp/ccBJL7MB.s 			page 6
+
+
+ 230              		.loc 1 59 2 view .LVU40
+ 231 00e0 0021     		movs	r1, #0
+ 232 00e2 1420     		movs	r0, #20
+ 233 00e4 FFF7FEFF 		bl	SSD1306_WriteByte
+ 234              	.LVL32:
+  60:Core/Src/oled.c **** 	SSD1306_WriteByte(0xAF,OLED_CMD); //--turn on SSD1306 panel
+ 235              		.loc 1 60 2 view .LVU41
+ 236 00e8 0021     		movs	r1, #0
+ 237 00ea AF20     		movs	r0, #175
+ 238 00ec FFF7FEFF 		bl	SSD1306_WriteByte
+ 239              	.LVL33:
+  61:Core/Src/oled.c **** }
+ 240              		.loc 1 61 1 is_stmt 0 view .LVU42
+ 241 00f0 08BD     		pop	{r3, pc}
+ 242              		.cfi_endproc
+ 243              	.LFE66:
+ 245              		.section	.text.OLED_Clear,"ax",%progbits
+ 246              		.align	1
+ 247              		.global	OLED_Clear
+ 248              		.syntax unified
+ 249              		.thumb
+ 250              		.thumb_func
+ 252              	OLED_Clear:
+ 253              	.LFB67:
+  62:Core/Src/oled.c **** void OLED_Clear()
+  63:Core/Src/oled.c **** {
+ 254              		.loc 1 63 1 is_stmt 1 view -0
+ 255              		.cfi_startproc
+ 256              		@ args = 0, pretend = 0, frame = 0
+ 257              		@ frame_needed = 0, uses_anonymous_args = 0
+ 258 0000 38B5     		push	{r3, r4, r5, lr}
+ 259              	.LCFI4:
+ 260              		.cfi_def_cfa_offset 16
+ 261              		.cfi_offset 3, -16
+ 262              		.cfi_offset 4, -12
+ 263              		.cfi_offset 5, -8
+ 264              		.cfi_offset 14, -4
+  64:Core/Src/oled.c ****      uint8_t i,n;		    
+ 265              		.loc 1 64 6 view .LVU44
+  65:Core/Src/oled.c **** 	for(i=0;i<8;i++)  
+ 266              		.loc 1 65 2 view .LVU45
+ 267              	.LVL34:
+ 268              		.loc 1 65 7 is_stmt 0 view .LVU46
+ 269 0002 0025     		movs	r5, #0
+ 270              		.loc 1 65 2 view .LVU47
+ 271 0004 0AE0     		b	.L8
+ 272              	.LVL35:
+ 273              	.L10:
+  66:Core/Src/oled.c **** 	{  
+  67:Core/Src/oled.c **** 		SSD1306_WriteByte (0xb0+i,OLED_CMD);    //设置页地址（0~7）
+  68:Core/Src/oled.c **** 		SSD1306_WriteByte (0x00,OLED_CMD);      //设置显示位置—列低地址
+  69:Core/Src/oled.c **** 		SSD1306_WriteByte (0x10,OLED_CMD);      //设置显示位置—列高地址   
+  70:Core/Src/oled.c **** 		for(n=0;n<128;n++)
+  71:Core/Src/oled.c **** 			SSD1306_WriteByte(0,OLED_DATA); //write 0x00;
+ 274              		.loc 1 71 4 is_stmt 1 discriminator 3 view .LVU48
+ 275 0006 4021     		movs	r1, #64
+ 276 0008 0020     		movs	r0, #0
+ARM GAS  /tmp/ccBJL7MB.s 			page 7
+
+
+ 277 000a FFF7FEFF 		bl	SSD1306_WriteByte
+ 278              	.LVL36:
+  70:Core/Src/oled.c **** 			SSD1306_WriteByte(0,OLED_DATA); //write 0x00;
+ 279              		.loc 1 70 18 discriminator 3 view .LVU49
+ 280 000e 0134     		adds	r4, r4, #1
+ 281              	.LVL37:
+  70:Core/Src/oled.c **** 			SSD1306_WriteByte(0,OLED_DATA); //write 0x00;
+ 282              		.loc 1 70 18 is_stmt 0 discriminator 3 view .LVU50
+ 283 0010 E4B2     		uxtb	r4, r4
+ 284              	.LVL38:
+ 285              	.L9:
+  70:Core/Src/oled.c **** 			SSD1306_WriteByte(0,OLED_DATA); //write 0x00;
+ 286              		.loc 1 70 12 is_stmt 1 discriminator 1 view .LVU51
+ 287 0012 14F0800F 		tst	r4, #128
+ 288 0016 F6D0     		beq	.L10
+  65:Core/Src/oled.c **** 	for(i=0;i<8;i++)  
+ 289              		.loc 1 65 15 discriminator 2 view .LVU52
+ 290 0018 0135     		adds	r5, r5, #1
+ 291              	.LVL39:
+  65:Core/Src/oled.c **** 	for(i=0;i<8;i++)  
+ 292              		.loc 1 65 15 is_stmt 0 discriminator 2 view .LVU53
+ 293 001a EDB2     		uxtb	r5, r5
+ 294              	.LVL40:
+ 295              	.L8:
+  65:Core/Src/oled.c **** 	for(i=0;i<8;i++)  
+ 296              		.loc 1 65 11 is_stmt 1 discriminator 1 view .LVU54
+ 297 001c 072D     		cmp	r5, #7
+ 298 001e 0FD8     		bhi	.L13
+  67:Core/Src/oled.c **** 		SSD1306_WriteByte (0x00,OLED_CMD);      //设置显示位置—列低地址
+ 299              		.loc 1 67 3 view .LVU55
+ 300 0020 A5F15000 		sub	r0, r5, #80
+ 301 0024 0021     		movs	r1, #0
+ 302 0026 C0B2     		uxtb	r0, r0
+ 303 0028 FFF7FEFF 		bl	SSD1306_WriteByte
+ 304              	.LVL41:
+  68:Core/Src/oled.c **** 		SSD1306_WriteByte (0x10,OLED_CMD);      //设置显示位置—列高地址   
+ 305              		.loc 1 68 3 view .LVU56
+ 306 002c 0021     		movs	r1, #0
+ 307 002e 0846     		mov	r0, r1
+ 308 0030 FFF7FEFF 		bl	SSD1306_WriteByte
+ 309              	.LVL42:
+  69:Core/Src/oled.c **** 		for(n=0;n<128;n++)
+ 310              		.loc 1 69 3 view .LVU57
+ 311 0034 0021     		movs	r1, #0
+ 312 0036 1020     		movs	r0, #16
+ 313 0038 FFF7FEFF 		bl	SSD1306_WriteByte
+ 314              	.LVL43:
+  70:Core/Src/oled.c **** 			SSD1306_WriteByte(0,OLED_DATA); //write 0x00;
+ 315              		.loc 1 70 3 view .LVU58
+  70:Core/Src/oled.c **** 			SSD1306_WriteByte(0,OLED_DATA); //write 0x00;
+ 316              		.loc 1 70 8 is_stmt 0 view .LVU59
+ 317 003c 0024     		movs	r4, #0
+  70:Core/Src/oled.c **** 			SSD1306_WriteByte(0,OLED_DATA); //write 0x00;
+ 318              		.loc 1 70 3 view .LVU60
+ 319 003e E8E7     		b	.L9
+ 320              	.LVL44:
+ 321              	.L13:
+ARM GAS  /tmp/ccBJL7MB.s 			page 8
+
+
+  72:Core/Src/oled.c **** 	} //更新显示
+  73:Core/Src/oled.c **** }
+ 322              		.loc 1 73 1 view .LVU61
+ 323 0040 38BD     		pop	{r3, r4, r5, pc}
+ 324              		.loc 1 73 1 view .LVU62
+ 325              		.cfi_endproc
+ 326              	.LFE67:
+ 328              		.section	.text.OLED_Set_Pos,"ax",%progbits
+ 329              		.align	1
+ 330              		.global	OLED_Set_Pos
+ 331              		.syntax unified
+ 332              		.thumb
+ 333              		.thumb_func
+ 335              	OLED_Set_Pos:
+ 336              	.LVL45:
+ 337              	.LFB68:
+  74:Core/Src/oled.c ****  
+  75:Core/Src/oled.c ****  
+  76:Core/Src/oled.c **** void OLED_Set_Pos(unsigned char x, unsigned char y) 
+  77:Core/Src/oled.c **** { 	
+ 338              		.loc 1 77 1 is_stmt 1 view -0
+ 339              		.cfi_startproc
+ 340              		@ args = 0, pretend = 0, frame = 0
+ 341              		@ frame_needed = 0, uses_anonymous_args = 0
+ 342              		.loc 1 77 1 is_stmt 0 view .LVU64
+ 343 0000 10B5     		push	{r4, lr}
+ 344              	.LCFI5:
+ 345              		.cfi_def_cfa_offset 8
+ 346              		.cfi_offset 4, -8
+ 347              		.cfi_offset 14, -4
+ 348 0002 0446     		mov	r4, r0
+  78:Core/Src/oled.c **** 	SSD1306_WriteByte(0xb0+y,OLED_CMD);						//page y
+ 349              		.loc 1 78 2 is_stmt 1 view .LVU65
+ 350 0004 A1F15000 		sub	r0, r1, #80
+ 351              	.LVL46:
+ 352              		.loc 1 78 2 is_stmt 0 view .LVU66
+ 353 0008 0021     		movs	r1, #0
+ 354              	.LVL47:
+ 355              		.loc 1 78 2 view .LVU67
+ 356 000a C0B2     		uxtb	r0, r0
+ 357 000c FFF7FEFF 		bl	SSD1306_WriteByte
+ 358              	.LVL48:
+  79:Core/Src/oled.c **** 	SSD1306_WriteByte(((x&0xf0)>>4)|0x10,OLED_CMD);			//high 4 address
+ 359              		.loc 1 79 2 is_stmt 1 view .LVU68
+ 360              		.loc 1 79 29 is_stmt 0 view .LVU69
+ 361 0010 2009     		lsrs	r0, r4, #4
+ 362              		.loc 1 79 2 view .LVU70
+ 363 0012 0021     		movs	r1, #0
+ 364 0014 40F01000 		orr	r0, r0, #16
+ 365 0018 FFF7FEFF 		bl	SSD1306_WriteByte
+ 366              	.LVL49:
+  80:Core/Src/oled.c **** 	SSD1306_WriteByte((x&0x0f),OLED_CMD); 					//low 4 address
+ 367              		.loc 1 80 2 is_stmt 1 view .LVU71
+ 368 001c 0021     		movs	r1, #0
+ 369 001e 04F00F00 		and	r0, r4, #15
+ 370 0022 FFF7FEFF 		bl	SSD1306_WriteByte
+ 371              	.LVL50:
+ARM GAS  /tmp/ccBJL7MB.s 			page 9
+
+
+  81:Core/Src/oled.c **** } 
+ 372              		.loc 1 81 1 is_stmt 0 view .LVU72
+ 373 0026 10BD     		pop	{r4, pc}
+ 374              		.cfi_endproc
+ 375              	.LFE68:
+ 377              		.section	.text.OLED_ShowChar,"ax",%progbits
+ 378              		.align	1
+ 379              		.global	OLED_ShowChar
+ 380              		.syntax unified
+ 381              		.thumb
+ 382              		.thumb_func
+ 384              	OLED_ShowChar:
+ 385              	.LVL51:
+ 386              	.LFB69:
+  82:Core/Src/oled.c ****  
+  83:Core/Src/oled.c ****  
+  84:Core/Src/oled.c **** void OLED_ShowChar(uint8_t x,uint8_t y,uint8_t chr,uint8_t Char_Size)
+  85:Core/Src/oled.c **** {      	
+ 387              		.loc 1 85 1 is_stmt 1 view -0
+ 388              		.cfi_startproc
+ 389              		@ args = 0, pretend = 0, frame = 0
+ 390              		@ frame_needed = 0, uses_anonymous_args = 0
+ 391              		.loc 1 85 1 is_stmt 0 view .LVU74
+ 392 0000 F8B5     		push	{r3, r4, r5, r6, r7, lr}
+ 393              	.LCFI6:
+ 394              		.cfi_def_cfa_offset 24
+ 395              		.cfi_offset 3, -24
+ 396              		.cfi_offset 4, -20
+ 397              		.cfi_offset 5, -16
+ 398              		.cfi_offset 6, -12
+ 399              		.cfi_offset 7, -8
+ 400              		.cfi_offset 14, -4
+ 401 0002 0746     		mov	r7, r0
+ 402 0004 0E46     		mov	r6, r1
+  86:Core/Src/oled.c **** 	unsigned char c=0,i=0;	
+ 403              		.loc 1 86 2 is_stmt 1 view .LVU75
+ 404              	.LVL52:
+  87:Core/Src/oled.c **** 		c=chr-' ';//得到偏移后的值			
+ 405              		.loc 1 87 3 view .LVU76
+ 406              		.loc 1 87 4 is_stmt 0 view .LVU77
+ 407 0006 203A     		subs	r2, r2, #32
+ 408              	.LVL53:
+ 409              		.loc 1 87 4 view .LVU78
+ 410 0008 D5B2     		uxtb	r5, r2
+ 411              	.LVL54:
+  88:Core/Src/oled.c **** 		if(x>Max_Column-1){x=0;y=y+2;}
+ 412              		.loc 1 88 3 is_stmt 1 view .LVU79
+ 413              		.loc 1 88 5 is_stmt 0 view .LVU80
+ 414 000a 10F0800F 		tst	r0, #128
+ 415 000e 07D1     		bne	.L27
+ 416              	.LVL55:
+ 417              	.L17:
+  89:Core/Src/oled.c **** 		if(Char_Size ==16)
+ 418              		.loc 1 89 3 is_stmt 1 view .LVU81
+ 419              		.loc 1 89 5 is_stmt 0 view .LVU82
+ 420 0010 102B     		cmp	r3, #16
+ 421 0012 09D0     		beq	.L28
+ARM GAS  /tmp/ccBJL7MB.s 			page 10
+
+
+  90:Core/Src/oled.c **** 			{
+  91:Core/Src/oled.c **** 				OLED_Set_Pos(x,y);	
+  92:Core/Src/oled.c **** 				for(i=0;i<8;i++)
+  93:Core/Src/oled.c **** 				SSD1306_WriteByte(F8X16[c*16+i],OLED_DATA);
+  94:Core/Src/oled.c **** 				OLED_Set_Pos(x,y+1);
+  95:Core/Src/oled.c **** 				for(i=0;i<8;i++)
+  96:Core/Src/oled.c **** 				SSD1306_WriteByte(F8X16[c*16+i+8],OLED_DATA);
+  97:Core/Src/oled.c **** 			}
+  98:Core/Src/oled.c **** 		else 
+  99:Core/Src/oled.c **** 			{	
+ 100:Core/Src/oled.c **** 				OLED_Set_Pos(x,y);
+ 422              		.loc 1 100 5 is_stmt 1 view .LVU83
+ 423 0014 3146     		mov	r1, r6
+ 424 0016 3846     		mov	r0, r7
+ 425 0018 FFF7FEFF 		bl	OLED_Set_Pos
+ 426              	.LVL56:
+ 101:Core/Src/oled.c **** 				for(i=0;i<6;i++)
+ 427              		.loc 1 101 5 view .LVU84
+ 428              		.loc 1 101 10 is_stmt 0 view .LVU85
+ 429 001c 0024     		movs	r4, #0
+ 430              		.loc 1 101 5 view .LVU86
+ 431 001e 33E0     		b	.L24
+ 432              	.LVL57:
+ 433              	.L27:
+  88:Core/Src/oled.c **** 		if(Char_Size ==16)
+ 434              		.loc 1 88 22 is_stmt 1 discriminator 1 view .LVU87
+  88:Core/Src/oled.c **** 		if(Char_Size ==16)
+ 435              		.loc 1 88 26 discriminator 1 view .LVU88
+  88:Core/Src/oled.c **** 		if(Char_Size ==16)
+ 436              		.loc 1 88 27 is_stmt 0 discriminator 1 view .LVU89
+ 437 0020 0236     		adds	r6, r6, #2
+ 438 0022 F6B2     		uxtb	r6, r6
+ 439              	.LVL58:
+  88:Core/Src/oled.c **** 		if(Char_Size ==16)
+ 440              		.loc 1 88 23 discriminator 1 view .LVU90
+ 441 0024 0027     		movs	r7, #0
+ 442 0026 F3E7     		b	.L17
+ 443              	.LVL59:
+ 444              	.L28:
+  91:Core/Src/oled.c **** 				for(i=0;i<8;i++)
+ 445              		.loc 1 91 5 is_stmt 1 view .LVU91
+ 446 0028 3146     		mov	r1, r6
+ 447 002a 3846     		mov	r0, r7
+ 448 002c FFF7FEFF 		bl	OLED_Set_Pos
+ 449              	.LVL60:
+  92:Core/Src/oled.c **** 				SSD1306_WriteByte(F8X16[c*16+i],OLED_DATA);
+ 450              		.loc 1 92 5 view .LVU92
+  92:Core/Src/oled.c **** 				SSD1306_WriteByte(F8X16[c*16+i],OLED_DATA);
+ 451              		.loc 1 92 10 is_stmt 0 view .LVU93
+ 452 0030 0024     		movs	r4, #0
+  92:Core/Src/oled.c **** 				SSD1306_WriteByte(F8X16[c*16+i],OLED_DATA);
+ 453              		.loc 1 92 5 view .LVU94
+ 454 0032 08E0     		b	.L19
+ 455              	.LVL61:
+ 456              	.L20:
+  93:Core/Src/oled.c **** 				OLED_Set_Pos(x,y+1);
+ 457              		.loc 1 93 5 is_stmt 1 discriminator 3 view .LVU95
+ARM GAS  /tmp/ccBJL7MB.s 			page 11
+
+
+  93:Core/Src/oled.c **** 				OLED_Set_Pos(x,y+1);
+ 458              		.loc 1 93 33 is_stmt 0 discriminator 3 view .LVU96
+ 459 0034 04EB0513 		add	r3, r4, r5, lsl #4
+  93:Core/Src/oled.c **** 				OLED_Set_Pos(x,y+1);
+ 460              		.loc 1 93 5 discriminator 3 view .LVU97
+ 461 0038 4021     		movs	r1, #64
+ 462 003a 154A     		ldr	r2, .L29
+ 463 003c D05C     		ldrb	r0, [r2, r3]	@ zero_extendqisi2
+ 464 003e FFF7FEFF 		bl	SSD1306_WriteByte
+ 465              	.LVL62:
+  92:Core/Src/oled.c **** 				SSD1306_WriteByte(F8X16[c*16+i],OLED_DATA);
+ 466              		.loc 1 92 18 is_stmt 1 discriminator 3 view .LVU98
+ 467 0042 0134     		adds	r4, r4, #1
+ 468              	.LVL63:
+  92:Core/Src/oled.c **** 				SSD1306_WriteByte(F8X16[c*16+i],OLED_DATA);
+ 469              		.loc 1 92 18 is_stmt 0 discriminator 3 view .LVU99
+ 470 0044 E4B2     		uxtb	r4, r4
+ 471              	.LVL64:
+ 472              	.L19:
+  92:Core/Src/oled.c **** 				SSD1306_WriteByte(F8X16[c*16+i],OLED_DATA);
+ 473              		.loc 1 92 14 is_stmt 1 discriminator 1 view .LVU100
+ 474 0046 072C     		cmp	r4, #7
+ 475 0048 F4D9     		bls	.L20
+  94:Core/Src/oled.c **** 				for(i=0;i<8;i++)
+ 476              		.loc 1 94 5 view .LVU101
+ 477 004a 711C     		adds	r1, r6, #1
+ 478 004c C9B2     		uxtb	r1, r1
+ 479 004e 3846     		mov	r0, r7
+ 480 0050 FFF7FEFF 		bl	OLED_Set_Pos
+ 481              	.LVL65:
+  95:Core/Src/oled.c **** 				SSD1306_WriteByte(F8X16[c*16+i+8],OLED_DATA);
+ 482              		.loc 1 95 5 view .LVU102
+  95:Core/Src/oled.c **** 				SSD1306_WriteByte(F8X16[c*16+i+8],OLED_DATA);
+ 483              		.loc 1 95 10 is_stmt 0 view .LVU103
+ 484 0054 0024     		movs	r4, #0
+  95:Core/Src/oled.c **** 				SSD1306_WriteByte(F8X16[c*16+i+8],OLED_DATA);
+ 485              		.loc 1 95 5 view .LVU104
+ 486 0056 09E0     		b	.L21
+ 487              	.LVL66:
+ 488              	.L22:
+  96:Core/Src/oled.c **** 			}
+ 489              		.loc 1 96 5 is_stmt 1 discriminator 3 view .LVU105
+  96:Core/Src/oled.c **** 			}
+ 490              		.loc 1 96 33 is_stmt 0 discriminator 3 view .LVU106
+ 491 0058 04EB0513 		add	r3, r4, r5, lsl #4
+  96:Core/Src/oled.c **** 			}
+ 492              		.loc 1 96 35 discriminator 3 view .LVU107
+ 493 005c 0833     		adds	r3, r3, #8
+  96:Core/Src/oled.c **** 			}
+ 494              		.loc 1 96 5 discriminator 3 view .LVU108
+ 495 005e 4021     		movs	r1, #64
+ 496 0060 0B4A     		ldr	r2, .L29
+ 497 0062 D05C     		ldrb	r0, [r2, r3]	@ zero_extendqisi2
+ 498 0064 FFF7FEFF 		bl	SSD1306_WriteByte
+ 499              	.LVL67:
+  95:Core/Src/oled.c **** 				SSD1306_WriteByte(F8X16[c*16+i+8],OLED_DATA);
+ 500              		.loc 1 95 18 is_stmt 1 discriminator 3 view .LVU109
+ARM GAS  /tmp/ccBJL7MB.s 			page 12
+
+
+ 501 0068 0134     		adds	r4, r4, #1
+ 502              	.LVL68:
+  95:Core/Src/oled.c **** 				SSD1306_WriteByte(F8X16[c*16+i+8],OLED_DATA);
+ 503              		.loc 1 95 18 is_stmt 0 discriminator 3 view .LVU110
+ 504 006a E4B2     		uxtb	r4, r4
+ 505              	.LVL69:
+ 506              	.L21:
+  95:Core/Src/oled.c **** 				SSD1306_WriteByte(F8X16[c*16+i+8],OLED_DATA);
+ 507              		.loc 1 95 14 is_stmt 1 discriminator 1 view .LVU111
+ 508 006c 072C     		cmp	r4, #7
+ 509 006e F3D9     		bls	.L22
+ 510 0070 0CE0     		b	.L16
+ 511              	.L25:
+ 102:Core/Src/oled.c **** 				SSD1306_WriteByte(F6x8[c][i],OLED_DATA);
+ 512              		.loc 1 102 5 discriminator 3 view .LVU112
+ 513              		.loc 1 102 30 is_stmt 0 discriminator 3 view .LVU113
+ 514 0072 05EB4502 		add	r2, r5, r5, lsl #1
+ 515 0076 074B     		ldr	r3, .L29+4
+ 516 0078 03EB4203 		add	r3, r3, r2, lsl #1
+ 517              		.loc 1 102 5 discriminator 3 view .LVU114
+ 518 007c 4021     		movs	r1, #64
+ 519 007e 185D     		ldrb	r0, [r3, r4]	@ zero_extendqisi2
+ 520 0080 FFF7FEFF 		bl	SSD1306_WriteByte
+ 521              	.LVL70:
+ 101:Core/Src/oled.c **** 				SSD1306_WriteByte(F6x8[c][i],OLED_DATA);
+ 522              		.loc 1 101 18 is_stmt 1 discriminator 3 view .LVU115
+ 523 0084 0134     		adds	r4, r4, #1
+ 524              	.LVL71:
+ 101:Core/Src/oled.c **** 				SSD1306_WriteByte(F6x8[c][i],OLED_DATA);
+ 525              		.loc 1 101 18 is_stmt 0 discriminator 3 view .LVU116
+ 526 0086 E4B2     		uxtb	r4, r4
+ 527              	.LVL72:
+ 528              	.L24:
+ 101:Core/Src/oled.c **** 				SSD1306_WriteByte(F6x8[c][i],OLED_DATA);
+ 529              		.loc 1 101 14 is_stmt 1 discriminator 1 view .LVU117
+ 530 0088 052C     		cmp	r4, #5
+ 531 008a F2D9     		bls	.L25
+ 532              	.L16:
+ 103:Core/Src/oled.c **** 			}
+ 104:Core/Src/oled.c **** }
+ 533              		.loc 1 104 1 is_stmt 0 view .LVU118
+ 534 008c F8BD     		pop	{r3, r4, r5, r6, r7, pc}
+ 535              	.LVL73:
+ 536              	.L30:
+ 537              		.loc 1 104 1 view .LVU119
+ 538 008e 00BF     		.align	2
+ 539              	.L29:
+ 540 0090 00000000 		.word	F8X16
+ 541 0094 00000000 		.word	F6x8
+ 542              		.cfi_endproc
+ 543              	.LFE69:
+ 545              		.section	.text.OLED_ShowString,"ax",%progbits
+ 546              		.align	1
+ 547              		.global	OLED_ShowString
+ 548              		.syntax unified
+ 549              		.thumb
+ 550              		.thumb_func
+ARM GAS  /tmp/ccBJL7MB.s 			page 13
+
+
+ 552              	OLED_ShowString:
+ 553              	.LVL74:
+ 554              	.LFB70:
+ 105:Core/Src/oled.c **** void OLED_ShowString(uint8_t x,uint8_t y,uint8_t *chr,uint8_t Char_Size)
+ 106:Core/Src/oled.c **** {
+ 555              		.loc 1 106 1 is_stmt 1 view -0
+ 556              		.cfi_startproc
+ 557              		@ args = 0, pretend = 0, frame = 0
+ 558              		@ frame_needed = 0, uses_anonymous_args = 0
+ 559              		.loc 1 106 1 is_stmt 0 view .LVU121
+ 560 0000 2DE9F041 		push	{r4, r5, r6, r7, r8, lr}
+ 561              	.LCFI7:
+ 562              		.cfi_def_cfa_offset 24
+ 563              		.cfi_offset 4, -24
+ 564              		.cfi_offset 5, -20
+ 565              		.cfi_offset 6, -16
+ 566              		.cfi_offset 7, -12
+ 567              		.cfi_offset 8, -8
+ 568              		.cfi_offset 14, -4
+ 569 0004 0446     		mov	r4, r0
+ 570 0006 0E46     		mov	r6, r1
+ 571 0008 1746     		mov	r7, r2
+ 572 000a 9846     		mov	r8, r3
+ 107:Core/Src/oled.c **** 	unsigned char j=0;
+ 573              		.loc 1 107 2 is_stmt 1 view .LVU122
+ 574              	.LVL75:
+ 108:Core/Src/oled.c **** 	while (chr[j]!='\0')
+ 575              		.loc 1 108 2 view .LVU123
+ 107:Core/Src/oled.c **** 	unsigned char j=0;
+ 576              		.loc 1 107 16 is_stmt 0 view .LVU124
+ 577 000c 0025     		movs	r5, #0
+ 578              		.loc 1 108 8 view .LVU125
+ 579 000e 01E0     		b	.L32
+ 580              	.LVL76:
+ 581              	.L33:
+ 109:Core/Src/oled.c **** 	{		OLED_ShowChar(x,y,chr[j],Char_Size);
+ 110:Core/Src/oled.c **** 			x+=8;
+ 111:Core/Src/oled.c **** 		if(x>120){x=0;y+=2;}
+ 112:Core/Src/oled.c **** 			j++;
+ 582              		.loc 1 112 4 is_stmt 1 view .LVU126
+ 583              		.loc 1 112 5 is_stmt 0 view .LVU127
+ 584 0010 0135     		adds	r5, r5, #1
+ 585              	.LVL77:
+ 586              		.loc 1 112 5 view .LVU128
+ 587 0012 EDB2     		uxtb	r5, r5
+ 588              	.LVL78:
+ 589              	.L32:
+ 108:Core/Src/oled.c **** 	while (chr[j]!='\0')
+ 590              		.loc 1 108 15 is_stmt 1 view .LVU129
+ 108:Core/Src/oled.c **** 	while (chr[j]!='\0')
+ 591              		.loc 1 108 12 is_stmt 0 view .LVU130
+ 592 0014 7A5D     		ldrb	r2, [r7, r5]	@ zero_extendqisi2
+ 108:Core/Src/oled.c **** 	while (chr[j]!='\0')
+ 593              		.loc 1 108 15 view .LVU131
+ 594 0016 62B1     		cbz	r2, .L36
+ 109:Core/Src/oled.c **** 	{		OLED_ShowChar(x,y,chr[j],Char_Size);
+ 595              		.loc 1 109 5 is_stmt 1 view .LVU132
+ARM GAS  /tmp/ccBJL7MB.s 			page 14
+
+
+ 596 0018 4346     		mov	r3, r8
+ 597 001a 3146     		mov	r1, r6
+ 598 001c 2046     		mov	r0, r4
+ 599 001e FFF7FEFF 		bl	OLED_ShowChar
+ 600              	.LVL79:
+ 110:Core/Src/oled.c **** 		if(x>120){x=0;y+=2;}
+ 601              		.loc 1 110 4 view .LVU133
+ 110:Core/Src/oled.c **** 		if(x>120){x=0;y+=2;}
+ 602              		.loc 1 110 5 is_stmt 0 view .LVU134
+ 603 0022 0834     		adds	r4, r4, #8
+ 604              	.LVL80:
+ 110:Core/Src/oled.c **** 		if(x>120){x=0;y+=2;}
+ 605              		.loc 1 110 5 view .LVU135
+ 606 0024 E4B2     		uxtb	r4, r4
+ 607              	.LVL81:
+ 111:Core/Src/oled.c **** 			j++;
+ 608              		.loc 1 111 3 is_stmt 1 view .LVU136
+ 111:Core/Src/oled.c **** 			j++;
+ 609              		.loc 1 111 5 is_stmt 0 view .LVU137
+ 610 0026 782C     		cmp	r4, #120
+ 611 0028 F2D9     		bls	.L33
+ 111:Core/Src/oled.c **** 			j++;
+ 612              		.loc 1 111 13 is_stmt 1 discriminator 1 view .LVU138
+ 613              	.LVL82:
+ 111:Core/Src/oled.c **** 			j++;
+ 614              		.loc 1 111 17 discriminator 1 view .LVU139
+ 111:Core/Src/oled.c **** 			j++;
+ 615              		.loc 1 111 18 is_stmt 0 discriminator 1 view .LVU140
+ 616 002a 0236     		adds	r6, r6, #2
+ 617              	.LVL83:
+ 111:Core/Src/oled.c **** 			j++;
+ 618              		.loc 1 111 18 discriminator 1 view .LVU141
+ 619 002c F6B2     		uxtb	r6, r6
+ 620              	.LVL84:
+ 111:Core/Src/oled.c **** 			j++;
+ 621              		.loc 1 111 14 discriminator 1 view .LVU142
+ 622 002e 0024     		movs	r4, #0
+ 623 0030 EEE7     		b	.L33
+ 624              	.LVL85:
+ 625              	.L36:
+ 113:Core/Src/oled.c **** 	}
+ 114:Core/Src/oled.c **** }
+ 626              		.loc 1 114 1 view .LVU143
+ 627 0032 BDE8F081 		pop	{r4, r5, r6, r7, r8, pc}
+ 628              		.loc 1 114 1 view .LVU144
+ 629              		.cfi_endproc
+ 630              	.LFE70:
+ 632              		.section	.text.OLED_ShowPic,"ax",%progbits
+ 633              		.align	1
+ 634              		.global	OLED_ShowPic
+ 635              		.syntax unified
+ 636              		.thumb
+ 637              		.thumb_func
+ 639              	OLED_ShowPic:
+ 640              	.LVL86:
+ 641              	.LFB71:
+ 115:Core/Src/oled.c **** void OLED_ShowPic(uint8_t x,uint8_t y,BMP bmp)
+ARM GAS  /tmp/ccBJL7MB.s 			page 15
+
+
+ 116:Core/Src/oled.c **** {
+ 642              		.loc 1 116 1 is_stmt 1 view -0
+ 643              		.cfi_startproc
+ 644              		@ args = 0, pretend = 0, frame = 8
+ 645              		@ frame_needed = 0, uses_anonymous_args = 0
+ 646              		.loc 1 116 1 is_stmt 0 view .LVU146
+ 647 0000 2DE9F043 		push	{r4, r5, r6, r7, r8, r9, lr}
+ 648              	.LCFI8:
+ 649              		.cfi_def_cfa_offset 28
+ 650              		.cfi_offset 4, -28
+ 651              		.cfi_offset 5, -24
+ 652              		.cfi_offset 6, -20
+ 653              		.cfi_offset 7, -16
+ 654              		.cfi_offset 8, -12
+ 655              		.cfi_offset 9, -8
+ 656              		.cfi_offset 14, -4
+ 657 0004 83B0     		sub	sp, sp, #12
+ 658              	.LCFI9:
+ 659              		.cfi_def_cfa_offset 40
+ 660 0006 8046     		mov	r8, r0
+ 661 0008 8946     		mov	r9, r1
+ 662 000a 02AC     		add	r4, sp, #8
+ 663 000c 04E90C00 		stmdb	r4, {r2, r3}
+ 117:Core/Src/oled.c **** 	uint8_t xsize=bmp.xSize;
+ 664              		.loc 1 117 2 is_stmt 1 view .LVU147
+ 665              		.loc 1 117 10 is_stmt 0 view .LVU148
+ 666 0010 9DF80050 		ldrb	r5, [sp]	@ zero_extendqisi2
+ 667              	.LVL87:
+ 118:Core/Src/oled.c **** 	uint8_t ysize=bmp.ySize;
+ 668              		.loc 1 118 2 is_stmt 1 view .LVU149
+ 669              		.loc 1 118 10 is_stmt 0 view .LVU150
+ 670 0014 9DF80170 		ldrb	r7, [sp, #1]	@ zero_extendqisi2
+ 671              	.LVL88:
+ 119:Core/Src/oled.c **** 	OLED_Set_Pos(x,y);
+ 672              		.loc 1 119 2 is_stmt 1 view .LVU151
+ 673 0018 FFF7FEFF 		bl	OLED_Set_Pos
+ 674              	.LVL89:
+ 120:Core/Src/oled.c **** 	//如果像素高度不是8的倍数，则整除后加1补上
+ 121:Core/Src/oled.c **** 	if(ysize%8!=0)
+ 675              		.loc 1 121 2 view .LVU152
+ 676              		.loc 1 121 4 is_stmt 0 view .LVU153
+ 677 001c 17F0070F 		tst	r7, #7
+ 678 0020 01D0     		beq	.L38
+ 122:Core/Src/oled.c **** 		ysize=ysize+8;
+ 679              		.loc 1 122 3 is_stmt 1 view .LVU154
+ 680              		.loc 1 122 8 is_stmt 0 view .LVU155
+ 681 0022 0837     		adds	r7, r7, #8
+ 682              	.LVL90:
+ 683              		.loc 1 122 8 view .LVU156
+ 684 0024 FFB2     		uxtb	r7, r7
+ 685              	.LVL91:
+ 686              	.L38:
+ 123:Core/Src/oled.c **** 	uint8_t i,j;
+ 687              		.loc 1 123 2 is_stmt 1 view .LVU157
+ 124:Core/Src/oled.c **** 	for(i=0;i<ysize/8;i++)
+ 688              		.loc 1 124 2 view .LVU158
+ 689              		.loc 1 124 7 is_stmt 0 view .LVU159
+ARM GAS  /tmp/ccBJL7MB.s 			page 16
+
+
+ 690 0026 0026     		movs	r6, #0
+ 691              		.loc 1 124 2 view .LVU160
+ 692 0028 0CE0     		b	.L39
+ 693              	.LVL92:
+ 694              	.L41:
+ 125:Core/Src/oled.c **** 	{
+ 126:Core/Src/oled.c **** 		OLED_Set_Pos(x,y+i);
+ 127:Core/Src/oled.c **** 		for(j=0;j<xsize;j++)
+ 128:Core/Src/oled.c **** 		SSD1306_WriteByte(*(bmp.p+i*xsize+j),OLED_DATA);
+ 695              		.loc 1 128 3 is_stmt 1 discriminator 3 view .LVU161
+ 696              		.loc 1 128 36 is_stmt 0 discriminator 3 view .LVU162
+ 697 002a 05FB0643 		mla	r3, r5, r6, r4
+ 698              		.loc 1 128 3 discriminator 3 view .LVU163
+ 699 002e 4021     		movs	r1, #64
+ 700 0030 019A     		ldr	r2, [sp, #4]
+ 701 0032 D05C     		ldrb	r0, [r2, r3]	@ zero_extendqisi2
+ 702 0034 FFF7FEFF 		bl	SSD1306_WriteByte
+ 703              	.LVL93:
+ 127:Core/Src/oled.c **** 		SSD1306_WriteByte(*(bmp.p+i*xsize+j),OLED_DATA);
+ 704              		.loc 1 127 20 is_stmt 1 discriminator 3 view .LVU164
+ 705 0038 0134     		adds	r4, r4, #1
+ 706              	.LVL94:
+ 127:Core/Src/oled.c **** 		SSD1306_WriteByte(*(bmp.p+i*xsize+j),OLED_DATA);
+ 707              		.loc 1 127 20 is_stmt 0 discriminator 3 view .LVU165
+ 708 003a E4B2     		uxtb	r4, r4
+ 709              	.LVL95:
+ 710              	.L40:
+ 127:Core/Src/oled.c **** 		SSD1306_WriteByte(*(bmp.p+i*xsize+j),OLED_DATA);
+ 711              		.loc 1 127 12 is_stmt 1 discriminator 1 view .LVU166
+ 712 003c AC42     		cmp	r4, r5
+ 713 003e F4D3     		bcc	.L41
+ 124:Core/Src/oled.c **** 	for(i=0;i<ysize/8;i++)
+ 714              		.loc 1 124 21 discriminator 2 view .LVU167
+ 715 0040 0136     		adds	r6, r6, #1
+ 716              	.LVL96:
+ 124:Core/Src/oled.c **** 	for(i=0;i<ysize/8;i++)
+ 717              		.loc 1 124 21 is_stmt 0 discriminator 2 view .LVU168
+ 718 0042 F6B2     		uxtb	r6, r6
+ 719              	.LVL97:
+ 720              	.L39:
+ 124:Core/Src/oled.c **** 	for(i=0;i<ysize/8;i++)
+ 721              		.loc 1 124 11 is_stmt 1 discriminator 1 view .LVU169
+ 722 0044 B6EBD70F 		cmp	r6, r7, lsr #3
+ 723 0048 07D2     		bcs	.L44
+ 126:Core/Src/oled.c **** 		for(j=0;j<xsize;j++)
+ 724              		.loc 1 126 3 view .LVU170
+ 725 004a 06EB0901 		add	r1, r6, r9
+ 726 004e C9B2     		uxtb	r1, r1
+ 727 0050 4046     		mov	r0, r8
+ 728 0052 FFF7FEFF 		bl	OLED_Set_Pos
+ 729              	.LVL98:
+ 127:Core/Src/oled.c **** 		SSD1306_WriteByte(*(bmp.p+i*xsize+j),OLED_DATA);
+ 730              		.loc 1 127 3 view .LVU171
+ 127:Core/Src/oled.c **** 		SSD1306_WriteByte(*(bmp.p+i*xsize+j),OLED_DATA);
+ 731              		.loc 1 127 8 is_stmt 0 view .LVU172
+ 732 0056 0024     		movs	r4, #0
+ 127:Core/Src/oled.c **** 		SSD1306_WriteByte(*(bmp.p+i*xsize+j),OLED_DATA);
+ARM GAS  /tmp/ccBJL7MB.s 			page 17
+
+
+ 733              		.loc 1 127 3 view .LVU173
+ 734 0058 F0E7     		b	.L40
+ 735              	.LVL99:
+ 736              	.L44:
+ 129:Core/Src/oled.c **** 	}
+ 130:Core/Src/oled.c **** }
+ 737              		.loc 1 130 1 view .LVU174
+ 738 005a 03B0     		add	sp, sp, #12
+ 739              	.LCFI10:
+ 740              		.cfi_def_cfa_offset 28
+ 741              		@ sp needed
+ 742 005c BDE8F083 		pop	{r4, r5, r6, r7, r8, r9, pc}
+ 743              		.loc 1 130 1 view .LVU175
+ 744              		.cfi_endproc
+ 745              	.LFE71:
+ 747              		.global	bmp
+ 748              		.section	.data.bmp,"aw"
+ 749              		.align	2
+ 752              	bmp:
+ 753 0000 20       		.byte	32
+ 754 0001 0D       		.byte	13
+ 755 0002 0000     		.space	2
+ 756 0004 00000000 		.word	bmp_data
+ 757              		.global	bmp_data
+ 758              		.section	.rodata.bmp_data,"a"
+ 759              		.align	2
+ 762              	bmp_data:
+ 763 0000 00000080 		.ascii	"\000\000\000\200\200\200\200\000\200\200`@\200\200\300"
+ 763      80808000 
+ 763      80806040 
+ 763      8080C0
+ 764 000f E0E04020 		.ascii	"\340\340@ \020P\260\340\300\000\000\000\000\000\000"
+ 764      1050B0E0 
+ 764      C0000000 
+ 764      000000
+ 765 001e 00001C1F 		.ascii	"\000\000\034\037\011\030\030\020\020\001\037\037\037"
+ 765      09181810 
+ 765      10011F1F 
+ 765      1F
+ 766 002b 1F090111 		.ascii	"\037\011\001\021\025\020\021\021\037\035\034\037\027"
+ 766      15101111 
+ 766      1F1D1C1F 
+ 766      17
+ 767 0038 12181010 		.ascii	"\022\030\020\020\021\030\037\037"
+ 767      11181F1F 
+ 768              		.global	F8X16
+ 769              		.section	.rodata.F8X16,"a"
+ 770              		.align	2
+ 773              	F8X16:
+ 774 0000 00000000 		.ascii	"\000\000\000\000\000\000\000\000\000\000\000\000\000"
+ 774      00000000 
+ 774      00000000 
+ 774      00
+ 775 000d 00000000 		.ascii	"\000\000\000\000\000\000\370\000\000\000\000\000\000"
+ 775      0000F800 
+ 775      00000000 
+ 775      00
+ARM GAS  /tmp/ccBJL7MB.s 			page 18
+
+
+ 776 001a 00333000 		.ascii	"\00030\000\000\000\000\020\014\006\020\014\006\000\000"
+ 776      00000010 
+ 776      0C06100C 
+ 776      060000
+ 777 0029 00000000 		.ascii	"\000\000\000\000\000\000\000@\300x@\300x@\000\004?\004"
+ 777      00000040 
+ 777      C07840C0 
+ 777      78400004 
+ 777      3F04
+ 778 003b 043F0404 		.ascii	"\004?\004\004\000\000p\210\374\0100\000\000\000\030"
+ 778      00007088 
+ 778      FC083000 
+ 778      000018
+ 779 004a 20FF211E 		.ascii	" \377!\036\000\000\360\010\360\000\340\030\000\000\000"
+ 779      0000F008 
+ 779      F000E018 
+ 779      000000
+ 780 0059 211C031E 		.ascii	"!\034\003\036!\036\000\000\360\010\210p\000\000\000"
+ 780      211E0000 
+ 780      F0088870 
+ 780      000000
+ 781 0068 1E212324 		.ascii	"\036!#$\031'!\020\020\026\016\000\000\000\000\000\000"
+ 781      19272110 
+ 781      10160E00 
+ 781      00000000 
+ 781      00
+ 782 0079 00000000 		.ascii	"\000\000\000\000\000\000\000\000\000\000\340\030\004"
+ 782      00000000 
+ 782      0000E018 
+ 782      04
+ 783 0086 02000000 		.ascii	"\002\000\000\000\000\007\030 @\000\000\002\004\030\340"
+ 783      00071820 
+ 783      40000002 
+ 783      0418E0
+ 784 0095 00000000 		.ascii	"\000\000\000\000@ \030\007\000\000\000@@\200\360\200"
+ 784      40201807 
+ 784      00000040 
+ 784      4080F080 
+ 785 00a5 40400002 		.ascii	"@@\000\002\002\001\017\001\002\002\000\000\000\000\360"
+ 785      02010F01 
+ 785      02020000 
+ 785      0000F0
+ 786 00b4 00000000 		.ascii	"\000\000\000\000\001\001\001\037\001\001\001\000\000"
+ 786      0101011F 
+ 786      01010100 
+ 786      00
+ 787 00c1 00000000 		.ascii	"\000\000\000\000\000\000\000\200\260p\000\000\000\000"
+ 787      00000080 
+ 787      B0700000 
+ 787      0000
+ 788 00cf 00000000 		.ascii	"\000\000\000\000\000\000\000\000\000\000\001\001\001"
+ 788      00000000 
+ 788      00000101 
+ 788      01
+ 789 00dc 01010101 		.ascii	"\001\001\001\001\000\000\000\000\000\000\000\000\000"
+ 789      00000000 
+ 789      00000000 
+ARM GAS  /tmp/ccBJL7MB.s 			page 19
+
+
+ 789      00
+ 790 00e9 30300000 		.ascii	"00\000\000\000\000\000\000\000\000\000\200`\030\004"
+ 790      00000000 
+ 790      00000080 
+ 790      601804
+ 791 00f8 00601806 		.ascii	"\000`\030\006\001\000\000\000\000\340\020\010\010\020"
+ 791      01000000 
+ 791      00E01008 
+ 791      0810
+ 792 0106 E000000F 		.ascii	"\340\000\000\017\020  \020\017\000\000\020\020\370\000"
+ 792      10202010 
+ 792      0F000010 
+ 792      10F800
+ 793 0115 00000000 		.ascii	"\000\000\000\000  ?  \000\000\000p\010\010\010\210p"
+ 793      20203F20 
+ 793      20000000 
+ 793      70080808 
+ 793      8870
+ 794 0127 00003028 		.ascii	"\000\0000($\"!0\000\0000\010\210\210H0\000\000\030 "
+ 794      24222130 
+ 794      00003008 
+ 794      88884830 
+ 794      00001820 
+ 795 013b 2020110E 		.ascii	"  \021\016\000\000\000\300 \020\370\000\000\000\007"
+ 795      000000C0 
+ 795      2010F800 
+ 795      000007
+ 796 014a 0424243F 		.ascii	"\004$$?$\000\000\370\010\210\210\010\010\000\000\031"
+ 796      240000F8 
+ 796      08888808 
+ 796      08000019 
+ 797 015a 21202011 		.ascii	"!  \021\016\000\000\340\020\210\210\030\000\000\000"
+ 797      0E0000E0 
+ 797      10888818 
+ 797      000000
+ 798 0169 0F112020 		.ascii	"\017\021  \021\016\000\0008\010\010\3108\010\000\000"
+ 798      110E0000 
+ 798      380808C8 
+ 798      38080000 
+ 799 0179 00003F00 		.ascii	"\000\000?\000\000\000\000\000p\210\010\010\210p\000"
+ 799      00000000 
+ 799      70880808 
+ 799      887000
+ 800 0188 001C2221 		.ascii	"\000\034\"!!\"\034\000\000\340\020\010\010\020\340\000"
+ 800      21221C00 
+ 800      00E01008 
+ 800      0810E000 
+ 801 0198 00003122 		.ascii	"\000\0001\"\"\021\017\000\000\000\000\300\300\000\000"
+ 801      22110F00 
+ 801      000000C0 
+ 801      C00000
+ 802 01a7 00000000 		.ascii	"\000\000\000\00000\000\000\000\000\000\000\200\000\000"
+ 802      30300000 
+ 802      00000000 
+ 802      800000
+ 803 01b6 00000000 		.ascii	"\000\000\000\000\200`\000\000\000\000\000\000\200@ "
+ 803      80600000 
+ARM GAS  /tmp/ccBJL7MB.s 			page 20
+
+
+ 803      00000000 
+ 803      804020
+ 804 01c5 10080000 		.ascii	"\020\010\000\000\001\002\004\010\020 \000@@@@@@@\000"
+ 804      01020408 
+ 804      10200040 
+ 804      40404040 
+ 804      404000
+ 805 01d8 04040404 		.ascii	"\004\004\004\004\004\004\004\000\000\010\020 @\200\000"
+ 805      04040400 
+ 805      00081020 
+ 805      408000
+ 806 01e7 00002010 		.ascii	"\000\000 \020\010\004\002\001\000\000pH\010\010\010"
+ 806      08040201 
+ 806      00007048 
+ 806      080808
+ 807 01f6 F0000000 		.ascii	"\360\000\000\000\00006\001\000\000\3000\310(\350\020"
+ 807      00303601 
+ 807      0000C030 
+ 807      C828E810 
+ 808 0206 E0000718 		.ascii	"\340\000\007\030'$#\024\013\000\000\000\3008\340\000"
+ 808      27242314 
+ 808      0B000000 
+ 808      C038E000 
+ 809 0216 0000203C 		.ascii	"\000\000 <#\002\002'8 \010\370\210\210\210p\000\000"
+ 809      23020227 
+ 809      382008F8 
+ 809      88888870 
+ 809      0000
+ 810 0228 203F2020 		.ascii	" ?   \021\016\000\3000\010\010\010\0108\000\007\030"
+ 810      20110E00 
+ 810      C0300808 
+ 810      08083800 
+ 810      0718
+ 811 023a 20202010 		.ascii	"   \020\010\000\010\370\010\010\010\020\340\000 ?  "
+ 811      080008F8 
+ 811      08080810 
+ 811      E000203F 
+ 811      2020
+ 812 024c 20100F00 		.ascii	" \020\017\000\010\370\210\210\350\010\020\000 ?  # "
+ 812      08F88888 
+ 812      E8081000 
+ 812      203F2020 
+ 812      2320
+ 813 025e 180008F8 		.ascii	"\030\000\010\370\210\210\350\010\020\000 ? \000\003"
+ 813      8888E808 
+ 813      1000203F 
+ 813      200003
+ 814 026d 000000C0 		.ascii	"\000\000\000\3000\010\010\0108\000\000\007\030  \"\036"
+ 814      30080808 
+ 814      38000007 
+ 814      18202022 
+ 814      1E
+ 815 027e 020008F8 		.ascii	"\002\000\010\370\010\000\000\010\370\010 ?!\001\001"
+ 815      08000008 
+ 815      F808203F 
+ 815      210101
+ 816 028d 213F2000 		.ascii	"!? \000\010\010\370\010\010\000\000\000  ?  \000\000"
+ARM GAS  /tmp/ccBJL7MB.s 			page 21
+
+
+ 816      0808F808 
+ 816      08000000 
+ 816      20203F20 
+ 816      200000
+ 817 02a0 00000808 		.ascii	"\000\000\010\010\370\010\010\000\300\200\200\200\177"
+ 817      F8080800 
+ 817      C0808080 
+ 817      7F
+ 818 02ad 00000008 		.ascii	"\000\000\000\010\370\210\300(\030\010\000 ? \001&8 "
+ 818      F888C028 
+ 818      18080020 
+ 818      3F200126 
+ 818      3820
+ 819 02bf 0008F808 		.ascii	"\000\010\370\010\000\000\000\000\000 ?    0\000\010"
+ 819      00000000 
+ 819      00203F20 
+ 819      20202030 
+ 819      0008
+ 820 02d1 F8F800F8 		.ascii	"\370\370\000\370\370\010\000 ?\000?\000? \000\010\370"
+ 820      F8080020 
+ 820      3F003F00 
+ 820      3F200008 
+ 820      F8
+ 821 02e2 30C00008 		.ascii	"0\300\000\010\370\010 ? \000\007\030?\000\340\020\010"
+ 821      F808203F 
+ 821      20000718 
+ 821      3F00E010 
+ 821      08
+ 822 02f3 080810E0 		.ascii	"\010\010\020\340\000\017\020   \020\017\000\010\370"
+ 822      000F1020 
+ 822      2020100F 
+ 822      0008F8
+ 823 0302 08080808 		.ascii	"\010\010\010\010\360\000 ?!\001\001\001\000\000\340"
+ 823      F000203F 
+ 823      21010101 
+ 823      0000E0
+ 824 0311 10080808 		.ascii	"\020\010\010\010\020\340\000\017\030$$8PO\000\010\370"
+ 824      10E0000F 
+ 824      18242438 
+ 824      504F0008 
+ 824      F8
+ 825 0322 88888888 		.ascii	"\210\210\210\210p\000 ? \000\003\0140 \000p\210\010"
+ 825      7000203F 
+ 825      2000030C 
+ 825      30200070 
+ 825      8808
+ 826 0334 08083800 		.ascii	"\010\0108\000\0008 !!\"\034\000\030\010\010\370\010"
+ 826      00382021 
+ 826      21221C00 
+ 826      180808F8 
+ 826      08
+ 827 0345 08180000 		.ascii	"\010\030\000\000\000 ? \000\000\000\010\370\010\000"
+ 827      00203F20 
+ 827      00000008 
+ 827      F80800
+ 828 0354 0008F808 		.ascii	"\000\010\370\010\000\037    \037\000\010x\210\000\000"
+ 828      001F2020 
+ARM GAS  /tmp/ccBJL7MB.s 			page 22
+
+
+ 828      20201F00 
+ 828      08788800 
+ 828      00
+ 829 0365 C8380800 		.ascii	"\3108\010\000\000\0078\016\001\000\000\370\010\000\370"
+ 829      0007380E 
+ 829      010000F8 
+ 829      0800F8
+ 830 0374 0008F800 		.ascii	"\000\010\370\000\003<\007\000\007<\003\000\010\030h"
+ 830      033C0700 
+ 830      073C0300 
+ 830      081868
+ 831 0383 80806818 		.ascii	"\200\200h\030\010 0,\003\003,0 \0108\310\000\3108\010"
+ 831      0820302C 
+ 831      03032C30 
+ 831      200838C8 
+ 831      00C83808 
+ 832 0397 00000020 		.ascii	"\000\000\000 ? \000\000\000\020\010\010\010\3108\010"
+ 832      3F200000 
+ 832      00100808 
+ 832      08C83808 
+ 833 03a7 00203826 		.ascii	"\000 8&!  \030\000\000\000\000\376\002\002\002\000\000"
+ 833      21202018 
+ 833      00000000 
+ 833      FE020202 
+ 833      0000
+ 834 03b9 00007F40 		.ascii	"\000\000\177@@@\000\000\0140\300\000\000\000\000\000"
+ 834      40400000 
+ 834      0C30C000 
+ 834      00000000 
+ 835 03c9 00000106 		.ascii	"\000\000\001\0068\300\000\000\002\002\002\376\000\000"
+ 835      38C00000 
+ 835      020202FE 
+ 835      0000
+ 836 03d7 00004040 		.ascii	"\000\000@@@\177\000\000\000\000\000\004\002\002\002"
+ 836      407F0000 
+ 836      00000004 
+ 836      020202
+ 837 03e6 04000000 		.ascii	"\004\000\000\000\000\000\000\000\000\000\000\000\000"
+ 837      00000000 
+ 837      00000000 
+ 837      00
+ 838 03f3 00000000 		.ascii	"\000\000\000\000\000\200\200\200\200\200\200\200\200"
+ 838      00808080 
+ 838      80808080 
+ 838      80
+ 839 0400 00020204 		.ascii	"\000\002\002\004\000\000\000\000\000\000\000\000\000"
+ 839      00000000 
+ 839      00000000 
+ 839      00
+ 840 040d 00000000 		.ascii	"\000\000\000\000\000\200\200\200\200\000\000\000\031"
+ 840      00808080 
+ 840      80000000 
+ 840      19
+ 841 041a 24222222 		.ascii	"$\"\"\"? \010\370\000\200\200\000\000\000\000?\021 "
+ 841      3F2008F8 
+ 841      00808000 
+ 841      0000003F 
+ARM GAS  /tmp/ccBJL7MB.s 			page 23
+
+
+ 841      1120
+ 842 042c 20110E00 		.ascii	" \021\016\000\000\000\000\200\200\200\000\000\000\016"
+ 842      00000080 
+ 842      80800000 
+ 842      000E
+ 843 043a 11202020 		.ascii	"\021   \021\000\000\000\000\200\200\210\370\000\000"
+ 843      11000000 
+ 843      00808088 
+ 843      F80000
+ 844 0449 0E112020 		.ascii	"\016\021  \020? \000\000\200\200\200\200\000\000\000"
+ 844      103F2000 
+ 844      00808080 
+ 844      80000000 
+ 845 0459 1F222222 		.ascii	"\037\"\"\"\"\023\000\000\200\200\360\210\210\210\030"
+ 845      22130000 
+ 845      8080F088 
+ 845      888818
+ 846 0468 0020203F 		.ascii	"\000  ?  \000\000\000\000\200\200\200\200\200\000\000"
+ 846      20200000 
+ 846      00008080 
+ 846      80808000 
+ 846      00
+ 847 0479 6B949494 		.ascii	"k\224\224\224\223`\000\010\370\000\200\200\200\000\000"
+ 847      93600008 
+ 847      F8008080 
+ 847      800000
+ 848 0488 203F2100 		.ascii	" ?!\000\000 ? \000\200\230\230\000\000\000\000\000 "
+ 848      00203F20 
+ 848      00809898 
+ 848      00000000 
+ 848      0020
+ 849 049a 203F2020 		.ascii	" ?  \000\000\000\000\000\200\230\230\000\000\000\300"
+ 849      00000000 
+ 849      00809898 
+ 849      000000C0 
+ 850 04aa 8080807F 		.ascii	"\200\200\200\177\000\000\010\370\000\000\200\200\200"
+ 850      000008F8 
+ 850      00008080 
+ 850      80
+ 851 04b7 00203F24 		.ascii	"\000 ?$\002-0 \000\000\010\010\370\000\000\000\000\000"
+ 851      022D3020 
+ 851      00000808 
+ 851      F8000000 
+ 851      0000
+ 852 04c9 20203F20 		.ascii	"  ?  \000\000\200\200\200\200\200\200\200\000 ? \000"
+ 852      20000080 
+ 852      80808080 
+ 852      80800020 
+ 852      3F2000
+ 853 04dc 3F20003F 		.ascii	"? \000?\200\200\000\200\200\200\000\000 ?!\000\000 "
+ 853      80800080 
+ 853      80800000 
+ 853      203F2100 
+ 853      0020
+ 854 04ee 3F200000 		.ascii	"? \000\000\200\200\200\200\000\000\000\037    \037\000"
+ 854      80808080 
+ 854      0000001F 
+ARM GAS  /tmp/ccBJL7MB.s 			page 24
+
+
+ 854      20202020 
+ 854      1F00
+ 855 0500 80800080 		.ascii	"\200\200\000\200\200\000\000\000\200\377\241  \021\016"
+ 855      80000000 
+ 855      80FFA120 
+ 855      20110E
+ 856 050f 00000000 		.ascii	"\000\000\000\000\200\200\200\200\000\000\016\021  \240"
+ 856      80808080 
+ 856      00000E11 
+ 856      2020A0
+ 857 051e FF808080 		.ascii	"\377\200\200\200\200\000\200\200\200\000  ?! \000\001"
+ 857      80008080 
+ 857      80002020 
+ 857      3F212000 
+ 857      01
+ 858 052f 00000080 		.ascii	"\000\000\000\200\200\200\200\200\000\0003$$$$\031\000"
+ 858      80808080 
+ 858      00003324 
+ 858      24242419 
+ 858      00
+ 859 0540 008080E0 		.ascii	"\000\200\200\340\200\200\000\000\000\000\000\037  \000"
+ 859      80800000 
+ 859      0000001F 
+ 859      202000
+ 860 054f 00808000 		.ascii	"\000\200\200\000\000\000\200\200\000\000\037   \020"
+ 860      00008080 
+ 860      00001F20 
+ 860      202010
+ 861 055e 3F208080 		.ascii	"? \200\200\200\000\000\200\200\200\000\001\0160\010"
+ 861      80000080 
+ 861      80800001 
+ 861      0E3008
+ 862 056d 06010080 		.ascii	"\006\001\000\200\200\000\200\000\200\200\200\0170\014"
+ 862      80008000 
+ 862      8080800F 
+ 862      300C
+ 863 057b 030C300F 		.ascii	"\003\0140\017\000\000\200\200\000\200\200\200\000\000"
+ 863      00008080 
+ 863      00808080 
+ 863      0000
+ 864 0589 20312E0E 		.ascii	" 1.\0161 \000\200\200\200\000\000\200\200\200\200\201"
+ 864      31200080 
+ 864      80800000 
+ 864      80808080 
+ 864      81
+ 865 059a 8E701806 		.ascii	"\216p\030\006\001\000\000\200\200\200\200\200\200\000"
+ 865      01000080 
+ 865      80808080 
+ 865      8000
+ 866 05a8 0021302C 		.ascii	"\000!0,\"!0\000\000\000\000\000\200|\002\002\000\000"
+ 866      22213000 
+ 866      00000000 
+ 866      807C0202 
+ 866      0000
+ 867 05ba 0000003F 		.ascii	"\000\000\000?@@\000\000\000\000\377\000\000\000\000"
+ 867      40400000 
+ 867      0000FF00 
+ARM GAS  /tmp/ccBJL7MB.s 			page 25
+
+
+ 867      000000
+ 868 05c9 000000FF 		.ascii	"\000\000\000\377\000\000\000\000\002\002|\200\000\000"
+ 868      00000000 
+ 868      02027C80 
+ 868      0000
+ 869 05d7 00004040 		.ascii	"\000\000@@?\000\000\000\000\000\006\001\001\002\002"
+ 869      3F000000 
+ 869      00000601 
+ 869      010202
+ 870 05e6 04040000 		.ascii	"\004\004\000\000\000\000\000\000\000\000"
+ 870      00000000 
+ 870      0000
+ 871              		.global	F6x8
+ 872              		.section	.rodata.F6x8,"a"
+ 873              		.align	2
+ 876              	F6x8:
+ 877 0000 00000000 		.ascii	"\000\000\000\000\000\000"
+ 877      0000
+ 878 0006 0000002F 		.ascii	"\000\000\000/\000\000"
+ 878      0000
+ 879 000c 00000700 		.ascii	"\000\000\007\000\007\000"
+ 879      0700
+ 880 0012 00147F14 		.ascii	"\000\024\177\024\177\024"
+ 880      7F14
+ 881 0018 00242A7F 		.ascii	"\000$*\177*\022"
+ 881      2A12
+ 882 001e 00626408 		.ascii	"\000bd\010\023#"
+ 882      1323
+ 883 0024 00364955 		.ascii	"\0006IU\"P"
+ 883      2250
+ 884 002a 00000503 		.ascii	"\000\000\005\003\000\000"
+ 884      0000
+ 885 0030 00001C22 		.ascii	"\000\000\034\"A\000"
+ 885      4100
+ 886 0036 00004122 		.ascii	"\000\000A\"\034\000"
+ 886      1C00
+ 887 003c 0014083E 		.ascii	"\000\024\010>\010\024"
+ 887      0814
+ 888 0042 0008083E 		.ascii	"\000\010\010>\010\010"
+ 888      0808
+ 889 0048 000000A0 		.ascii	"\000\000\000\240`\000"
+ 889      6000
+ 890 004e 00080808 		.ascii	"\000\010\010\010\010\010"
+ 890      0808
+ 891 0054 00006060 		.ascii	"\000\000``\000\000"
+ 891      0000
+ 892 005a 00201008 		.ascii	"\000 \020\010\004\002"
+ 892      0402
+ 893 0060 003E5149 		.ascii	"\000>QIE>"
+ 893      453E
+ 894 0066 0000427F 		.ascii	"\000\000B\177@\000"
+ 894      4000
+ 895 006c 00426151 		.ascii	"\000BaQIF"
+ 895      4946
+ 896 0072 00214145 		.ascii	"\000!AEK1"
+ 896      4B31
+ 897 0078 00181412 		.ascii	"\000\030\024\022\177\020"
+ARM GAS  /tmp/ccBJL7MB.s 			page 26
+
+
+ 897      7F10
+ 898 007e 00274545 		.ascii	"\000'EEE9"
+ 898      4539
+ 899 0084 003C4A49 		.ascii	"\000<JII0"
+ 899      4930
+ 900 008a 00017109 		.ascii	"\000\001q\011\005\003"
+ 900      0503
+ 901 0090 00364949 		.ascii	"\0006III6"
+ 901      4936
+ 902 0096 00064949 		.ascii	"\000\006II)\036"
+ 902      291E
+ 903 009c 00003636 		.ascii	"\000\00066\000\000"
+ 903      0000
+ 904 00a2 00005636 		.ascii	"\000\000V6\000\000"
+ 904      0000
+ 905 00a8 00081422 		.ascii	"\000\010\024\"A\000"
+ 905      4100
+ 906 00ae 00141414 		.ascii	"\000\024\024\024\024\024"
+ 906      1414
+ 907 00b4 00004122 		.ascii	"\000\000A\"\024\010"
+ 907      1408
+ 908 00ba 00020151 		.ascii	"\000\002\001Q\011\006"
+ 908      0906
+ 909 00c0 00324959 		.ascii	"\0002IYQ>"
+ 909      513E
+ 910 00c6 007C1211 		.ascii	"\000|\022\021\022|"
+ 910      127C
+ 911 00cc 007F4949 		.ascii	"\000\177III6"
+ 911      4936
+ 912 00d2 003E4141 		.ascii	"\000>AAA\""
+ 912      4122
+ 913 00d8 007F4141 		.ascii	"\000\177AA\"\034"
+ 913      221C
+ 914 00de 007F4949 		.ascii	"\000\177IIIA"
+ 914      4941
+ 915 00e4 007F0909 		.ascii	"\000\177\011\011\011\001"
+ 915      0901
+ 916 00ea 003E4149 		.ascii	"\000>AIIz"
+ 916      497A
+ 917 00f0 007F0808 		.ascii	"\000\177\010\010\010\177"
+ 917      087F
+ 918 00f6 0000417F 		.ascii	"\000\000A\177A\000"
+ 918      4100
+ 919 00fc 00204041 		.ascii	"\000 @A?\001"
+ 919      3F01
+ 920 0102 007F0814 		.ascii	"\000\177\010\024\"A"
+ 920      2241
+ 921 0108 007F4040 		.ascii	"\000\177@@@@"
+ 921      4040
+ 922 010e 007F020C 		.ascii	"\000\177\002\014\002\177"
+ 922      027F
+ 923 0114 007F0408 		.ascii	"\000\177\004\010\020\177"
+ 923      107F
+ 924 011a 003E4141 		.ascii	"\000>AAA>"
+ 924      413E
+ 925 0120 007F0909 		.ascii	"\000\177\011\011\011\006"
+ 925      0906
+ARM GAS  /tmp/ccBJL7MB.s 			page 27
+
+
+ 926 0126 003E4151 		.ascii	"\000>AQ!^"
+ 926      215E
+ 927 012c 007F0919 		.ascii	"\000\177\011\031)F"
+ 927      2946
+ 928 0132 00464949 		.ascii	"\000FIII1"
+ 928      4931
+ 929 0138 0001017F 		.ascii	"\000\001\001\177\001\001"
+ 929      0101
+ 930 013e 003F4040 		.ascii	"\000?@@@?"
+ 930      403F
+ 931 0144 001F2040 		.ascii	"\000\037 @ \037"
+ 931      201F
+ 932 014a 003F4038 		.ascii	"\000?@8@?"
+ 932      403F
+ 933 0150 00631408 		.ascii	"\000c\024\010\024c"
+ 933      1463
+ 934 0156 00070870 		.ascii	"\000\007\010p\010\007"
+ 934      0807
+ 935 015c 00615149 		.ascii	"\000aQIEC"
+ 935      4543
+ 936 0162 00007F41 		.ascii	"\000\000\177AA\000"
+ 936      4100
+ 937 0168 00552A55 		.ascii	"\000U*U*U"
+ 937      2A55
+ 938 016e 00004141 		.ascii	"\000\000AA\177\000"
+ 938      7F00
+ 939 0174 00040201 		.ascii	"\000\004\002\001\002\004"
+ 939      0204
+ 940 017a 00404040 		.ascii	"\000@@@@@"
+ 940      4040
+ 941 0180 00000102 		.ascii	"\000\000\001\002\004\000"
+ 941      0400
+ 942 0186 00205454 		.ascii	"\000 TTTx"
+ 942      5478
+ 943 018c 007F4844 		.ascii	"\000\177HDD8"
+ 943      4438
+ 944 0192 00384444 		.ascii	"\0008DDD "
+ 944      4420
+ 945 0198 00384444 		.ascii	"\0008DDH\177"
+ 945      487F
+ 946 019e 00385454 		.ascii	"\0008TTT\030"
+ 946      5418
+ 947 01a4 00087E09 		.ascii	"\000\010~\011\001\002"
+ 947      0102
+ 948 01aa 0018A4A4 		.ascii	"\000\030\244\244\244|"
+ 948      A47C
+ 949 01b0 007F0804 		.ascii	"\000\177\010\004\004x"
+ 949      0478
+ 950 01b6 0000447D 		.ascii	"\000\000D}@\000"
+ 950      4000
+ 951 01bc 00408084 		.ascii	"\000@\200\204}\000"
+ 951      7D00
+ 952 01c2 007F1028 		.ascii	"\000\177\020(D\000"
+ 952      4400
+ 953 01c8 0000417F 		.ascii	"\000\000A\177@\000"
+ 953      4000
+ 954 01ce 007C0418 		.ascii	"\000|\004\030\004x"
+ARM GAS  /tmp/ccBJL7MB.s 			page 28
+
+
+ 954      0478
+ 955 01d4 007C0804 		.ascii	"\000|\010\004\004x"
+ 955      0478
+ 956 01da 00384444 		.ascii	"\0008DDD8"
+ 956      4438
+ 957 01e0 00FC2424 		.ascii	"\000\374$$$\030"
+ 957      2418
+ 958 01e6 00182424 		.ascii	"\000\030$$\030\374"
+ 958      18FC
+ 959 01ec 007C0804 		.ascii	"\000|\010\004\004\010"
+ 959      0408
+ 960 01f2 00485454 		.ascii	"\000HTTT "
+ 960      5420
+ 961 01f8 00043F44 		.ascii	"\000\004?D@ "
+ 961      4020
+ 962 01fe 003C4040 		.ascii	"\000<@@ |"
+ 962      207C
+ 963 0204 001C2040 		.ascii	"\000\034 @ \034"
+ 963      201C
+ 964 020a 003C4030 		.ascii	"\000<@0@<"
+ 964      403C
+ 965 0210 00442810 		.ascii	"\000D(\020(D"
+ 965      2844
+ 966 0216 001CA0A0 		.ascii	"\000\034\240\240\240|"
+ 966      A07C
+ 967 021c 00446454 		.ascii	"\000DdTLD"
+ 967      4C44
+ 968 0222 14141414 		.ascii	"\024\024\024\024\024\024"
+ 968      1414
+ 969              		.text
+ 970              	.Letext0:
+ 971              		.file 2 "/nix/store/244x2dv48nan65bmpk2pv3pfl5s5jjn8-gcc-arm-embedded-12.3.rel1/arm-none-eabi/incl
+ 972              		.file 3 "/nix/store/244x2dv48nan65bmpk2pv3pfl5s5jjn8-gcc-arm-embedded-12.3.rel1/arm-none-eabi/incl
+ 973              		.file 4 "Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103xb.h"
+ 974              		.file 5 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_def.h"
+ 975              		.file 6 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_dma.h"
+ 976              		.file 7 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_i2c.h"
+ 977              		.file 8 "Core/Inc/oled.h"
+ 978              		.file 9 "Core/Inc/i2c.h"
+ 979              		.file 10 "Core/Inc/f6x8.h"
+ 980              		.file 11 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h"
+ARM GAS  /tmp/ccBJL7MB.s 			page 29
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 oled.c
+     /tmp/ccBJL7MB.s:19     .text.SSD1306_WriteByte:00000000 $t
+     /tmp/ccBJL7MB.s:25     .text.SSD1306_WriteByte:00000000 SSD1306_WriteByte
+     /tmp/ccBJL7MB.s:69     .text.SSD1306_WriteByte:00000024 $d
+     /tmp/ccBJL7MB.s:74     .text.OLED_Init:00000000 $t
+     /tmp/ccBJL7MB.s:80     .text.OLED_Init:00000000 OLED_Init
+     /tmp/ccBJL7MB.s:246    .text.OLED_Clear:00000000 $t
+     /tmp/ccBJL7MB.s:252    .text.OLED_Clear:00000000 OLED_Clear
+     /tmp/ccBJL7MB.s:329    .text.OLED_Set_Pos:00000000 $t
+     /tmp/ccBJL7MB.s:335    .text.OLED_Set_Pos:00000000 OLED_Set_Pos
+     /tmp/ccBJL7MB.s:378    .text.OLED_ShowChar:00000000 $t
+     /tmp/ccBJL7MB.s:384    .text.OLED_ShowChar:00000000 OLED_ShowChar
+     /tmp/ccBJL7MB.s:540    .text.OLED_ShowChar:00000090 $d
+     /tmp/ccBJL7MB.s:773    .rodata.F8X16:00000000 F8X16
+     /tmp/ccBJL7MB.s:876    .rodata.F6x8:00000000 F6x8
+     /tmp/ccBJL7MB.s:546    .text.OLED_ShowString:00000000 $t
+     /tmp/ccBJL7MB.s:552    .text.OLED_ShowString:00000000 OLED_ShowString
+     /tmp/ccBJL7MB.s:633    .text.OLED_ShowPic:00000000 $t
+     /tmp/ccBJL7MB.s:639    .text.OLED_ShowPic:00000000 OLED_ShowPic
+     /tmp/ccBJL7MB.s:752    .data.bmp:00000000 bmp
+     /tmp/ccBJL7MB.s:749    .data.bmp:00000000 $d
+     /tmp/ccBJL7MB.s:762    .rodata.bmp_data:00000000 bmp_data
+     /tmp/ccBJL7MB.s:759    .rodata.bmp_data:00000000 $d
+     /tmp/ccBJL7MB.s:770    .rodata.F8X16:00000000 $d
+     /tmp/ccBJL7MB.s:873    .rodata.F6x8:00000000 $d
+
+UNDEFINED SYMBOLS
+HAL_I2C_Master_Transmit
+hi2c1
+HAL_Delay

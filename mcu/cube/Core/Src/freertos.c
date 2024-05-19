@@ -21,6 +21,7 @@
 #include "FreeRTOS.h"
 #include "task.h"
 #include "main.h"
+#include "oled.h"
 #include "cmsis_os.h"
 
 /* Private includes ----------------------------------------------------------*/
@@ -128,7 +129,12 @@ void StartOled(void *argument)
   /* Infinite loop */
   for(;;)
   {
-    osDelay(1);
+    OLED_Clear();
+    OLED_ShowString(0, 0,"hello" ,8);
+    osDelay(500);
+    OLED_Clear();
+    OLED_ShowString(0, 0,"world" ,8);
+    osDelay(500);
   }
   /* USER CODE END StartOled */
 }
@@ -146,7 +152,7 @@ void StartMax(void *argument)
   /* Infinite loop */
   for(;;)
   {
-    osDelay(1);
+    osDelay(500);
   }
   /* USER CODE END StartMax */
 }

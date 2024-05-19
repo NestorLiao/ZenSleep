@@ -17,8 +17,8 @@ monitor:
 clean:
   sudo st-flash reset
 build:
-  cd cube;make clean; bear -- make; 
-  # cd cube;make; 
+  # cd cube;make clean; bear -- make; 
+  cd cube;make; 
 deploy:
   sudo st-flash write cube/build/cube.bin 0x08000000 ;
   # sudo st-flash write cube/build/cube.bin 0x08000000  --connect-under-reset;
