@@ -44,10 +44,10 @@ expo/expo-env.d.ts
 # @end expo-cli
 
 
-ptt/.venv
-ptt/.direnv
-
-server/.venv
-mcu/.direnv
-server/.venv
-mcu/.direnv
+ptt/.venv/*
+ptt/.direnv/*
+server/.venv/*
+mcu/.direnv/*
+server/.venv/*
+mcu/.direnv/*
+mcu/test/build/*

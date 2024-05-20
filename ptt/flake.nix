@@ -36,6 +36,8 @@
             requests
           ])
 
+          pspp
+
           taglib
           openssl
           git

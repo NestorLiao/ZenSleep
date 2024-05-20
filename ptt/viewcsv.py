@@ -6,7 +6,8 @@ from scipy.signal import medfilt
 from scipy.signal import butter, filtfilt
 
 # Load the CSV file
-df = pd.read_csv("/home/nestor/Downloads/bme/dataset/physionet.org/files/pulse-transit-time-ppg/1.1.0/csv/reversed/reversed_s16_sit.csv")
+df = pd.read_csv("/home/nestor/resin/ZenSleep/ptt/files/pulse-transit-time-ppg/1.1.0/csv/reversed/reversed_s16_sit.csv")
+
 pleth_channels = ['pleth_2']
 
 # Define the range to display (from 0 to 2000)
